@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, BigInteger, DateTime, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, BigInteger, DateTime, Boolean, ForeignKey, JSON
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql import func
@@ -75,13 +75,14 @@ class Subscription(Base):
 class Transaction(Base):
     __tablename__ = 'transactions'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     user_id = Column(BigInteger, ForeignKey('users.telegram_id'), nullable=False)
     tariff_id = Column(Integer, ForeignKey('tariffs.id'), nullable=True)
     amount = Column(Integer, nullable=False)
     currency = Column(String, nullable=False)
     payment_system = Column(String, nullable=False)
     status = Column(String, nullable=False)
+    metadata = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=func.now())
 
     def __repr__(self):

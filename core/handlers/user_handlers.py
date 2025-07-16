@@ -4,7 +4,8 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, C
 from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
-from core.database.models import Server, Subscription, User, Tariff, GiftCode
+from yookassa import Configuration, Payment
+from core.database.models import Server, Subscription, User, Tariff, GiftCode, Transaction
 from core.services.xui_client import get_client, XUIClientError
 from core.config import settings
 import uuid
@@ -897,14 +898,126 @@ async def callback_terms_of_use(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data.startswith("pay_card_"))
 async def callback_pay_card(callback: CallbackQuery, session: AsyncSession):
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
-    await callback.answer(get_text('payment_card_unavailable', lang), show_alert=True)
+    await callback.answer()
+
+    if not settings.YOOKASSA_SHOP_ID or not settings.YOOKASSA_SECRET_KEY:
+        logger.warning("YooKassa credentials are not set.")
+        await callback.message.answer(get_text('payment_card_unavailable', lang))
+        return
+
+    parts = callback.data.split("_")
+    tariff_id = int(parts[2])
+    server_id = int(parts[3]) if len(parts) > 3 and parts[3] != 'none' else None
+
+    tariff = await session.get(Tariff, tariff_id)
+    if not tariff:
+        await callback.message.answer(get_text('tariff_not_found', lang))
+        return
+
+    Configuration.account_id = settings.YOOKASSA_SHOP_ID
+    Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
+
+    transaction_id = str(uuid.uuid4())
+    payment = Payment.create({
+        "amount": {
+            "value": f"{tariff.price_rub / 100:.2f}",
+            "currency": "RUB"
+        },
+        "confirmation": {
+            "type": "redirect",
+            "return_url": f"https://t.me/{(await callback.bot.get_me()).username}"
+        },
+        "capture": True,
+        "description": f"Оплата тарифа '{get_db_text(tariff.name, lang)}'",
+        "metadata": {
+            'telegram_user_id': callback.from_user.id,
+            'tariff_id': tariff_id,
+            'server_id': server_id,
+            'payment_type': 'subscription'
+        }
+    }, transaction_id)
+
+    new_transaction = Transaction(
+        id=payment.id,
+        user_id=callback.from_user.id,
+        tariff_id=tariff_id,
+        amount=tariff.price_rub,
+        currency="RUB",
+        payment_system="YooKassa",
+        status="pending",
+        metadata=payment.metadata
+    )
+    session.add(new_transaction)
+    await session.commit()
+
+    payment_url = payment.confirmation.confirmation_url
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=get_text('btn_go_to_payment', lang), url=payment_url)],
+        [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data=f"select_tariff_{tariff_id}_{server_id if server_id else 'none'}")]
+    ])
+    await callback.message.edit_text(get_text('payment_redirect_info', lang), reply_markup=keyboard)
+
 
 @router.callback_query(F.data.startswith("pay_transfer_"))
 async def callback_pay_transfer(callback: CallbackQuery, session: AsyncSession):
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
     await callback.answer(get_text('payment_transfer_unavailable', lang), show_alert=True)
 
+
 @router.callback_query(F.data.startswith("pay_gift_card_"))
 async def callback_pay_gift_card(callback: CallbackQuery, session: AsyncSession):
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
-    await callback.answer(get_text('payment_gift_card_unavailable', lang), show_alert=True)
+    await callback.answer()
+
+    if not settings.YOOKASSA_SHOP_ID or not settings.YOOKASSA_SECRET_KEY:
+        logger.warning("YooKassa credentials are not set.")
+        await callback.message.answer(get_text('payment_gift_card_unavailable', lang))
+        return
+
+    tariff_id = int(callback.data.split('_')[-1])
+    tariff = await session.get(Tariff, tariff_id)
+    if not tariff:
+        await callback.message.answer(get_text('tariff_not_found', lang))
+        return
+
+    Configuration.account_id = settings.YOOKASSA_SHOP_ID
+    Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
+
+    transaction_id = str(uuid.uuid4())
+    payment = Payment.create({
+        "amount": {
+            "value": f"{tariff.price_rub / 100:.2f}",
+            "currency": "RUB"
+        },
+        "confirmation": {
+            "type": "redirect",
+            "return_url": f"https://t.me/{(await callback.bot.get_me()).username}"
+        },
+        "capture": True,
+        "description": f"Покупка подарочного кода для тарифа '{get_db_text(tariff.name, lang)}'",
+        "metadata": {
+            'telegram_user_id': callback.from_user.id,
+            'tariff_id': tariff_id,
+            'payment_type': 'gift'
+        }
+    }, transaction_id)
+
+    new_transaction = Transaction(
+        id=payment.id,
+        user_id=callback.from_user.id,
+        tariff_id=tariff_id,
+        amount=tariff.price_rub,
+        currency="RUB",
+        payment_system="YooKassa",
+        status="pending",
+        metadata=payment.metadata
+    )
+    session.add(new_transaction)
+    await session.commit()
+
+    payment_url = payment.confirmation.confirmation_url
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=get_text('btn_go_to_payment', lang), url=payment_url)],
+        [InlineKeyboardButton(text=get_text('btn_back_to_gift_menu', lang), callback_data="gift_subscription")]
+    ])
+    await callback.message.edit_text(get_text('payment_redirect_info', lang), reply_markup=keyboard)
