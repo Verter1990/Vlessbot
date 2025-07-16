@@ -1,9 +1,7 @@
-import pytest
-from aiogram.types import Message, User as AiogramUser
-from sqlalchemy import select
-from core.database.models import User
-from core.handlers.user_handlers import command_start_handler
-from aiogram.filters import CommandObject
+from aiogram.types import Message, User as AiogramUser, Chat
+from datetime import datetime
+
+# ... (rest of the file)
 
 @pytest.mark.asyncio
 async def test_new_user_registration(session):
@@ -12,7 +10,7 @@ async def test_new_user_registration(session):
     username = "testuser"
     
     # Mock a Message object
-    message = Message(message_id=1, date=None, chat=None, from_user=AiogramUser(id=user_id, is_bot=False, first_name="Test", username=username))
+    message = Message(message_id=1, date=datetime.now(), chat=Chat(id=1, type="private"), from_user=AiogramUser(id=user_id, is_bot=False, first_name="Test", username=username))
     message.answer = lambda text, reply_markup=None: None # Mock the answer method
 
     # Mock a CommandObject
@@ -40,7 +38,7 @@ async def test_existing_user_start_command(session):
     await session.commit()
 
     # Mock a Message object
-    message = Message(message_id=1, date=None, chat=None, from_user=AiogramUser(id=user_id, is_bot=False, first_name="Existing", username=username))
+    message = Message(message_id=1, date=datetime.now(), chat=Chat(id=1, type="private"), from_user=AiogramUser(id=user_id, is_bot=False, first_name="Existing", username=username))
     message.answer = lambda text, reply_markup=None: None # Mock the answer method
 
     # Mock a CommandObject

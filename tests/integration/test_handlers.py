@@ -5,6 +5,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 from aiogram.filters import CommandObject
 from aiogram.types import Message, User as AiogramUser, Chat
+from datetime import datetime
 
 from core.handlers.user_handlers import command_start_handler
 from core.database.models import User
@@ -38,6 +39,7 @@ async def test_start_command_new_user(mocker):
     message_mock = AsyncMock(spec=Message)
     message_mock.from_user = AiogramUser(id=12345, is_bot=False, first_name="Test", language_code="en")
     message_mock.chat = Chat(id=12345, type="private")
+    message_mock.date = datetime.now() # Add date
     message_mock.answer = AsyncMock()
 
     command = CommandObject(prefix="/", command="start", args=None)
@@ -57,8 +59,8 @@ async def test_start_command_new_user(mocker):
     assert session_mock.commit.call_count > 0
     assert session_mock.refresh.call_count == 1
 
-    # Assert that the main menu was sent
+    # Assert that the new user welcome message was sent
     assert message_mock.answer.call_count == 1
     sent_text = message_mock.answer.call_args[0][0]
-    assert "Hello, Test!" in sent_text
-    assert "You don\'t have an active subscription yet." in sent_text
+    assert "What can this bot do?" in sent_text # Check for new user welcome message
+    assert "Let's go!" in message_mock.answer.call_args[0][1].inline_keyboard[0][0].text # Check button text
