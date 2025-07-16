@@ -11,4 +11,4 @@ Telegram bot for managing VLESS subscriptions with a referral system and payment
 - Automated VPN key generation via X-UI panel
 - Dockerized for easy deployment
 - Database migrations managed by Alembic.
-CI/CD is configured with GitHub Actions for automated deployments.
+CI/CD is configured with GitHub Actions for automated deployments. This simplifies the update process.
