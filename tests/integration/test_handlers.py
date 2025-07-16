@@ -40,7 +40,7 @@ async def test_start_command_new_user(mocker):
     message_mock.from_user = AiogramUser(id=12345, is_bot=False, first_name="Test", language_code="en")
     message_mock.chat = Chat(id=12345, type="private")
     message_mock.date = datetime.now() # Add date
-    message_mock.answer = AsyncMock()
+    message_mock.answer = AsyncMock(return_value=None) # Mock the answer method
 
     command = CommandObject(prefix="/", command="start", args=None)
     bot_mock = AsyncMock()
@@ -62,5 +62,9 @@ async def test_start_command_new_user(mocker):
     # Assert that the new user welcome message was sent
     assert message_mock.answer.call_count == 1
     sent_text = message_mock.answer.call_args[0][0]
+    sent_reply_markup = message_mock.answer.call_args[1]['reply_markup']
+
     assert "What can this bot do?" in sent_text # Check for new user welcome message
-    assert "Let's go!" in message_mock.answer.call_args[0][1].inline_keyboard[0][0].text # Check button text
+    assert sent_reply_markup is not None
+    assert sent_reply_markup.inline_keyboard[0][0].text == "Let's go!"
+    assert sent_reply_markup.inline_keyboard[0][0].callback_data == "show_main_menu_after_welcome"
