@@ -31,7 +31,13 @@ services:
         condition: service_healthy
     restart: always
 
-  
+  support_bot:
+    build:
+      context: ./support_bot
+      dockerfile: Dockerfile
+    env_file:
+      - ./support_bot/.env
+    restart: always
 
 volumes:
   postgres_data:
