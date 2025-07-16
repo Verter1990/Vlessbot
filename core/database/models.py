@@ -82,7 +82,7 @@ class Transaction(Base):
     currency = Column(String, nullable=False)
     payment_system = Column(String, nullable=False)
     status = Column(String, nullable=False)
-    metadata = Column(JSON, nullable=True)
+    payment_details = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=func.now())
 
     def __repr__(self):

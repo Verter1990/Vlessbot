@@ -46,11 +46,11 @@ async def process_successful_payment(session: AsyncSession, bot: Bot, transactio
         logger.error(f"[YooKassa Webhook] User or Tariff not found for transaction {transaction.id}")
         return
 
-    metadata = transaction.metadata or {}
-    payment_type = metadata.get('payment_type', 'subscription') # Default to subscription
+    payment_details = transaction.payment_details or {}
+    payment_type = payment_details.get('payment_type', 'subscription') # Default to subscription
 
     if payment_type == 'subscription':
-        server_id = metadata.get('server_id')
+        server_id = payment_details.get('server_id')
         if server_id:
             server = await session.get(Server, server_id)
             if not server:

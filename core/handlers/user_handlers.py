@@ -945,7 +945,7 @@ async def callback_pay_card(callback: CallbackQuery, session: AsyncSession):
         currency="RUB",
         payment_system="YooKassa",
         status="pending",
-        metadata=payment.metadata
+        payment_details=payment.metadata
     )
     session.add(new_transaction)
     await session.commit()
@@ -1010,7 +1010,7 @@ async def callback_pay_gift_card(callback: CallbackQuery, session: AsyncSession)
         currency="RUB",
         payment_system="YooKassa",
         status="pending",
-        metadata=payment.metadata
+        payment_details=payment.metadata
     )
     session.add(new_transaction)
     await session.commit()
