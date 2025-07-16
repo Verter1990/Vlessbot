@@ -141,6 +141,11 @@ translations = {
         'payment_card_unavailable': "Оплата картой временно недоступна.",
         'payment_transfer_unavailable': "Оплата переводом временно недоступна.",
         'payment_gift_card_unavailable': "Оплата картой для подарка временно недоступна.",
+
+        # YooKassa Integration
+        'payment_redirect_info': "Вы будете перенаправлены на страницу оплаты. Нажмите на кнопку ниже, чтобы продолжить.",
+        'btn_go_to_payment': "Перейти к оплате",
+        'btn_back_to_gift_menu': "Назад к покупке подарка",
     },
     'en': {
         # Dynamic content from DB
@@ -282,6 +287,11 @@ translations = {
         'payment_card_unavailable': "Card payment is temporarily unavailable.",
         'payment_transfer_unavailable': "Bank transfer payment is temporarily unavailable.",
         'payment_gift_card_unavailable': "Gift card payment is temporarily unavailable.",
+
+        # YooKassa Integration
+        'payment_redirect_info': "You will be redirected to the payment page. Click the button below to continue.",
+        'btn_go_to_payment': "Go to payment",
+        'btn_back_to_gift_menu': "Back to gift purchase",
     }
 }
 
