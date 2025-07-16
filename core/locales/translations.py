@@ -135,7 +135,24 @@ translations = {
         # Placeholders & TBD
         'tbd': "Эта функция находится в разработке.",
         'support_info': "Для помощи обратитесь в поддержку.",
-        'terms_info': "Правила использования находятся в разработке.",
+        'support_redirect_message': "Нажмите на кнопку ниже, чтобы перейти в наш бот технической поддержки.",
+        'btn_go_to_support_chat': "Перейти в бот поддержки",
+        'help_message_full': """Здравствуйте! Перед созданием заявки, пожалуйста, внимательно ознакомьтесь с инструкциями и  решениями основных возможных ошибок на нашем портале поддержки
+
+1️⃣⚠️ Как подключить VPN на вашем устройстве
+   - https://vpn-help.notion.site/
+
+2️⃣⚠️ Если не работает, попробуйте сначала обновить подписку в приложении и перезагрузить его: https://t.me/siriusvpn/90 (есть также в инструкциях по для вашего приложения по ссылке выше)
+
+Статус Сервиса:  все сервера в норме. 
+
+⚠️ВНИМАНИЕ! Из-за блокировок YouTube в РФ служба поддержки работает с перегрузкой. Если вам не помогли, или ответ не понятен — значит техподдержка потеряла вашу заявку. Напишите ваш вопрос еще раз. Спасибо за понимание⚠️
+
+Также пожалуйста проверьте пожалуйста есть ли необходимая инструкция и, возможно, ответ на ваш вопрос в разделе ЧаВо на нашем портале технической поддержки https://vpn-help.notion.site/
+
+⬇️ Если у вас другая проблема, напишите нам. ⬇️
+
+Обязательно приложите скриншот ошибки и настроек из вашего VPN-приложения. Это нужно чтобы мы могли понять какое устройство вы настраиваете и в чем именно проблема.""",
         'terms_of_use_full': "Контакты для связи(отзывы, пожелания, предложения, ошибки): {support_chat_link}\n\nДля возврата платежа обращайтесь @SiriusVPNhelpbot\nСтоимость подписки: 99 ₽ в месяц, снимается автоматически если вы не удалили карту.\nДля отмены платной подписки и удаления карты нажмите на кнопку \"Отменить подписку\" ниже. Доступ согласно оплаченного периода будет сохранен.\n\nПродолжая использование бота вы соглашаетесь с нашим\n<a href=\"{terms_of_service_url}\">лицензионным соглашением</a> и <a href=\"{privacy_policy_url}\">политикой обработки персональных данных</a>",
         'btn_cancel_subscription': "Отменить подписку",
         'payment_card_unavailable': "Оплата картой временно недоступна.",
@@ -281,6 +298,8 @@ translations = {
         # Placeholders & TBD
         'tbd': "This feature is under development.",
         'support_info': "For help, please contact support.",
+        'support_redirect_message': "Click the button below to go to our support bot.",
+        'btn_go_to_support_chat': "Go to Support Bot",
         'terms_info': "Terms of use are under development.",
         'terms_of_use_full': "Contact for communication (feedback, wishes, suggestions, errors): {support_chat_link}\n\nFor a refund, contact @SiriusVPNhelpbot\nSubscription cost: 99 ₽ per month, automatically debited if you have not deleted the card.\nTo cancel a paid subscription and delete a card, click the \"Cancel subscription\" button below. Access according to the paid period will be saved.\n\nBy continuing to use the bot, you agree to our\n<a href=\"{terms_of_service_url}\">license agreement</a> and <a href=\"{privacy_policy_url}\">privacy policy</a>",
         'btn_cancel_subscription': "Cancel subscription",

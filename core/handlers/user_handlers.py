@@ -872,7 +872,17 @@ async def callback_why_vpn(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data == "help")
 async def callback_help(callback: CallbackQuery, session: AsyncSession):
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
-    await callback.answer(get_text('support_info', lang), show_alert=True)
+    await callback.answer() # Acknowledge the callback
+
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=get_text('btn_go_to_support_chat', lang), url=settings.SUPPORT_CHAT_LINK)],
+        [InlineKeyboardButton(text=get_text('btn_main_menu', lang), callback_data="main_menu")]
+    ])
+
+    await callback.message.edit_text(
+        get_text('support_redirect_message', lang),
+        reply_markup=keyboard
+    )
 
 @router.callback_query(F.data == "terms_of_use")
 async def callback_terms_of_use(callback: CallbackQuery, session: AsyncSession):
