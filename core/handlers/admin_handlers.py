@@ -29,7 +29,8 @@ class AdminFSM(StatesGroup):
     add_server_api_password = State()
     add_server_inbound_id = State()
     # Add Tariff
-    add_tariff_name = State()
+    add_tariff_name_ru = State()
+    add_tariff_name_en = State()
     add_tariff_duration = State()
     add_tariff_price_rub = State()
     add_tariff_price_stars = State()
@@ -183,13 +184,48 @@ async def cq_list_tariffs(callback: CallbackQuery, session: AsyncSession):
     buttons = []
     for tariff in tariffs:
         status = "✅" if tariff.is_active else "❌"
-        response_text += f"{status} ID: <code>{tariff.id}</code> | {tariff.name} ({tariff.duration_days} д.)\n"
+        name_ru = tariff.name.get('ru', '[нет названия]')
+        name_en = tariff.name.get('en', '[no name]')
+        response_text += f"{status} ID: <code>{tariff.id}</code> | {name_ru} / {name_en} ({tariff.duration_days} д.)\n"
         response_text += f"   Цена: {tariff.price_rub / 100} RUB | {tariff.price_stars} ⭐️\n"
-        buttons.append([InlineKeyboardButton(text=f"Переключить ID {tariff.id}", callback_data=f"admin_toggle_tariff_{tariff.id}")])
+        buttons.append([
+            InlineKeyboardButton(text=f"Переключить ID {tariff.id}", callback_data=f"admin_toggle_tariff_{tariff.id}"),
+            InlineKeyboardButton(text=f"🗑️ Удалить ID {tariff.id}", callback_data=f"admin_delete_tariff_confirm_{tariff.id}")
+        ])
 
     buttons.append([InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_tariffs_menu")])
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     await callback.message.edit_text(response_text, reply_markup=keyboard)
+
+@router.callback_query(F.data.startswith("admin_delete_tariff_confirm_"))
+async def cq_delete_tariff_confirm(callback: CallbackQuery, session: AsyncSession):
+    tariff_id = int(callback.data.split("_")[-1])
+    tariff = await session.get(Tariff, tariff_id)
+    if not tariff:
+        await callback.answer(f"Тариф с ID {tariff_id} не найден.", show_alert=True)
+        return
+
+    name_ru = tariff.name.get('ru', f"ID {tariff_id}")
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Да, удалить", callback_data=f"admin_delete_tariff_execute_{tariff_id}")],
+        [InlineKeyboardButton(text="Отмена", callback_data="admin_list_tariffs")]
+    ])
+    await callback.message.edit_text(f"Вы уверены, что хотите удалить тариф \"{name_ru}\"? Это действие необратимо.", reply_markup=keyboard)
+
+@router.callback_query(F.data.startswith("admin_delete_tariff_execute_"))
+async def cq_delete_tariff_execute(callback: CallbackQuery, session: AsyncSession):
+    tariff_id = int(callback.data.split("_")[-1])
+    tariff = await session.get(Tariff, tariff_id)
+    if not tariff:
+        await callback.answer(f"Тариф с ID {tariff_id} не найден.", show_alert=True)
+        return
+
+    await session.delete(tariff)
+    await session.commit()
+    logger.info(f"Admin {callback.from_user.id} deleted tariff {tariff_id}")
+    await callback.answer(f"Тариф ID {tariff_id} удален.", show_alert=True)
+    await cq_list_tariffs(callback, session)
+
 
 @router.callback_query(F.data.startswith("admin_toggle_tariff_"))
 async def cq_toggle_tariff(callback: CallbackQuery, session: AsyncSession):
@@ -239,21 +275,33 @@ async def cq_stats(callback: CallbackQuery, session: AsyncSession):
 @router.callback_query(F.data == "admin_add_tariff_start")
 async def cq_add_tariff_start(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
-    await state.set_state(AdminFSM.add_tariff_name)
+    await state.set_state(AdminFSM.add_tariff_name_ru)
     await callback.message.edit_text(
-        "<b>Шаг 1/4: Название тарифа</b>\nВведите название (напр. 📅 30 дней).",
+        "<b>Шаг 1/5: Название тарифа (RU)</b>\nВведите русское название (напр. 📅 30 дней).",
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
         ])
     )
 
-@router.message(AdminFSM.add_tariff_name)
-async def msg_add_tariff_name(message: Message, state: FSMContext):
-    logger.info(f"Admin {message.from_user.id} entered tariff name: {message.text}")
-    await state.update_data(tariff_name=message.text)
+@router.message(AdminFSM.add_tariff_name_ru)
+async def msg_add_tariff_name_ru(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered tariff name (RU): {message.text}")
+    await state.update_data(name_ru=message.text)
+    await state.set_state(AdminFSM.add_tariff_name_en)
+    await message.answer(
+        "<b>Шаг 2/5: Название тарифа (EN)</b>\nВведите английское название (напр. 📅 30 days).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_tariff_name_en)
+async def msg_add_tariff_name_en(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered tariff name (EN): {message.text}")
+    await state.update_data(name_en=message.text)
     await state.set_state(AdminFSM.add_tariff_duration)
     await message.answer(
-        "<b>Шаг 2/4: Длительность (в днях)</b>\nВведите количество дней.",
+        "<b>Шаг 3/5: Длительность (в днях)</b>\nВведите количество дней.",
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
         ])
@@ -268,7 +316,7 @@ async def msg_add_tariff_duration(message: Message, state: FSMContext):
     await state.update_data(duration_days=int(message.text))
     await state.set_state(AdminFSM.add_tariff_price_rub)
     await message.answer(
-        "<b>Шаг 3/4: Цена (в копейках)</b>\nВведите цену в копейках (напр. 19900 для 199.00 RUB).",
+        "<b>Шаг 4/5: Цена (в копейках)</b>\nВведите цену в копейках (напр. 19900 для 199.00 RUB).",
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
         ])
@@ -283,7 +331,7 @@ async def msg_add_tariff_price_rub(message: Message, state: FSMContext):
     await state.update_data(price_rub=int(message.text))
     await state.set_state(AdminFSM.add_tariff_price_stars)
     await message.answer(
-        "<b>Шаг 4/4: Цена (в Telegram Stars)</b>\nВведите цену в Telegram Stars.",
+        "<b>Шаг 5/5: Цена (в Telegram Stars)</b>\nВведите цену в Telegram Stars.",
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
         ])
@@ -302,17 +350,17 @@ async def msg_add_tariff_price_stars(message: Message, state: FSMContext, sessio
 
     try:
         new_tariff = Tariff(
-            name=data['tariff_name'],
+            name={"ru": data['name_ru'], "en": data['name_en']},
             duration_days=data['duration_days'],
             price_rub=data['price_rub'],
             price_stars=data['price_stars']
         )
         session.add(new_tariff)
         await session.commit()
-        logger.info(f"Admin {message.from_user.id} successfully added new tariff: {data['tariff_name']}")
+        logger.info(f"Admin {message.from_user.id} successfully added new tariff: {data['name_ru']}")
         
         keyboard = await get_tariffs_menu_keyboard()
-        await message.answer(f"✅ Тариф '{data['tariff_name']}' успешно добавлен!", reply_markup=keyboard)
+        await message.answer(f"✅ Тариф '{data['name_ru']}' успешно добавлен!", reply_markup=keyboard)
 
     except Exception as e:
         logger.error(f"Failed to add new tariff. Admin: {message.from_user.id}. Data: {data}. Error: {e}")

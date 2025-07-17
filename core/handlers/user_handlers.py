@@ -711,7 +711,7 @@ async def successful_payment_handler(message: Message, session: AsyncSession, bo
             if not all([user, tariff]):
                 raise ValueError(f"User or Tariff not found for stars payment: user={user_telegram_id}, tariff={tariff_id}")
 
-            logger.info(f"Processing successful payment for user {user.telegram_id}, tariff {tariff.name}")
+            logger.info(f"Processing successful payment for user {user.telegram_id}, tariff {get_db_text(tariff.name, lang)}")
 
             if user.referrer_id:
                 l1_referrer = (await session.execute(select(User).where(User.telegram_id == user.referrer_id))).scalars().first()
