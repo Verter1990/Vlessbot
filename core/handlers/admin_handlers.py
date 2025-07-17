@@ -160,6 +160,12 @@ async def cq_toggle_server(callback: CallbackQuery, session: AsyncSession):
 
 # --- Управление тарифами ---
 
+@router.callback_query(F.data == "admin_users_menu")
+async def cq_users_menu(callback: CallbackQuery):
+    await callback.answer()
+    keyboard = await get_users_menu_keyboard()
+    await callback.message.edit_text("<b>Управление пользователями</b>", reply_markup=keyboard)
+
 @router.callback_query(F.data == "admin_tariffs_menu")
 async def cq_tariffs_menu(callback: CallbackQuery):
     await callback.answer()
