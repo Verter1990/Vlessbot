@@ -235,6 +235,91 @@ async def cq_stats(callback: CallbackQuery, session: AsyncSession):
 
 # --- Процессы добавления (FSM) ---
 
+# Добавление тарифа
+@router.callback_query(F.data == "admin_add_tariff_start")
+async def cq_add_tariff_start(callback: CallbackQuery, state: FSMContext):
+    await callback.answer()
+    await state.set_state(AdminFSM.add_tariff_name)
+    await callback.message.edit_text(
+        "<b>Шаг 1/4: Название тарифа</b>\nВведите название (напр. 📅 30 дней).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_tariff_name)
+async def msg_add_tariff_name(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered tariff name: {message.text}")
+    await state.update_data(tariff_name=message.text)
+    await state.set_state(AdminFSM.add_tariff_duration)
+    await message.answer(
+        "<b>Шаг 2/4: Длительность (в днях)</b>\nВведите количество дней.",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_tariff_duration)
+async def msg_add_tariff_duration(message: Message, state: FSMContext):
+    if not message.text.isdigit():
+        await message.answer("Длительность должна быть числом. Попробуйте еще раз.")
+        return
+    logger.info(f"Admin {message.from_user.id} entered tariff duration: {message.text}")
+    await state.update_data(duration_days=int(message.text))
+    await state.set_state(AdminFSM.add_tariff_price_rub)
+    await message.answer(
+        "<b>Шаг 3/4: Цена (в копейках)</b>\nВведите цену в копейках (напр. 19900 для 199.00 RUB).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_tariff_price_rub)
+async def msg_add_tariff_price_rub(message: Message, state: FSMContext):
+    if not message.text.isdigit():
+        await message.answer("Цена должна быть числом (в копейках). Попробуйте еще раз.")
+        return
+    logger.info(f"Admin {message.from_user.id} entered tariff price (RUB): {message.text}")
+    await state.update_data(price_rub=int(message.text))
+    await state.set_state(AdminFSM.add_tariff_price_stars)
+    await message.answer(
+        "<b>Шаг 4/4: Цена (в Telegram Stars)</b>\nВведите цену в Telegram Stars.",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_tariff_price_stars)
+async def msg_add_tariff_price_stars(message: Message, state: FSMContext, session: AsyncSession):
+    if not message.text.isdigit():
+        await message.answer("Цена в Stars должна быть числом. Попробуйте еще раз.")
+        return
+    logger.info(f"Admin {message.from_user.id} entered tariff price (Stars): {message.text}")
+    await state.update_data(price_stars=int(message.text))
+    
+    data = await state.get_data()
+    await state.clear()
+
+    try:
+        new_tariff = Tariff(
+            name=data['tariff_name'],
+            duration_days=data['duration_days'],
+            price_rub=data['price_rub'],
+            price_stars=data['price_stars']
+        )
+        session.add(new_tariff)
+        await session.commit()
+        logger.info(f"Admin {message.from_user.id} successfully added new tariff: {data['tariff_name']}")
+        
+        keyboard = await get_tariffs_menu_keyboard()
+        await message.answer(f"✅ Тариф '{data['tariff_name']}' успешно добавлен!", reply_markup=keyboard)
+
+    except Exception as e:
+        logger.error(f"Failed to add new tariff. Admin: {message.from_user.id}. Data: {data}. Error: {e}")
+        keyboard = await get_tariffs_menu_keyboard()
+        await message.answer("❌ Произошла ошибка при добавлении тарифа. Подробности в логах.", reply_markup=keyboard)
+
+
 # Добавление сервера
 @router.callback_query(F.data == "admin_add_server_start")
 async def cq_add_server_start(callback: CallbackQuery, state: FSMContext):
