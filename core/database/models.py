@@ -47,7 +47,7 @@ class Tariff(Base):
     __tablename__ = 'tariffs'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
+    name = Column(JSON, nullable=False)
     duration_days = Column(Integer, nullable=False)
     price_rub = Column(Integer, nullable=False)
     price_stars = Column(Integer, nullable=False)
