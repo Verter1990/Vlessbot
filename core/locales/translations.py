@@ -329,12 +329,25 @@ def get_text(key: str, lang_code: str = 'ru'):
     
     return lang_dict.get(key, default_lang_dict.get(key, f"<{key}>"))
 
-def get_db_text(text: str, lang_code: str = 'ru'):
+def get_db_text(json_text: dict, lang_code: str = 'ru'):
     """
-    Returns the translated text for a given database string.
-    Falls back to the original text if no translation is found.
+    Returns the translated text from a JSON object based on the language code.
+    Falls back to 'ru' or the first available language if the specified lang_code is not found.
     """
-    if lang_code not in translations:
-        lang_code = 'ru'
+    if not isinstance(json_text, dict):
+        return str(json_text) # Return the text as is if it's not a dict
+
+    if lang_code in json_text:
+        return json_text[lang_code]
     
-    return translations[lang_code].get('db_content', {}).get(text, text)
+    # Fallback logic
+    if 'ru' in json_text:
+        return json_text['ru']
+    if 'en' in json_text:
+        return json_text['en']
+    
+    # If no preferred languages are found, return the first value
+    for key in json_text:
+        return json_text[key]
+        
+    return "[no name]"
