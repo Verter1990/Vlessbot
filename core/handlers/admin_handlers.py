@@ -247,6 +247,170 @@ async def cq_add_server_start(callback: CallbackQuery, state: FSMContext):
         ])
     )
 
+@router.message(AdminFSM.add_server_name)
+async def msg_add_server_name(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered server name: {message.text}")
+    await state.update_data(server_name=message.text)
+    await state.set_state(AdminFSM.add_server_api_url)
+    await message.answer(
+        "<b>Шаг 2/5: API URL</b>\nВведите URL для API (напр. http://your.domain:54321).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_server_api_url)
+async def msg_add_server_api_url(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered server API URL: {message.text}")
+    await state.update_data(api_url=message.text)
+    await state.set_state(AdminFSM.add_server_api_user)
+    await message.answer(
+        "<b>Шаг 3/5: API User</b>\nВведите имя пользователя для API.",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_server_api_user)
+async def msg_add_server_api_user(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered server API user: {message.text}")
+    await state.update_data(api_user=message.text)
+    await state.set_state(AdminFSM.add_server_api_password)
+    await message.answer(
+        "<b>Шаг 4/5: API Password</b>\nВведите пароль для API.",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_server_api_password)
+async def msg_add_server_api_password(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered server API password.")
+    encrypted_password = encrypt_password(message.text)
+    await state.update_data(api_password=encrypted_password)
+    await state.set_state(AdminFSM.add_server_inbound_id)
+    await message.answer(
+        "<b>Шаг 5/5: Inbound ID</b>\nВведите ID входящего подключения (inbound).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_server_inbound_id)
+async def msg_add_server_inbound_id(message: Message, state: FSMContext, session: AsyncSession):
+    if not message.text.isdigit():
+        await message.answer("Inbound ID должен быть числом. Попробуйте еще раз.")
+        return
+
+    logger.info(f"Admin {message.from_user.id} entered inbound ID: {message.text}")
+    await state.update_data(inbound_id=int(message.text))
+    
+    data = await state.get_data()
+    await state.clear()
+
+    try:
+        new_server = Server(
+            name=data['server_name'],
+            api_url=data['api_url'],
+            api_user=data['api_user'],
+            api_password=data['api_password'],
+            inbound_id=data['inbound_id']
+        )
+        session.add(new_server)
+        await session.commit()
+        logger.info(f"Admin {message.from_user.id} successfully added new server: {data['server_name']}")
+        
+        keyboard = await get_servers_menu_keyboard()
+        await message.answer(f"✅ Сервер '{data['server_name']}' успешно добавлен!", reply_markup=keyboard)
+
+    except Exception as e:
+        logger.error(f"Failed to add new server. Admin: {message.from_user.id}. Data: {data}. Error: {e}")
+        keyboard = await get_servers_menu_keyboard()
+        await message.answer("❌ Произошла ошибка при добавлении сервера. Подробности в логах.", reply_markup=keyboard)
+
+
+@router.message(AdminFSM.add_server_name)
+async def msg_add_server_name(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered server name: {message.text}")
+    await state.update_data(server_name=message.text)
+    await state.set_state(AdminFSM.add_server_api_url)
+    await message.answer(
+        "<b>Шаг 2/5: API URL</b>\nВведите URL для API (напр. http://your.domain:54321).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_server_api_url)
+async def msg_add_server_api_url(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered server API URL: {message.text}")
+    await state.update_data(api_url=message.text)
+    await state.set_state(AdminFSM.add_server_api_user)
+    await message.answer(
+        "<b>Шаг 3/5: API User</b>\nВведите имя пользователя для API.",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_server_api_user)
+async def msg_add_server_api_user(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered server API user: {message.text}")
+    await state.update_data(api_user=message.text)
+    await state.set_state(AdminFSM.add_server_api_password)
+    await message.answer(
+        "<b>Шаг 4/5: API Password</b>\nВведите пароль для API.",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_server_api_password)
+async def msg_add_server_api_password(message: Message, state: FSMContext):
+    logger.info(f"Admin {message.from_user.id} entered server API password.")
+    encrypted_password = encrypt_password(message.text)
+    await state.update_data(api_password=encrypted_password)
+    await state.set_state(AdminFSM.add_server_inbound_id)
+    await message.answer(
+        "<b>Шаг 5/5: Inbound ID</b>\nВведите ID входящего подключения (inbound).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data="admin_cancel_fsm")]
+        ])
+    )
+
+@router.message(AdminFSM.add_server_inbound_id)
+async def msg_add_server_inbound_id(message: Message, state: FSMContext, session: AsyncSession):
+    if not message.text.isdigit():
+        await message.answer("Inbound ID должен быть числом. Попробуйте еще раз.")
+        return
+
+    logger.info(f"Admin {message.from_user.id} entered inbound ID: {message.text}")
+    await state.update_data(inbound_id=int(message.text))
+    
+    data = await state.get_data()
+    await state.clear()
+
+    try:
+        new_server = Server(
+            name=data['server_name'],
+            api_url=data['api_url'],
+            api_user=data['api_user'],
+            api_password=data['api_password'],
+            inbound_id=data['inbound_id']
+        )
+        session.add(new_server)
+        await session.commit()
+        logger.info(f"Admin {message.from_user.id} successfully added new server: {data['server_name']}")
+        
+        keyboard = await get_servers_menu_keyboard()
+        await message.answer(f"✅ Сервер '{data['server_name']}' успешно добавлен!", reply_markup=keyboard)
+
+    except Exception as e:
+        logger.error(f"Failed to add new server. Admin: {message.from_user.id}. Data: {data}. Error: {e}")
+        keyboard = await get_servers_menu_keyboard()
+        await message.answer("❌ Произошла ошибка при добавлении сервера. Подробности в логах.", reply_markup=keyboard)
+
+
 # Поиск пользователя
 @router.callback_query(F.data == "admin_find_user_start")
 async def cq_find_user_start(callback: CallbackQuery, state: FSMContext):
