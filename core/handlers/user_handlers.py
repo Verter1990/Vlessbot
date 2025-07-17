@@ -938,7 +938,7 @@ async def callback_pay_card(callback: CallbackQuery, session: AsyncSession):
             "return_url": f"https://t.me/{(await callback.bot.get_me()).username}"
         },
         "capture": True,
-        "description": f"Оплата тарифа '{get_db_text(tariff.name, lang)}'"
+        "description": f"Оплата тарифа '{get_db_text(tariff.name, lang)}'",
         "metadata": {
             'telegram_user_id': callback.from_user.id,
             'tariff_id': tariff_id,
@@ -1004,7 +1004,7 @@ async def callback_pay_gift_card(callback: CallbackQuery, session: AsyncSession)
             "return_url": f"https://t.me/{(await callback.bot.get_me()).username}"
         },
         "capture": True,
-        "description": f"Покупка подарочного кода для тарифа '{get_db_text(tariff.name, lang)}'",,
+        "description": f"Покупка подарочного кода для тарифа '{get_db_text(tariff.name, lang)}'",
         "metadata": {
             'telegram_user_id': callback.from_user.id,
             'tariff_id': tariff_id,
