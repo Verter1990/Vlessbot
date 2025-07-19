@@ -8,7 +8,7 @@ from sqlalchemy import select, func
 from loguru import logger
 from datetime import datetime, timedelta
 
-from core.database.models import Server, Tariff, User, Subscription, Transaction, GiftCode, UserActionLog, AdminActionLog
+from core.database.models import Server, Tariff, User, Subscription, Transaction, GiftCode, AdminActionLog
 from core.config import settings
 from core.utils.security import encrypt_password
 
@@ -710,7 +710,6 @@ async def cq_delete_user_execute(callback: CallbackQuery, session: AsyncSession)
     await session.execute(delete(Transaction).where(Transaction.user_id == user.telegram_id))
     await session.execute(delete(GiftCode).where(GiftCode.buyer_user_id == user.telegram_id))
     await session.execute(delete(GiftCode).where(GiftCode.activated_by_user_id == user.telegram_id))
-    await session.execute(delete(UserActionLog).where(UserActionLog.user_id == user.telegram_id))
     
     # 2. Log the action
     await log_admin_action(
