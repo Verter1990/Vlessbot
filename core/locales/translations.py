@@ -157,9 +157,9 @@ USDT (TRC-20): <code>{usdt_address}</code>
         'trial_unavailable': "Извините, пробный период временно недоступен. Пожалуйста, попробуйте позже.",
         'trial_server_unavailable': "Извините, пробный сервер временно недоступен. Пожалуйста, попробуйте позже.",
         'trial_key_creation_wait': "Пожалуйста, подождите, мы создаем для вас пробный ключ...",
-        'trial_key_creation_success': ''''trial_key_creation_success': 'trial_key_creation_success': '''Ваш пробный ключ на 3 дня: <code>{vless_link}</code>
+        'trial_key_creation_success': ''''trial_key_creation_success': 'trial_key_creation_success': ''''trial_key_creation_success': '''Ваш пробный ключ на 3 дня: <code>{vless_link}</code>
 
-Инструкции по подключению: ...''',,
+Инструкции по подключению: ...''',''',,
 
 Инструкции по подключению: ...''',
         'trial_key_creation_error': "Произошла ошибка при создании пробного ключа. Обратитесь в поддержку.",
