@@ -595,7 +595,7 @@ async def get_user_management_keyboard(user: User) -> InlineKeyboardMarkup:
         ],
         [
             InlineKeyboardButton(
-                text="🚫 Заблокировать" if user.is_active else "✅ Разблокировать",
+                text="✅ Разблокировать" if user.is_banned else "🚫 Заблокировать",
                 callback_data=f"admin_toggle_user_block_{user.telegram_id}"
             ),
             InlineKeyboardButton(text="🗑️ Удалить", callback_data=f"admin_delete_user_confirm_{user.telegram_id}")
@@ -622,11 +622,7 @@ async def cq_user_details(message: Message | CallbackQuery, session: AsyncSessio
     else:
         subs_text = "  Нет активных подписок.\n"
 
-    user_info = (
-        f"<b>Информация о пользователе:</b>\n"
-        f"ID: <code>{user.telegram_id}</code> (@{user.username if user.username else 'N/A'})\n"
-        f"Статус: {'Активен' if user.is_active else 'Заблокирован'}\n"
-        f"Язык: {user.language_code}\n"
+    user_info = (        f"<b>Информация о пользователе:</b>\n"        f"ID: <code>{user.telegram_id}</code> (@{user.username if user.username else 'N/A'})\n"        f"Статус: {'Заблокирован' if user.is_banned else 'Активен'}\n"        f"Язык: {user.language_code}\n"
         f"Нераспределенные дни: {user.unassigned_days}\n"
         f"Реферальный баланс: {user.referral_balance / 100} RUB\n"
         f"L2 Реферальный баланс: {user.l2_referral_balance / 100} RUB\n"
