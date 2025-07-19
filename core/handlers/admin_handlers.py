@@ -645,8 +645,8 @@ async def cq_user_details(message: Message | CallbackQuery, session: AsyncSessio
 
 @router.callback_query(F.data.startswith("admin_toggle_user_block_"))
 async def cq_toggle_user_block(callback: CallbackQuery, session: AsyncSession):
-    user_id = int(callback.data.split("_")[-1])
-    user = await session.get(User, user_id)
+    user_telegram_id = int(callback.data.split("_")[-1])
+    user = (await session.execute(select(User).where(User.telegram_id == user_telegram_id))).scalars().first()
     if not user:
         await callback.answer("Пользователь не найден.", show_alert=True)
         return
@@ -663,15 +663,15 @@ async def cq_toggle_user_block(callback: CallbackQuery, session: AsyncSession):
 
 @router.callback_query(F.data.startswith("admin_delete_user_confirm_"))
 async def cq_delete_user_confirm(callback: CallbackQuery, session: AsyncSession):
-    user_id = int(callback.data.split("_")[-1])
-    user = await session.get(User, user_id)
+    user_telegram_id = int(callback.data.split("_")[-1])
+    user = (await session.execute(select(User).where(User.telegram_id == user_telegram_id))).scalars().first()
     if not user:
         await callback.answer("Пользователь не найден.", show_alert=True)
         return
 
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Да, удалить", callback_data=f"admin_delete_user_execute_{user_id}")],
-        [InlineKeyboardButton(text="Отмена", callback_data=f"admin_show_user_details_{user_id}")]
+        [InlineKeyboardButton(text="Да, удалить", callback_data=f"admin_delete_user_execute_{user.telegram_id}")],
+        [InlineKeyboardButton(text="Отмена", callback_data=f"admin_show_user_details_{user.telegram_id}")]
     ])
     await callback.message.edit_text(
         f"Вы уверены, что хотите удалить пользователя @{user.username or user_id}?\n"
@@ -681,8 +681,8 @@ async def cq_delete_user_confirm(callback: CallbackQuery, session: AsyncSession)
 
 @router.callback_query(F.data.startswith("admin_delete_user_execute_"))
 async def cq_delete_user_execute(callback: CallbackQuery, session: AsyncSession):
-    user_id = int(callback.data.split("_")[-1])
-    user = await session.get(User, user_id)
+    user_telegram_id = int(callback.data.split("_")[-1])
+    user = (await session.execute(select(User).where(User.telegram_id == user_telegram_id))).scalars().first()
     if not user:
         await callback.answer("Пользователь не найден.", show_alert=True)
         return
@@ -741,14 +741,14 @@ async def cq_show_user_details_from_callback(callback: CallbackQuery, session: A
 # Edit Balance
 @router.callback_query(F.data.startswith("admin_edit_user_balance_start_"))
 async def cq_edit_user_balance_start(callback: CallbackQuery, state: FSMContext):
-    user_id = int(callback.data.split("_")[-1])
-    await state.update_data(user_id=user_id)
+    user_telegram_id = int(callback.data.split("_")[-1])
+    await state.update_data(user_telegram_id=user_telegram_id)
     await state.set_state(AdminFSM.edit_user_balance)
     await callback.answer()
     await callback.message.edit_text(
         "Введите новую сумму <b>реферального баланса</b> в копейках (целое число).",
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="❌ Отмена", callback_data=f"admin_show_user_details_{user_id}")]
+            [InlineKeyboardButton(text="❌ Отмена", callback_data=f"admin_show_user_details_{user_telegram_id}")]
         ])
     )
 
@@ -759,7 +759,7 @@ async def msg_edit_user_balance(message: Message, state: FSMContext, session: As
         return
 
     data = await state.get_data()
-    user = await session.get(User, data['user_id'])
+    user = (await session.execute(select(User).where(User.telegram_id == data['user_telegram_id']))).scalars().first()
     if not user:
         await message.answer("Пользователь не найден. Отмена.")
         await state.clear()
@@ -778,14 +778,14 @@ async def msg_edit_user_balance(message: Message, state: FSMContext, session: As
 # Edit Days
 @router.callback_query(F.data.startswith("admin_edit_user_days_start_"))
 async def cq_edit_user_days_start(callback: CallbackQuery, state: FSMContext):
-    user_id = int(callback.data.split("_")[-1])
-    await state.update_data(user_id=user_id)
+    user_telegram_id = int(callback.data.split("_")[-1])
+    await state.update_data(user_telegram_id=user_telegram_id)
     await state.set_state(AdminFSM.edit_user_days)
     await callback.answer()
     await callback.message.edit_text(
         "Введите новое количество <b>нераспределенных дней</b> (целое число).",
         reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text="❌ Отмена", callback_data=f"admin_show_user_details_{user_id}")]
+            [InlineKeyboardButton(text="❌ Отмена", callback_data=f"admin_show_user_details_{user_telegram_id}")]
         ])
     )
 
@@ -796,7 +796,7 @@ async def msg_edit_user_days(message: Message, state: FSMContext, session: Async
         return
 
     data = await state.get_data()
-    user = await session.get(User, data['user_id'])
+    user = (await session.execute(select(User).where(User.telegram_id == data['user_telegram_id']))).scalars().first()
     if not user:
         await message.answer("Пользователь не найден. Отмена.")
         await state.clear()
