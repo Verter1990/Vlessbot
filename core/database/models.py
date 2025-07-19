@@ -23,6 +23,7 @@ class User(Base):
     unassigned_days = Column(Integer, default=0)
     bonus_days = Column(Integer, default=0)
     total_paid_out = Column(Integer, default=0)
+    is_banned = Column(Boolean, default=False, nullable=False)
 
     def __repr__(self):
         return f"<User(id={self.id}, telegram_id={self.telegram_id}, username='{self.username}')>"
