@@ -558,20 +558,18 @@ Expires: {expires_at}''',
         'btn_activate_days': "🌟 Активировать {days} дней",
         'btn_how_it_works': "❓ Как это работает?",
         'my_profile_title': "<b>👤 Мой профиль</b>",
-        'my_profile_info': "
+        'my_profile_info': '''
 <b>ID:</b> <code>{user_id}</code>
 <b>Дней на балансе:</b> {unassigned_days}
 <b>Реферальный баланс:</b> {ref_balance:.2f} руб.
-<b>Приглашено:</b> {ref_count} чел.",
+<b>Приглашено:</b> {ref_count} чел.''',
         'my_keys_title': "<b>🔑 Мои активные ключи</b>",
         'my_keys_no_keys': "У вас пока нет активных ключей.",
-        'my_keys_item': "
+        'my_keys_item': '''
 
 Сервер: <b>{server_name}</b>
-Истекает: {expires_at}",
+Истекает: {expires_at}''',
         'btn_show_key': "Показать ключ",
-    },
-    'en': {
     },
     'en': {
         # Dynamic content from DB
