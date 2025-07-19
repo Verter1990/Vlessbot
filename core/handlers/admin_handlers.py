@@ -4,13 +4,14 @@ from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKe
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func
+from sqlalchemy import select, func, delete
 from loguru import logger
 from datetime import datetime, timedelta
 
 from core.database.models import Server, Tariff, User, Subscription, Transaction, GiftCode
 from core.config import settings
 from core.utils.security import encrypt_password
+from core.services.xui_client import get_client, XUIClientError
 
 router = Router()
 
@@ -690,17 +691,41 @@ async def cq_delete_user_execute(callback: CallbackQuery, session: AsyncSession)
         await callback.answer("Пользователь не найден.", show_alert=True)
         return
 
-    # 1. Delete related data manually
+    # 1. Find all user subscriptions
+    subscriptions = (await session.execute(
+        select(Subscription).where(Subscription.user_id == user.telegram_id)
+    )).scalars().all()
+
+    # 2. Attempt to delete clients from XUI panels
+    if subscriptions:
+        await callback.message.edit_text(f"Начинаю удаление {len(subscriptions)} VLESS-клиентов с VPN-серверов...")
+        for sub in subscriptions:
+            server = await session.get(Server, sub.server_id)
+            if not server:
+                logger.warning(f"Server with ID {sub.server_id} not found for subscription {sub.id}. Skipping XUI deletion.")
+                continue
+            
+            try:
+                xui_client = get_client(server)
+                await xui_client.delete_user(sub.server_id, sub.xui_user_uuid)
+                logger.info(f"Successfully deleted VLESS client {sub.xui_user_uuid} from server {server.name} for user {user.telegram_id}")
+            except XUIClientError as e:
+                logger.error(f"Failed to delete VLESS client {sub.xui_user_uuid} from server {server.name}. Error: {e}")
+                # We continue anyway, to delete the user from the bot's DB
+            except Exception as e:
+                logger.error(f"An unexpected error occurred during XUI client deletion for user {user.telegram_id} on server {server.name}. Error: {e}")
+
+    # 3. Delete user data from the bot's database
+    await callback.message.edit_text("Удаляю данные пользователя из базы данных бота...")
     await session.execute(delete(Subscription).where(Subscription.user_id == user.telegram_id))
     await session.execute(delete(Transaction).where(Transaction.user_id == user.telegram_id))
     await session.execute(delete(GiftCode).where(GiftCode.buyer_user_id == user.telegram_id))
     await session.execute(delete(GiftCode).where(GiftCode.activated_by_user_id == user.telegram_id))
     
-    # 2. Delete the user
     await session.delete(user)
     await session.commit()
     
-    logger.warning(f"Admin {callback.from_user.id} DELETED user {user.telegram_id}")
+    logger.warning(f"Admin {callback.from_user.id} DELETED user {user.telegram_id} and all their data.")
     await callback.answer(f"Пользователь {user.username or user.telegram_id} и все его данные удалены.", show_alert=True)
     
     await cq_users_menu(callback)
