@@ -703,7 +703,7 @@ async def cq_delete_user_execute(callback: CallbackQuery, session: AsyncSession)
             
             try:
                 xui_client = get_client(server)
-                await xui_client.delete_user(sub.server_id, sub.xui_user_uuid)
+                await xui_client.delete_user(server.inbound_id, sub.xui_user_uuid)
                 logger.info(f"Successfully deleted VLESS client {sub.xui_user_uuid} from server {server.name} for user {user.telegram_id}")
             except XUIClientError as e:
                 logger.error(f"Failed to delete VLESS client {sub.xui_user_uuid} from server {server.name}. Error: {e}")
