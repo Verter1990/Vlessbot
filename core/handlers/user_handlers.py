@@ -112,6 +112,21 @@ async def _create_or_update_vpn_key(session: AsyncSession, user: User, server: S
         logger.info(f"Subscription for user {user.telegram_id} on server {server.name} created/updated in DB.")
 
         vless_link = await _generate_vless_link(server, user_uuid, lang)
+
+        # Формируем сообщение с ключом и кнопкой помощи
+        message_text = get_text('key_created_or_updated', lang).format(
+            server_name=get_db_text(server.name, lang),
+            vless_link=vless_link,
+            expires_at=expire_time.strftime("%d.%m.%Y")
+        )
+        
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❓ Как подключиться?", callback_data="how_to_connect")]
+        ])
+
+        # Отправляем сообщение
+        await bot.send_message(user.telegram_id, message_text, reply_markup=keyboard, parse_mode='HTML')
+
         return vless_link
 
     except XUIClientError as e:
@@ -150,6 +165,7 @@ async def _get_main_menu_content(user: User, from_user: AiogramUser, session: As
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text=get_text('btn_setup_vpn', lang), callback_data="setup_vpn")],
         [InlineKeyboardButton(text=get_text('btn_pay_subscription', lang), callback_data="pay_subscription_main_menu")],
+        [InlineKeyboardButton(text="❓ Как подключиться?", callback_data="how_to_connect")],
         [InlineKeyboardButton(text=get_text('btn_referral_program', lang), callback_data="referral_program")],
         [InlineKeyboardButton(text=get_text('btn_why_vpn', lang), callback_data="why_vpn")],
         [InlineKeyboardButton(text=get_text('btn_get_free_vpn', lang), callback_data="get_free_vpn")],
