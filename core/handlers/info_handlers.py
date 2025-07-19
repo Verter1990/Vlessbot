@@ -1,122 +1,111 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from core.locales.translations import get_text
 
 router = Router()
 
-# --- Клавиатура выбора ОС ---
-def get_os_selection_keyboard() -> InlineKeyboardMarkup:
+async def get_os_selection_keyboard(lang: str) -> InlineKeyboardMarkup:
     buttons = [
         [
-            InlineKeyboardButton(text="📱 iPhone (iOS)", callback_data="info_ios"),
-            InlineKeyboardButton(text="📱 Android", callback_data="info_android")
+            InlineKeyboardButton(text=get_text('btn_ios', lang), callback_data="info_ios"),
+            InlineKeyboardButton(text=get_text('btn_android', lang), callback_data="info_android")
         ],
         [
-            InlineKeyboardButton(text="💻 Windows", callback_data="info_windows"),
-            InlineKeyboardButton(text="💻 macOS", callback_data="info_macos")
+            InlineKeyboardButton(text=get_text('btn_windows', lang), callback_data="info_windows"),
+            InlineKeyboardButton(text=get_text('btn_macos', lang), callback_data="info_macos")
         ],
         [
-            InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main_menu") # Эта кнопка будет обрабатываться в user_handlers
+            InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="back_to_main_menu")
         ]
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
-# --- Тексты инструкций ---
-
-INSTRUCTIONS = {
-    "ios": """
-<b><u>Инструкция для iPhone / iPad (iOS)</u></b>
-
-Для подключения мы рекомендуем одно из этих приложений:
-
-• <b>FoXray</b> (<a href="https://apps.apple.com/us/app/foxray/id6448898396">App Store</a>) - бесплатное, простое и удобное.
-• <b>Shadowrocket</b> (<a href="https://apps.apple.com/us/app/shadowrocket/id932747118">App Store</a>) - платное, но очень мощное и популярное.
-
-<b><u>Пошаговая настройка (на примере FoXray):</u></b>
-1. Установите приложение FoXray из App Store.
-2. Вернитесь в этот чат и скопируйте вашу VLESS-ссылку (просто нажмите на нее).
-3. Откройте FoXray. Приложение автоматически обнаружит ссылку в буфере обмена и предложит добавить сервер. Согласитесь.
-   <i>[Скриншот: Окно FoXray с предложением добавить ключ]</i>
-4. Нажмите на большую круглую кнопку в центре для подключения. При первом запуске приложение попросит разрешение на добавление конфигурации VPN. Разрешите.
-   <i>[Скриншот: Главный экран FoXray с кнопкой подключения]</i>
-5. Готово! Вверху экрана вашего iPhone появится значок [VPN].
-
-⚠️ <b>Частые проблемы:</b>
-- <i>Интернет не работает после подключения:</i> Попробуйте перезагрузить телефон или переключить авиарежим.
-- <i>Приложение не видит ссылку:</i> Убедитесь, что вы скопировали ссылку полностью.
-""",
-    "android": """
-<b><u>Инструкция для Android</u></b>
-
-1. Установите приложение <b>v2rayNG</b> из <a href="https://play.google.com/store/apps/details?id=com.v2ray.ang">Google Play</a>.
-   <i>(Если Google Play недоступен, скачайте .apk с <a href="https://github.com/2dust/v2rayNG/releases/latest">GitHub</a>).</i>
-2. Вернитесь в этот чат и скопируйте вашу VLESS-ссылку (просто нажмите на нее).
-3. Откройте v2rayNG. Нажмите на иконку <b>"+"</b> в правом верхнем углу.
-   <i>[Скриншот: Главный экран v2rayNG с кнопкой "+"]</i>
-4. Выберите в меню <b>"Import config from Clipboard"</b> (Импорт из буфера обмена).
-   <i>[Скриншот: Меню после нажатия на "+"]</i>
-5. Ваш ключ появится в списке. Нажмите на него, чтобы он выделился.
-6. Нажмите на большую круглую кнопку с логотипом "V" внизу справа для подключения. Она станет зеленой.
-   <i>[Скриншот: Кнопка подключения в v2rayNG]</i>
-7. Готово! В строке состояния появится значок ключа [VPN].
-
-⚠️ <b>Частые проблемы:</b>
-- <i>Интернет не работает:</i> В настройках v2rayNG (три полоски слева) убедитесь, что в разделе "VPN routing" (Маршрутизация) не включены специфические правила, блокирующие трафик.
-- <i>Ошибка "invalid config":</i> Убедитесь, что вы скопировали ссылку полностью.
-""",
-    "windows": """
-<b><u>Инструкция для Windows</u></b>
-
-1. Скачайте приложение <b>v2rayN</b> с <a href="https://github.com/2dust/v2rayN/releases/latest">GitHub</a>.
-   <i>(Вам нужен файл с названием <b>v2rayN-Core.zip</b>).</i>
-2. Распакуйте скачанный архив в удобную папку (например, на Рабочий стол).
-3. Запустите файл <b>v2rayN.exe</b>.
-4. Вернитесь в этот чат и скопируйте вашу VLESS-ссылку.
-5. Откройте окно программы v2rayN и нажмите на клавиатуре <b>Ctrl+V</b>. Ваш ключ автоматически добавится в список серверов.
-   <i>[Скриншот: Главное окно v2rayN со списком серверов]</i>
-6. В системном трее (возле часов, в правом нижнем углу экрана) найдите синюю иконку "V". Нажмите на нее <u>правой кнопкой мыши</u>.
-   <i>[Скриншот: Иконка v2rayN в трее]</i>
-7. В появившемся меню выберите <b>"System Proxy"</b> -> <b>"Set system proxy"</b>.
-   <i>[Скриншот: Контекстное меню с выбором системного прокси]</i>
-8. Готово! Иконка в трее станет красной, а весь ваш трафик будет защищен.
-
-⚠️ <b>Частые проблемы:</b>
-- <i>Иконка не становится красной:</i> Убедитесь, что вы выбрали сервер в главном окне программы (нажмите на него левой кнопкой мыши).
-- <i>Сайты не открываются:</i> Проверьте, что в меню "System Proxy" выбрано "Set system proxy", а не "Clear system proxy".
-""",
-    "macos": """
-<b><u>Инструкция для macOS</u></b>
-
-Мы рекомендуем использовать приложение <b>V2RayU</b>.
-
-1. Скачайте последнюю версию V2RayU с <a href="https://github.com/yanue/V2RayU/releases/latest">GitHub</a>.
-   <i>(Вам нужен файл с расширением <b>.dmg</b>).</i>
-2. Установите приложение, перетащив его в папку "Applications".
-3. Запустите V2RayU. Его иконка появится в строке меню (вверху экрана).
-4. Вернитесь в этот чат и скопируйте вашу VLESS-ссылку.
-5. Нажмите на иконку V2RayU в строке меню, выберите <b>"Subscribe"</b> -> <b>"Subscribe settings"</b>. Вставьте ссылку в поле "url" и нажмите "Update".
-   <i>Либо проще: нажмите на иконку, выберите "Import from pasteboard".</i>
-   <i>[Скриншот: Меню V2RayU с пунктом "Import"]</i>
-6. После импорта снова нажмите на иконку, выберите <b>"Server"</b> и кликните на добавленный сервер.
-7. Включите VPN, выбрав <b>"Turn V2RayU On"</b>.
-   <i>[Скриншот: Главное меню V2RayU с переключателем]</i>
-8. Готово!
-
-⚠️ <b>Частые проблемы:</b>
-- <i>Не работает интернет:</i> Убедитесь, что в меню V2RayU выбран режим "Global Mode".
-- <i>Сервер не появляется после импорта:</i> Попробуйте обновить подписку вручную через меню "Subscribe".
-"""
-}
-
-# --- Обработчики для каждой ОС ---
+def get_instruction_text(os_type: str, lang: str) -> str:
+    if os_type == 'ios':
+        return "\n".join([
+            get_text('info_title_ios', lang),
+            "",
+            get_text('info_app_recommendation_ios', lang),
+            get_text('info_app_foxray', lang),
+            get_text('info_app_shadowrocket', lang),
+            "",
+            get_text('info_setup_title_ios', lang),
+            get_text('info_step1_ios', lang),
+            get_text('info_step2_ios', lang),
+            get_text('info_step3_ios', lang),
+            get_text('info_step4_ios', lang),
+            get_text('info_step5_ios', lang),
+            "",
+            get_text('info_faq_title', lang),
+            get_text('info_faq1_ios', lang),
+            get_text('info_faq2_ios', lang),
+        ])
+    elif os_type == 'android':
+        return "\n".join([
+            get_text('info_title_android', lang),
+            "",
+            get_text('info_step1_android', lang),
+            get_text('info_step1_alt_android', lang),
+            get_text('info_step2_android', lang),
+            get_text('info_step3_android', lang),
+            get_text('info_step4_android', lang),
+            get_text('info_step5_android', lang),
+            get_text('info_step6_android', lang),
+            get_text('info_step7_android', lang),
+            "",
+            get_text('info_faq_title', lang),
+            get_text('info_faq1_android', lang),
+            get_text('info_faq2_android', lang),
+        ])
+    elif os_type == 'windows':
+        return "\n".join([
+            get_text('info_title_windows', lang),
+            "",
+            get_text('info_step1_windows', lang),
+            get_text('info_step1_alt_windows', lang),
+            get_text('info_step2_windows', lang),
+            get_text('info_step3_windows', lang),
+            get_text('info_step4_windows', lang),
+            get_text('info_step5_windows', lang),
+            get_text('info_step6_windows', lang),
+            get_text('info_step7_windows', lang),
+            get_text('info_step8_windows', lang),
+            "",
+            get_text('info_faq_title', lang),
+            get_text('info_faq1_windows', lang),
+            get_text('info_faq2_windows', lang),
+        ])
+    elif os_type == 'macos':
+        return "\n".join([
+            get_text('info_title_macos', lang),
+            "",
+            get_text('info_app_recommendation_macos', lang),
+            get_text('info_step1_macos', lang),
+            get_text('info_step1_alt_macos', lang),
+            get_text('info_step2_macos', lang),
+            get_text('info_step3_macos', lang),
+            get_text('info_step4_macos', lang),
+            get_text('info_step5_macos', lang),
+            get_text('info_step6_macos', lang),
+            get_text('info_step7_macos', lang),
+            get_text('info_step8_macos', lang),
+            "",
+            get_text('info_faq_title', lang),
+            get_text('info_faq1_macos', lang),
+            get_text('info_faq2_macos', lang),
+        ])
+    return "Инструкция не найдена."
 
 @router.callback_query(F.data.startswith("info_"))
-async def show_instruction(callback: CallbackQuery):
+async def show_instruction(callback: CallbackQuery, session: AsyncSession):
+    from .user_handlers import _get_user_and_lang # Local import to avoid circular dependency
+    user, lang = await _get_user_and_lang(session, callback.from_user.id)
+
     os_type = callback.data.split("_")[1]
-    instruction_text = INSTRUCTIONS.get(os_type, "Инструкция не найдена.")
+    instruction_text = get_instruction_text(os_type, lang)
     
-    # Клавиатура для возврата к выбору ОС
     back_keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="⬅️ Назад к выбору ОС", callback_data="how_to_connect")]
+        [InlineKeyboardButton(text=get_text('btn_back_to_os_selection', lang), callback_data="how_to_connect")]
     ])
     
     await callback.message.edit_text(
@@ -126,11 +115,14 @@ async def show_instruction(callback: CallbackQuery):
     )
     await callback.answer()
 
-# Обработчик для кнопки "Как подключиться?" (показывает меню выбора ОС)
 @router.callback_query(F.data == "how_to_connect")
-async def how_to_connect_menu(callback: CallbackQuery):
+async def how_to_connect_menu(callback: CallbackQuery, session: AsyncSession):
+    from .user_handlers import _get_user_and_lang # Local import to avoid circular dependency
+    user, lang = await _get_user_and_lang(session, callback.from_user.id)
+
+    keyboard = await get_os_selection_keyboard(lang)
     await callback.message.edit_text(
-        "Выберите вашу операционную систему:",
-        reply_markup=get_os_selection_keyboard()
+        get_text('info_os_selection_title', lang),
+        reply_markup=keyboard
     )
     await callback.answer()
