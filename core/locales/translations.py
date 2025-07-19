@@ -656,7 +656,7 @@ def get_text(lang, key, **kwargs):
     return text
 
 
-}
+
 
 
 def get_db_text(lang, key):
