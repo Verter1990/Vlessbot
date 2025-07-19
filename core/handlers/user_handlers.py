@@ -727,28 +727,16 @@ async def successful_payment_handler(message: Message, session: AsyncSession, bo
                             l2_referrer.l2_referral_balance += l2_commission
                             logger.info(f"Awarded {l2_commission/100} RUB (L2) to referrer {l2_referrer.telegram_id}")
 
-            if server_id:
-                server = await session.get(Server, server_id)
-                if not server:
-                    logger.error(f"Server {server_id} not found for successful payment payload: {payload}")
-                    await message.answer(get_text('payment_error_server_not_found', lang))
-                    return
-                
-                try:
-                    vless_link = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang)
-                    await message.answer(
-                        get_text('payment_success_key_created', lang).format(
-                            server_name=get_db_text(server.name, lang),
-                            vless_link=vless_link,
-                            days=tariff.duration_days
-                        ), parse_mode='HTML'
-                    )
-                except Exception as e:
-                    logger.error(f"Error creating VPN key after successful payment for payload {payload}: {e}", exc_info=True)
-                    await message.answer(get_text('payment_success_key_error', lang))
-            else:
-                user.unassigned_days += tariff.duration_days
-                await message.answer(get_text('payment_success_days_added', lang).format(days=tariff.duration_days))
+            message_text += get_text('my_keys_item', lang).format(
+            server_name=get_db_text(server.name, lang),
+            expires_at=sub.expires_at.strftime("%d.%m.%Y"),
+            vless_link=sub.vless_link
+        )
+        # Добавляем кнопку "Как подключиться?" под каждым ключом
+        buttons.append([InlineKeyboardButton(text=f"❓ Как подключиться к {get_db_text(server.name, lang)}", callback_data="how_to_connect")])
+
+    # Добавляем кнопку "Назад"
+    buttons.append([InlineKeyboardButton(text=get_text('button_back', lang), callback_data="back_to_main_menu")])
             await session.commit()
 
         elif payment_type == 'gift':
