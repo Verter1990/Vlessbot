@@ -157,11 +157,10 @@ USDT (TRC-20): <code>{usdt_address}</code>
         'trial_unavailable': "Извините, пробный период временно недоступен. Пожалуйста, попробуйте позже.",
         'trial_server_unavailable': "Извините, пробный сервер временно недоступен. Пожалуйста, попробуйте позже.",
         'trial_key_creation_wait': "Пожалуйста, подождите, мы создаем для вас пробный ключ...",
-        'trial_key_creation_success': ''''trial_key_creation_success': 'trial_key_creation_success': ''''trial_key_creation_success': '''Ваш пробный ключ на 3 дня: <code>{vless_link}</code>
-
-Инструкции по подключению: ...''',''',,
+        'trial_key_creation_success': '''Ваш пробный ключ на 3 дня: <code>{vless_link}</code>
 
 Инструкции по подключению: ...''',
+
         'trial_key_creation_error': "Произошла ошибка при создании пробного ключа. Обратитесь в поддержку.",
 
         # Referral Program
@@ -313,12 +312,12 @@ USDT (TRC-20): <code>{usdt_address}</code>
         'info_app_recommendation_macos': "Мы рекомендуем использовать приложение <b>V2RayU</b>.",
         'info_step1_macos': '''1. Скачайте последнюю версию V2RayU с <a href="https://github.com/yanue/V2RayU/releases/latest">GitHub</a>.''',
         'info_step1_alt_macos': '''   <i>(Вам нужен файл с расширением <b>.dmg</b>).</i>''',
-        'info_step2_macos': "2. Установите приложение, перетащив его в папку "Applications"."
+        'info_step2_macos': '2. Установите приложение, перетащив его в папку "Applications".',
         'info_step3_macos': "3. Запустите V2RayU. Его иконка появится в строке меню (вверху экрана).",
         'info_step4_macos': "4. Вернитесь в этот чат и скопируйте вашу VLESS-ссылку.",
         'info_step5_macos': '''5. Нажмите на иконку V2RayU в строке меню и выберите <b>"Import from pasteboard"</b>. Ключ добавится автоматически.''',
         'info_step6_macos': '''6. После импорта снова нажмите на иконку, выберите <b>"Server"</b> и кликните на добавленный сервер.''',
-        'info_step7_macos': "7. Включите VPN, выбрав <b>"Turn V2RayU On"</b>.",
+        'info_step7_macos': '7. Включите VPN, выбрав <b>"Turn V2RayU On"</b>.',
         'info_step8_macos': "8. Готово!",
         'info_faq1_macos': '''- <i>Не работает интернет:</i> Убедитесь, что в меню V2RayU выбран режим "Global Mode".''',
         'info_faq2_macos': '''- <i>Сервер не появляется после импорта:</i> Попробуйте обновить подписку вручную через меню "Subscribe" -> "Subscribe settings" -> "Update".''',
@@ -499,7 +498,7 @@ Connection instructions: ...''',
         'ref_bonus_days_info': "<b>Bonus days from referrals:</b> {days}.",
         'ref_paid_out_info': "<b>Total paid out:</b> {total_paid_out:.2f} RUB.",
         'ref_copy_link_info': "Copy your partner link:",
-        'ref_create_invite_info': "Or click the "Create Invitation" button below and forward what the bot writes to your friend:",
+        'ref_create_invite_info': 'Or click the "Create Invitation" button below and forward what the bot writes to your friend:',
         'btn_gift_subscription': "Gift a subscription",
         'btn_create_invitation': "Create Invitation",
 
@@ -634,12 +633,12 @@ It will be valid until **{expires_at}**.''',
         'info_app_recommendation_macos': "We recommend using <b>V2RayU</b>.",
         'info_step1_macos': '''1. Download the latest version of V2RayU from <a href="https://github.com/yanue/V2RayU/releases/latest">GitHub</a>.''',
         'info_step1_alt_macos': '''   <i>(You need the file with <b>.dmg</b> extension).</i>''',
-        'info_step2_macos': "2. Install the app by dragging it into the "Applications" folder.",
+        'info_step2_macos': '2. Install the app by dragging it into the "Applications" folder.',
         'info_step3_macos': "3. Run V2RayU. Its icon will appear in the menu bar (top of the screen).",
         'info_step4_macos': "4. Return to this chat and copy your VLESS link.",
         'info_step5_macos': '''5. Click the V2RayU icon in the menu bar and select <b>"Import from pasteboard"</b>. The key will be added automatically.''',
         'info_step6_macos': '''6. After import, click the icon again, go to <b>"Server"</b>, and select the added server.''',
-        'info_step7_macos': "7. Enable VPN by selecting <b>"Turn V2RayU On"</b>.",
+        'info_step7_macos': '7. Enable VPN by selecting <b>"Turn V2RayU On"</b>.',
         'info_step8_macos': "8. Done!",
         'info_faq1_macos': '''- <i>Internet doesn't work:</i> Make sure "Global Mode" is selected in V2RayU.''',
         'info_faq2_macos': '''- <i>Server doesn't appear after import:</i> Try updating the subscription manually via "Subscribe" -> "Subscribe settings" -> "Update".''',
