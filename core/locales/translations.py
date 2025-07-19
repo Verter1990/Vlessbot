@@ -32,10 +32,13 @@ def get_text(key, lang, **kwargs):
             return text
     return text
 
-def get_db_text(key, lang):
-    translations = _load_translations(lang)
-    db_content = translations.get('db_content', {})
-    text = db_content.get(key, "")
-    if not text:
-        logger.warning(f"Missing db_content translation for key '{key}' in language '{lang}'.")
-    return text
+def get_db_text(key_or_dict, lang):
+    if isinstance(key_or_dict, dict):
+        return key_or_dict.get(lang, key_or_dict.get('en', ''))
+    else:
+        translations = _load_translations(lang)
+        db_content = translations.get('db_content', {})
+        text = db_content.get(key_or_dict, "")
+        if not text:
+            logger.warning(f"Missing db_content translation for key '{key_or_dict}' in language '{lang}'.")
+        return text
