@@ -137,50 +137,41 @@ async def _create_or_update_vpn_key(session: AsyncSession, user: User, server: S
         raise
 
 async def _get_main_menu_content(user: User, from_user: AiogramUser, session: AsyncSession) -> tuple[str, InlineKeyboardMarkup]:
-    """Prepares the text and keyboard for the new, redesigned main menu."""
+    """Prepares the text and keyboard for the main menu."""
     lang = user.language_code
+    
     welcome_message = get_text('welcome', lang).format(full_name=from_user.full_name)
-    buttons = []
 
     now = datetime.utcnow()
     active_subscriptions = (await session.execute(
         select(Subscription).where(Subscription.user_id == user.telegram_id, Subscription.expires_at > now, Subscription.is_active == True)
     )).scalars().all()
 
-    # --- Контекстное меню ---
     if active_subscriptions:
-        # У пользователя есть активная подписка
         latest_expiry = max([sub.expires_at for sub in active_subscriptions])
         welcome_message += get_text('subscription_active_until', lang).format(expiry_date=latest_expiry.strftime('%Y-%m-%d %H:%M'))
-        buttons.extend([
-            [InlineKeyboardButton(text=get_text('btn_my_keys', lang), callback_data="my_keys")],
-            [InlineKeyboardButton(text=get_text('btn_extend_subscription', lang), callback_data="pay_subscription_main_menu")],
-            [InlineKeyboardButton(text=get_text('btn_my_profile', lang), callback_data="my_profile")]
-        ])
-    elif user.unassigned_days > 0:
-        # Нет подписки, но есть дни на балансе
-        welcome_message += get_text('unassigned_days', lang).format(days=user.unassigned_days)
-        buttons.extend([
-            [InlineKeyboardButton(text=get_text('btn_activate_days', lang).format(days=user.unassigned_days), callback_data="setup_vpn")],
-            [InlineKeyboardButton(text=get_text('btn_my_profile', lang), callback_data="my_profile")],
-            [InlineKeyboardButton(text=get_text('btn_pay_subscription', lang), callback_data="pay_subscription_main_menu")]
-        ])
     else:
-        # Новый пользователь без подписок и дней
         welcome_message += get_text('no_active_subscription', lang)
-        buttons.extend([
-            [InlineKeyboardButton(text=get_text('btn_get_free_vpn', lang), callback_data="get_free_vpn")],
-            [InlineKeyboardButton(text=get_text('btn_pay_subscription', lang), callback_data="pay_subscription_main_menu")],
-            [InlineKeyboardButton(text=get_text('btn_how_it_works', lang), callback_data="how_to_connect")]
-        ])
 
-    # Общие кнопки для всех
-    buttons.extend([
+    if user.unassigned_days > 0:
+        welcome_message += get_text('unassigned_days', lang).format(days=user.unassigned_days)
+    
+    total_referrals = (await session.execute(select(func.count(User.id)).where(User.referrer_id == user.telegram_id))).scalar_one()
+    total_earnings = (user.referral_balance + user.l2_referral_balance) / 100
+    
+    if total_referrals > 0:
+        welcome_message += get_text('referral_stats', lang).format(referrals=total_referrals, earnings=total_earnings)
+
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=get_text('btn_setup_vpn', lang), callback_data="setup_vpn")],
+        [InlineKeyboardButton(text=get_text('btn_pay_subscription', lang), callback_data="pay_subscription_main_menu")],
+        [InlineKeyboardButton(text="❓ Как подключиться?", callback_data="how_to_connect")],
         [InlineKeyboardButton(text=get_text('btn_referral_program', lang), callback_data="referral_program")],
-        [InlineKeyboardButton(text=get_text('btn_help', lang), callback_data="help")]
+        [InlineKeyboardButton(text=get_text('btn_why_vpn', lang), callback_data="why_vpn")],
+        [InlineKeyboardButton(text=get_text('btn_get_free_vpn', lang), callback_data="get_free_vpn")],
+        [InlineKeyboardButton(text=get_text('btn_help', lang), callback_data="help")],
+        [InlineKeyboardButton(text=get_text('btn_terms_of_use', lang), callback_data="terms_of_use")]
     ])
-
-    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return welcome_message, keyboard
 
 # --- COMMAND HANDLERS ---
@@ -982,93 +973,6 @@ async def callback_pay_card(callback: CallbackQuery, session: AsyncSession):
     ])
     await callback.message.edit_text(get_text('payment_redirect_info', lang), reply_markup=keyboard)
 
-# --- NEW REDESIGNED HANDLERS ---
-
-@router.callback_query(F.data == "my_profile")
-async def callback_my_profile(callback: CallbackQuery, session: AsyncSession):
-    user, lang = await _get_user_and_lang(session, callback.from_user.id)
-    if not user:
-        return await callback.answer(get_text('user_not_found_error', lang), show_alert=True)
-
-    total_ref_balance = user.referral_balance + user.l2_referral_balance
-    ref_count = (await session.execute(select(func.count(User.id)).where(User.referrer_id == user.telegram_id))).scalar_one()
-
-    profile_text = get_text('my_profile_title', lang) + \
-                   get_text('my_profile_info', lang).format(
-                       user_id=user.telegram_id,
-                       unassigned_days=user.unassigned_days,
-                       ref_balance=total_ref_balance / 100,
-                       ref_count=ref_count
-                   )
-
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="main_menu")]
-    ])
-
-    await callback.message.edit_text(profile_text, reply_markup=keyboard)
-    await callback.answer()
-
-@router.callback_query(F.data == "my_keys")
-async def callback_my_keys(callback: CallbackQuery, session: AsyncSession):
-    user, lang = await _get_user_and_lang(session, callback.from_user.id)
-    if not user:
-        return await callback.answer(get_text('user_not_found_error', lang), show_alert=True)
-
-    now = datetime.utcnow()
-    active_subscriptions = (await session.execute(
-        select(Subscription).where(Subscription.user_id == user.telegram_id, Subscription.expires_at > now, Subscription.is_active == True)
-    )).scalars().all()
-
-    if not active_subscriptions:
-        await callback.message.edit_text(get_text('my_keys_no_keys', lang), reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="main_menu")]
-        ]))
-        return await callback.answer()
-
-    message_text = get_text('my_keys_title', lang)
-    buttons = []
-    for sub in active_subscriptions:
-        server = await session.get(Server, sub.server_id)
-        if server:
-            message_text += get_text('my_keys_item', lang).format(
-                server_name=get_db_text(server.name, lang),
-                expires_at=sub.expires_at.strftime("%d.%m.%Y")
-            )
-            buttons.append([InlineKeyboardButton(text=f"{get_text('btn_show_key', lang)} ({get_db_text(server.name, lang)})", callback_data=f"show_key_{sub.id}")])
-    
-    buttons.append([InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="main_menu")])
-    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
-
-    await callback.message.edit_text(message_text, reply_markup=keyboard)
-    await callback.answer()
-
-@router.callback_query(F.data.startswith("show_key_"))
-async def callback_show_key(callback: CallbackQuery, session: AsyncSession):
-    sub_id = int(callback.data.split('_')[-1])
-    user, lang = await _get_user_and_lang(session, callback.from_user.id)
-
-    sub = await session.get(Subscription, sub_id)
-    if not sub or sub.user_id != user.telegram_id:
-        return await callback.answer(get_text('error_generic', lang), show_alert=True)
-
-    server = await session.get(Server, sub.server_id)
-    if not server:
-        return await callback.answer(get_text('server_or_user_not_found', lang), show_alert=True)
-
-    try:
-        vless_link = await _generate_vless_link(server, sub.xui_user_uuid, lang)
-        keyboard = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=get_text('btn_how_to_connect', lang), callback_data="how_to_connect")],
-            [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="my_keys")]
-        ])
-        await callback.message.edit_text(f"<code>{vless_link}</code>", reply_markup=keyboard, parse_mode="HTML")
-    except Exception as e:
-        logger.error(f"Failed to show key for sub {sub_id}: {e}")
-        await callback.message.edit_text(get_text('error_generic', lang), reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="my_keys")]
-        ]))
-    await callback.answer()
-
 
 @router.callback_query(F.data.startswith("pay_transfer_"))
 async def callback_pay_transfer(callback: CallbackQuery, session: AsyncSession):
@@ -1133,90 +1037,3 @@ async def callback_pay_gift_card(callback: CallbackQuery, session: AsyncSession)
         [InlineKeyboardButton(text=get_text('btn_back_to_gift_menu', lang), callback_data="gift_subscription")]
     ])
     await callback.message.edit_text(get_text('payment_redirect_info', lang), reply_markup=keyboard)
-
-# --- NEW REDESIGNED HANDLERS ---
-
-@router.callback_query(F.data == "my_profile")
-async def callback_my_profile(callback: CallbackQuery, session: AsyncSession):
-    user, lang = await _get_user_and_lang(session, callback.from_user.id)
-    if not user:
-        return await callback.answer(get_text('user_not_found_error', lang), show_alert=True)
-
-    total_ref_balance = user.referral_balance + user.l2_referral_balance
-    ref_count = (await session.execute(select(func.count(User.id)).where(User.referrer_id == user.telegram_id))).scalar_one()
-
-    profile_text = get_text('my_profile_title', lang) + \
-                   get_text('my_profile_info', lang).format(
-                       user_id=user.telegram_id,
-                       unassigned_days=user.unassigned_days,
-                       ref_balance=total_ref_balance / 100,
-                       ref_count=ref_count
-                   )
-
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="main_menu")]
-    ])
-
-    await callback.message.edit_text(profile_text, reply_markup=keyboard)
-    await callback.answer()
-
-@router.callback_query(F.data == "my_keys")
-async def callback_my_keys(callback: CallbackQuery, session: AsyncSession):
-    user, lang = await _get_user_and_lang(session, callback.from_user.id)
-    if not user:
-        return await callback.answer(get_text('user_not_found_error', lang), show_alert=True)
-
-    now = datetime.utcnow()
-    active_subscriptions = (await session.execute(
-        select(Subscription).where(Subscription.user_id == user.telegram_id, Subscription.expires_at > now, Subscription.is_active == True)
-    )).scalars().all()
-
-    if not active_subscriptions:
-        await callback.message.edit_text(get_text('my_keys_no_keys', lang), reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="main_menu")]
-        ]))
-        return await callback.answer()
-
-    message_text = get_text('my_keys_title', lang)
-    buttons = []
-    for sub in active_subscriptions:
-        server = await session.get(Server, sub.server_id)
-        if server:
-            message_text += get_text('my_keys_item', lang).format(
-                server_name=get_db_text(server.name, lang),
-                expires_at=sub.expires_at.strftime("%d.%m.%Y")
-            )
-            buttons.append([InlineKeyboardButton(text=f"{get_text('btn_show_key', lang)} ({get_db_text(server.name, lang)})", callback_data=f"show_key_{sub.id}")])
-    
-    buttons.append([InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="main_menu")])
-    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
-
-    await callback.message.edit_text(message_text, reply_markup=keyboard)
-    await callback.answer()
-
-@router.callback_query(F.data.startswith("show_key_"))
-async def callback_show_key(callback: CallbackQuery, session: AsyncSession):
-    sub_id = int(callback.data.split('_')[-1])
-    user, lang = await _get_user_and_lang(session, callback.from_user.id)
-
-    sub = await session.get(Subscription, sub_id)
-    if not sub or sub.user_id != user.telegram_id:
-        return await callback.answer(get_text('error_generic', lang), show_alert=True)
-
-    server = await session.get(Server, sub.server_id)
-    if not server:
-        return await callback.answer(get_text('server_or_user_not_found', lang), show_alert=True)
-
-    try:
-        vless_link = await _generate_vless_link(server, sub.xui_user_uuid, lang)
-        keyboard = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=get_text('btn_how_to_connect', lang), callback_data="how_to_connect")],
-            [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="my_keys")]
-        ])
-        await callback.message.edit_text(f"<code>{vless_link}</code>", reply_markup=keyboard, parse_mode="HTML")
-    except Exception as e:
-        logger.error(f"Failed to show key for sub {sub_id}: {e}")
-        await callback.message.edit_text(get_text('error_generic', lang), reply_markup=InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="my_keys")]
-        ]))
-    await callback.answer()

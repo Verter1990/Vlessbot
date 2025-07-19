@@ -1,7 +1,6 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from core.locales.translations import get_text
-from sqlalchemy.ext.asyncio import AsyncSession
 
 router = Router()
 
