@@ -8,7 +8,7 @@ from sqlalchemy import select, func
 from loguru import logger
 from datetime import datetime, timedelta
 
-from core.database.models import Server, Tariff, User, Subscription
+from core.database.models import Server, Tariff, User, Subscription, Transaction, GiftCode, ReferralPayout, UserActionLog, AdminActionLog
 from core.config import settings
 from core.utils.security import encrypt_password
 
@@ -20,7 +20,7 @@ class IsAdmin(BaseFilter):
         admin_ids = [int(admin_id.strip()) for admin_id in settings.ADMIN_IDS.split(',')]
         return message.from_user.id in admin_ids
 
-# --- FSM для добавления/поиска ---
+# --- FSM для админки ---
 class AdminFSM(StatesGroup):
     # Add Server
     add_server_name = State()
@@ -34,8 +34,10 @@ class AdminFSM(StatesGroup):
     add_tariff_duration = State()
     add_tariff_price_rub = State()
     add_tariff_price_stars = State()
-    # Find User
+    # User Management
     find_user = State()
+    edit_user_balance = State()
+    edit_user_days = State()
 
 router.message.filter(IsAdmin())
 router.callback_query.filter(IsAdmin())
@@ -69,6 +71,16 @@ async def get_users_menu_keyboard() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text="🔍 Найти пользователя", callback_data="admin_find_user_start")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_main_menu")]
     ])
+
+async def log_admin_action(session: AsyncSession, admin_id: int, action: str, target_user_id: int = None, details: dict = None):
+    new_log = AdminActionLog(
+        admin_id=admin_id,
+        action=action,
+        target_user_id=target_user_id,
+        details=details
+    )
+    session.add(new_log)
+    await session.commit()
 
 # --- Главное меню админки ---
 
@@ -582,6 +594,24 @@ async def msg_find_user(message: Message, state: FSMContext, session: AsyncSessi
             ])
         )
 
+async def get_user_management_keyboard(user: User) -> InlineKeyboardMarkup:
+    buttons = [
+        [
+            InlineKeyboardButton(text="💰 Изменить баланс", callback_data=f"admin_edit_user_balance_start_{user.telegram_id}"),
+            InlineKeyboardButton(text="📅 Изменить дни", callback_data=f"admin_edit_user_days_start_{user.telegram_id}")
+        ],
+        [
+            InlineKeyboardButton(
+                text="🚫 Заблокировать" if user.is_active else "✅ Разблокировать",
+                callback_data=f"admin_toggle_user_block_{user.telegram_id}"
+            ),
+            InlineKeyboardButton(text="🗑️ Удалить", callback_data=f"admin_delete_user_confirm_{user.telegram_id}")
+        ],
+        [InlineKeyboardButton(text="⬅️ К поиску", callback_data="admin_users_menu")],
+        [InlineKeyboardButton(text="⬅️ Главное меню", callback_data="admin_main_menu")]
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
 async def cq_user_details(message: Message | CallbackQuery, session: AsyncSession, user: User):
     if isinstance(message, CallbackQuery):
         await message.answer()
@@ -601,22 +631,204 @@ async def cq_user_details(message: Message | CallbackQuery, session: AsyncSessio
 
     user_info = (
         f"<b>Информация о пользователе:</b>\n"
-        f"ID: <code>{user.telegram_id}</code>\n"
-        f"Username: @{user.username if user.username else 'Не указан'}\n"
+        f"ID: <code>{user.telegram_id}</code> (@{user.username if user.username else 'N/A'})\n"
+        f"Статус: {'Активен' if user.is_active else 'Заблокирован'}\n"
         f"Язык: {user.language_code}\n"
         f"Нераспределенные дни: {user.unassigned_days}\n"
         f"Реферальный баланс: {user.referral_balance / 100} RUB\n"
         f"L2 Реферальный баланс: {user.l2_referral_balance / 100} RUB\n"
-        f"Использован пробный период: {'Да' if user.trial_used else 'Нет'}\n"
-        f"Активирован первый VPN: {'Да' if user.activated_first_vpn else 'Нет'}\n"
+        f"Пробный период: {'Использован' if user.trial_used else 'Не использован'}\n"
+        f"Первый VPN: {'Активирован' if user.activated_first_vpn else 'Не активирован'}\n"
         f"Реферер ID: {user.referrer_id if user.referrer_id else 'Нет'}\n"
         f"Реферальный код: {user.referral_code if user.referral_code else 'Нет'}\n"
         f"Создан: {user.created_at.strftime('%Y-%m-%d %H:%M')}\n"
         f"<b>Подписки:</b>\n{subs_text}"
     )
 
+    keyboard = await get_user_management_keyboard(user)
+    # Use edit_text for callback queries and answer for messages
+    if isinstance(message, CallbackQuery):
+        await user_message.edit_text(user_info, reply_markup=keyboard)
+    else:
+        await user_message.answer(user_info, reply_markup=keyboard)
+
+# --- User Management Actions ---
+
+@router.callback_query(F.data.startswith("admin_toggle_user_block_"))
+async def cq_toggle_user_block(callback: CallbackQuery, session: AsyncSession):
+    user_id = int(callback.data.split("_")[-1])
+    user = await session.get(User, user_id)
+    if not user:
+        await callback.answer("Пользователь не найден.", show_alert=True)
+        return
+
+    user.is_banned = not user.is_banned
+    await session.commit()
+    
+    status = "заблокирован" if user.is_banned else "разблокирован"
+    await log_admin_action(
+        session,
+        admin_id=callback.from_user.id,
+        action="toggle_ban",
+        target_user_id=user.telegram_id,
+        details={"new_status": status}
+    )
+
+    logger.info(f"Admin {callback.from_user.id} {status} user {user.telegram_id}")
+    await callback.answer(f"Пользователь {user.username or user.telegram_id} {status}.")
+    
+    await cq_user_details(callback, session, user)
+
+@router.callback_query(F.data.startswith("admin_delete_user_confirm_"))
+async def cq_delete_user_confirm(callback: CallbackQuery, session: AsyncSession):
+    user_id = int(callback.data.split("_")[-1])
+    user = await session.get(User, user_id)
+    if not user:
+        await callback.answer("Пользователь не найден.", show_alert=True)
+        return
+
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="⬅️ Назад к управлению пользователями", callback_data="admin_users_menu")],
-        [InlineKeyboardButton(text="⬅️ Главное меню админки", callback_data="admin_main_menu")]
+        [InlineKeyboardButton(text="Да, удалить", callback_data=f"admin_delete_user_execute_{user_id}")],
+        [InlineKeyboardButton(text="Отмена", callback_data=f"admin_show_user_details_{user_id}")]
     ])
-    await user_message.answer(user_info, reply_markup=keyboard)
+    await callback.message.edit_text(
+        f"Вы уверены, что хотите удалить пользователя @{user.username or user_id}?\n"
+        f"<b>Это действие необратимо и удалит все его подписки.</b>",
+        reply_markup=keyboard
+    )
+
+@router.callback_query(F.data.startswith("admin_delete_user_execute_"))
+async def cq_delete_user_execute(callback: CallbackQuery, session: AsyncSession):
+    user_id = int(callback.data.split("_")[-1])
+    user = await session.get(User, user_id)
+    if not user:
+        await callback.answer("Пользователь не найден.", show_alert=True)
+        return
+
+    # 1. Delete related data manually
+    await session.execute(delete(Subscription).where(Subscription.user_id == user.telegram_id))
+    await session.execute(delete(Transaction).where(Transaction.user_id == user.telegram_id))
+    await session.execute(delete(GiftCode).where(GiftCode.buyer_user_id == user.telegram_id))
+    await session.execute(delete(GiftCode).where(GiftCode.activated_by_user_id == user.telegram_id))
+    await session.execute(delete(ReferralPayout).where(ReferralPayout.user_id == user.telegram_id))
+    await session.execute(delete(UserActionLog).where(UserActionLog.user_id == user.telegram_id))
+    
+    # 2. Log the action
+    await log_admin_action(
+        session,
+        admin_id=callback.from_user.id,
+        action="delete_user",
+        target_user_id=user.telegram_id,
+        details={"username": user.username, "telegram_id": user.telegram_id}
+    )
+
+    # 3. Delete the user
+    await session.delete(user)
+    await session.commit()
+    
+    logger.warning(f"Admin {callback.from_user.id} DELETED user {user.telegram_id}")
+    await callback.answer(f"Пользователь {user.username or user.telegram_id} и все его данные удалены.", show_alert=True)
+    
+    await cq_users_menu(callback)
+
+# Callback to show user details (used for cancellation)
+@router.callback_query(F.data.startswith("admin_show_user_details_"))
+async def cq_show_user_details_from_callback(callback: CallbackQuery, session: AsyncSession):
+    user_id = int(callback.data.split("_")[-1])
+    user = await session.get(User, user_id)
+    if not user:
+        await callback.answer("Пользователь не найден.", show_alert=True)
+        return
+    await cq_user_details(callback, session, user)
+
+# --- FSM for Editing User --- 
+
+# Edit Balance
+@router.callback_query(F.data.startswith("admin_edit_user_balance_start_"))
+async def cq_edit_user_balance_start(callback: CallbackQuery, state: FSMContext):
+    user_id = int(callback.data.split("_")[-1])
+    await state.update_data(user_id=user_id)
+    await state.set_state(AdminFSM.edit_user_balance)
+    await callback.answer()
+    await callback.message.edit_text(
+        "Введите новую сумму <b>реферального баланса</b> в копейках (целое число).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data=f"admin_show_user_details_{user_id}")]
+        ])
+    )
+
+@router.message(AdminFSM.edit_user_balance)
+async def msg_edit_user_balance(message: Message, state: FSMContext, session: AsyncSession):
+    if not message.text.isdigit():
+        await message.answer("Баланс должен быть целым числом. Попробуйте еще раз.")
+        return
+
+    data = await state.get_data()
+    user = await session.get(User, data['user_id'])
+    if not user:
+        await message.answer("Пользователь не найден. Отмена.")
+        await state.clear()
+        return
+
+    new_balance = int(message.text)
+    old_balance = user.referral_balance
+    user.referral_balance = new_balance
+    await session.commit()
+    await state.clear()
+    
+    await log_admin_action(
+        session,
+        admin_id=message.from_user.id,
+        action="edit_balance",
+        target_user_id=user.telegram_id,
+        details={"old_balance": old_balance, "new_balance": new_balance}
+    )
+
+    logger.info(f"Admin {message.from_user.id} changed balance for user {user.telegram_id} to {new_balance}")
+    await message.answer(f"Баланс пользователя @{user.username or user.telegram_id} изменен на {new_balance / 100} RUB.")
+    await cq_user_details(message, session, user)
+
+# Edit Days
+@router.callback_query(F.data.startswith("admin_edit_user_days_start_"))
+async def cq_edit_user_days_start(callback: CallbackQuery, state: FSMContext):
+    user_id = int(callback.data.split("_")[-1])
+    await state.update_data(user_id=user_id)
+    await state.set_state(AdminFSM.edit_user_days)
+    await callback.answer()
+    await callback.message.edit_text(
+        "Введите новое количество <b>нераспределенных дней</b> (целое число).",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❌ Отмена", callback_data=f"admin_show_user_details_{user_id}")]
+        ])
+    )
+
+@router.message(AdminFSM.edit_user_days)
+async def msg_edit_user_days(message: Message, state: FSMContext, session: AsyncSession):
+    if not message.text.isdigit():
+        await message.answer("Количество дней должно быть целым числом. Попробуйте еще раз.")
+        return
+
+    data = await state.get_data()
+    user = await session.get(User, data['user_id'])
+    if not user:
+        await message.answer("Пользователь не найден. Отмена.")
+        await state.clear()
+        return
+
+    new_days = int(message.text)
+    old_days = user.unassigned_days
+    user.unassigned_days = new_days
+    await session.commit()
+    await state.clear()
+
+    await log_admin_action(
+        session,
+        admin_id=message.from_user.id,
+        action="edit_days",
+        target_user_id=user.telegram_id,
+        details={"old_days": old_days, "new_days": new_days}
+    )
+
+    logger.info(f"Admin {message.from_user.id} changed unassigned days for user {user.telegram_id} to {new_days}")
+    await message.answer(f"Нераспределенные дни для @{user.username or user.telegram_id} изменены на {new_days}.")
+    await cq_user_details(message, session, user)
