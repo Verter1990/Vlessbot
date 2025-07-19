@@ -193,7 +193,7 @@ translations = {
         'info_step1_alt_android': "   <i>(Если Google Play недоступен, скачайте .apk с <a href=\"https://github.com/2dust/v2rayNG/releases/latest\">GitHub</a>).</i>",
         'info_step2_android': "2. Вернитесь в этот чат и скопируйте вашу VLESS-ссылку (просто нажмите на нее).",
         'info_step3_android': "3. Откройте v2rayNG. Нажмите на иконку <b>"+"</b> в правом верхнем углу.",
-        'info_step4_android': "4. Выберите в меню <b>"Import config from Clipboard"</b> (Импорт из буфера обмена).",
+        'info_step4_android': "4. Выберите в меню <b>"Import config from Clipboard"</b> (Импорт из буфера обмена)."
         'info_step5_android': "5. Ваш ключ появится в списке. Нажмите на него, чтобы он выделился.",
         'info_step6_android': "6. Нажмите на большую круглую кнопку с логотипом \"V\" внизу справа для подключения. Она станет зеленой.",
         'info_step7_android': "7. Готово! В строке состояния появится значок ключа [VPN].",
