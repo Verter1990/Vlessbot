@@ -643,7 +643,7 @@ It will be valid until **{expires_at}**.''',
         'info_faq1_macos': '''- <i>Internet doesn't work:</i> Make sure "Global Mode" is selected in V2RayU.''',
         'info_faq2_macos': '''- <i>Server doesn't appear after import:</i> Try updating the subscription manually via "Subscribe" -> "Subscribe settings" -> "Update".''',
     }
-
+}
 
 def get_text(lang, key, **kwargs):
     """Возвращает перевод по ключу с подстановкой параметров."""
