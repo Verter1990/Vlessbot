@@ -516,13 +516,17 @@ async def confirm_referral_payment(callback: CallbackQuery, session: AsyncSessio
         vless_link = await _create_or_update_vpn_key(session, user, selected_server, tariff.duration_days, lang)
         await session.commit()
 
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❓ Как подключиться?", callback_data="how_to_connect")]
+        ])
+
         await callback.message.answer(
             get_text('referral_payment_success', lang).format(
                 tariff_name=get_db_text(tariff.name, lang),
                 server_name=get_db_text(selected_server.name, lang),
                 vless_link=vless_link,
                 days=tariff.duration_days
-            ), parse_mode='HTML'
+            ), parse_mode='HTML', reply_markup=keyboard
         )
     except Exception as e:
         logger.error(f"Error activating subscription with referral balance for user {user.telegram_id}: {e}")
@@ -551,11 +555,15 @@ async def activate_unassigned_days(callback: CallbackQuery, session: AsyncSessio
         user.unassigned_days = 0
         await session.commit()
 
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❓ Как подключиться?", callback_data="how_to_connect")]
+        ])
+
         await callback.message.answer(
             get_text('unassigned_days_activation_success', lang).format(
                 server_name=get_db_text(selected_server.name, lang),
                 vless_link=vless_link
-            ), parse_mode='HTML'
+            ), parse_mode='HTML', reply_markup=keyboard
         )
     except Exception as e:
         logger.error(f"Error activating unassigned days for user {user.telegram_id}: {e}")
@@ -726,17 +734,6 @@ async def successful_payment_handler(message: Message, session: AsyncSession, bo
                             l2_commission = int(tariff.price_rub * (constants.L2_REFERRAL_COMMISSION_PERCENT / 100))
                             l2_referrer.l2_referral_balance += l2_commission
                             logger.info(f"Awarded {l2_commission/100} RUB (L2) to referrer {l2_referrer.telegram_id}")
-
-            message_text += get_text('my_keys_item', lang).format(
-            server_name=get_db_text(server.name, lang),
-            expires_at=sub.expires_at.strftime("%d.%m.%Y"),
-            vless_link=sub.vless_link
-        )
-        # Добавляем кнопку "Как подключиться?" под каждым ключом
-        buttons.append([InlineKeyboardButton(text=f"❓ Как подключиться к {get_db_text(server.name, lang)}", callback_data="how_to_connect")])
-
-    # Добавляем кнопку "Назад"
-    buttons.append([InlineKeyboardButton(text=get_text('button_back', lang), callback_data="back_to_main_menu")])
             await session.commit()
 
         elif payment_type == 'gift':
@@ -800,7 +797,12 @@ async def callback_get_free_vpn(callback: CallbackQuery, session: AsyncSession):
         vless_link = await _create_or_update_vpn_key(session, user, trial_server, constants.TRIAL_PERIOD_DAYS, lang)
         user.trial_used = True
         await session.commit()
-        await callback.message.answer(get_text('trial_key_creation_success', lang).format(vless_link=vless_link), parse_mode='HTML')
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="❓ Как подключиться?", callback_data="how_to_connect")]
+        ])
+
+        await callback.message.answer(get_text('trial_key_creation_success', lang).format(vless_link=vless_link), parse_mode='HTML', reply_markup=keyboard)
     except Exception as e:
         logger.error(f"Error creating trial VPN key: {e}")
         await callback.message.answer(get_text('trial_key_creation_error', lang))
