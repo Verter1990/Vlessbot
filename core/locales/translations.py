@@ -311,7 +311,7 @@ USDT (TRC-20): <code>{usdt_address}</code>
         'info_app_recommendation_macos': "Мы рекомендуем использовать приложение <b>V2RayU</b>.",
         'info_step1_macos': '''1. Скачайте последнюю версию V2RayU с <a href="https://github.com/yanue/V2RayU/releases/latest">GitHub</a>.''',
         'info_step1_alt_macos': '''   <i>(Вам нужен файл с расширением <b>.dmg</b>).</i>''',
-        'info_step2_macos': "2. Установите приложение, перетащив его в папку "Applications".",
+        'info_step2_macos': "2. Установите приложение, перетащив его в папку "Applications"."
         'info_step3_macos': "3. Запустите V2RayU. Его иконка появится в строке меню (вверху экрана).",
         'info_step4_macos': "4. Вернитесь в этот чат и скопируйте вашу VLESS-ссылку.",
         'info_step5_macos': '''5. Нажмите на иконку V2RayU в строке меню и выберите <b>"Import from pasteboard"</b>. Ключ добавится автоматически.''',
