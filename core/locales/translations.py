@@ -1,28 +1,41 @@
 import json
+from loguru import logger
 
 # Глобальный кэш для загруженных переводов
 _translations_cache = {}
 
 def _load_translations(lang):
     if lang not in _translations_cache:
+        logger.info(f"Attempting to load translations for language: {lang}")
         try:
             with open(f'core/locales/{lang}.json', 'r', encoding='utf-8') as f:
                 _translations_cache[lang] = json.load(f)
+                logger.info(f"Successfully loaded translations for {lang}. Keys loaded: {len(_translations_cache[lang])}")
         except FileNotFoundError:
-            # Обработка случая, если файл языка не найден
+            logger.warning(f"Translation file not found for language: {lang}. Using empty translations.")
+            _translations_cache[lang] = {}
+        except json.JSONDecodeError as e:
+            logger.error(f"Error decoding JSON for language {lang}: {e}. Using empty translations.")
             _translations_cache[lang] = {}
     return _translations_cache[lang]
 
 def get_text(lang, key, **kwargs):
     translations = _load_translations(lang)
     text = translations.get(key, "")
+    if not text:
+        logger.warning(f"Missing translation for key '{key}' in language '{lang}'.")
     if kwargs:
         try:
             return text.format(**kwargs)
-        except Exception:
+        except Exception as e:
+            logger.error(f"Error formatting text for key '{key}' in language '{lang}': {e}. Text: '{text}'")
             return text
     return text
 
 def get_db_text(lang, key):
     translations = _load_translations(lang)
-    return translations.get('db_content', {}).get(key, "")
+    db_content = translations.get('db_content', {})
+    text = db_content.get(key, "")
+    if not text:
+        logger.warning(f"Missing db_content translation for key '{key}' in language '{lang}'.")
+    return text
