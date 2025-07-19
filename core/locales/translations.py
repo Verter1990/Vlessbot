@@ -19,7 +19,7 @@ def _load_translations(lang):
             _translations_cache[lang] = {}
     return _translations_cache[lang]
 
-def get_text(lang, key, **kwargs):
+def get_text(key, lang, **kwargs):
     translations = _load_translations(lang)
     text = translations.get(key, "")
     if not text:
@@ -32,7 +32,7 @@ def get_text(lang, key, **kwargs):
             return text
     return text
 
-def get_db_text(lang, key):
+def get_db_text(key, lang):
     translations = _load_translations(lang)
     db_content = translations.get('db_content', {})
     text = db_content.get(key, "")
