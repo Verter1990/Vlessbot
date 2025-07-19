@@ -8,7 +8,7 @@ from sqlalchemy import select, func
 from loguru import logger
 from datetime import datetime, timedelta
 
-from core.database.models import Server, Tariff, User, Subscription, Transaction, GiftCode, AdminActionLog
+from core.database.models import Server, Tariff, User, Subscription, Transaction, GiftCode
 from core.config import settings
 from core.utils.security import encrypt_password
 
@@ -72,15 +72,7 @@ async def get_users_menu_keyboard() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_main_menu")]
     ])
 
-async def log_admin_action(session: AsyncSession, admin_id: int, action: str, target_user_id: int = None, details: dict = None):
-    new_log = AdminActionLog(
-        admin_id=admin_id,
-        action=action,
-        target_user_id=target_user_id,
-        details=details
-    )
-    session.add(new_log)
-    await session.commit()
+
 
 # --- Главное меню админки ---
 
@@ -666,13 +658,6 @@ async def cq_toggle_user_block(callback: CallbackQuery, session: AsyncSession):
     await session.commit()
     
     status = "заблокирован" if user.is_banned else "разблокирован"
-    await log_admin_action(
-        session,
-        admin_id=callback.from_user.id,
-        action="toggle_ban",
-        target_user_id=user.telegram_id,
-        details={"new_status": status}
-    )
 
     logger.info(f"Admin {callback.from_user.id} {status} user {user.telegram_id}")
     await callback.answer(f"Пользователь {user.username or user.telegram_id} {status}.")
@@ -711,16 +696,7 @@ async def cq_delete_user_execute(callback: CallbackQuery, session: AsyncSession)
     await session.execute(delete(GiftCode).where(GiftCode.buyer_user_id == user.telegram_id))
     await session.execute(delete(GiftCode).where(GiftCode.activated_by_user_id == user.telegram_id))
     
-    # 2. Log the action
-    await log_admin_action(
-        session,
-        admin_id=callback.from_user.id,
-        action="delete_user",
-        target_user_id=user.telegram_id,
-        details={"username": user.username, "telegram_id": user.telegram_id}
-    )
-
-    # 3. Delete the user
+    # 2. Delete the user
     await session.delete(user)
     await session.commit()
     
@@ -774,14 +750,6 @@ async def msg_edit_user_balance(message: Message, state: FSMContext, session: As
     await session.commit()
     await state.clear()
     
-    await log_admin_action(
-        session,
-        admin_id=message.from_user.id,
-        action="edit_balance",
-        target_user_id=user.telegram_id,
-        details={"old_balance": old_balance, "new_balance": new_balance}
-    )
-
     logger.info(f"Admin {message.from_user.id} changed balance for user {user.telegram_id} to {new_balance}")
     await message.answer(f"Баланс пользователя @{user.username or user.telegram_id} изменен на {new_balance / 100} RUB.")
     await cq_user_details(message, session, user)
@@ -818,14 +786,6 @@ async def msg_edit_user_days(message: Message, state: FSMContext, session: Async
     user.unassigned_days = new_days
     await session.commit()
     await state.clear()
-
-    await log_admin_action(
-        session,
-        admin_id=message.from_user.id,
-        action="edit_days",
-        target_user_id=user.telegram_id,
-        details={"old_days": old_days, "new_days": new_days}
-    )
 
     logger.info(f"Admin {message.from_user.id} changed unassigned days for user {user.telegram_id} to {new_days}")
     await message.answer(f"Нераспределенные дни для @{user.username or user.telegram_id} изменены на {new_days}.")
