@@ -38,7 +38,7 @@ webhook_router = APIRouter()
 scheduler = AsyncIOScheduler(timezone="UTC")
 
 async def process_successful_payment(session: AsyncSession, bot: Bot, transaction: Transaction):
-    user = await session.get(User, transaction.user_id)
+    user = (await session.execute(select(User).where(User.telegram_id == transaction.user_id))).scalars().first()
     tariff = await session.get(Tariff, transaction.tariff_id)
     _, lang = await _get_user_and_lang(session, user.telegram_id)
 
