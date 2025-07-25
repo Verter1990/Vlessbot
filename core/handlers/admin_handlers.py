@@ -231,10 +231,10 @@ async def cq_delete_tariff_execute(callback: CallbackQuery, session: AsyncSessio
         await callback.answer(f"Тариф с ID {tariff_id} не найден.", show_alert=True)
         return
 
-    await session.delete(tariff)
+    tariff.is_active = False
     await session.commit()
-    logger.info(f"Admin {callback.from_user.id} deleted tariff {tariff_id}")
-    await callback.answer(f"Тариф ID {tariff_id} удален.", show_alert=True)
+    logger.info(f"Admin {callback.from_user.id} deactivated tariff {tariff_id}")
+    await callback.answer(f"Тариф ID {tariff_id} деактивирован и скрыт от пользователей.", show_alert=True)
     await cq_list_tariffs(callback, session)
 
 
