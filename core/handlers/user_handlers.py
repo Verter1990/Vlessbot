@@ -1,3 +1,4 @@
+import loguru
 from aiogram import Router, F, Bot
 from aiogram.filters import Command, CommandObject
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, LabeledPrice, PreCheckoutQuery, SuccessfulPayment, User as AiogramUser
@@ -244,6 +245,7 @@ async def command_start_handler(message: Message, command: CommandObject, sessio
     await session.commit()
 
     text, keyboard = await _get_main_menu_content(user, message.from_user, session)
+    logger.debug(f"Sending message text: {text}")
     await message.answer(text, reply_markup=keyboard)
 
 @router.message(Command("ref"))
@@ -333,7 +335,8 @@ async def command_set_language_handler(message: Message, session: AsyncSession):
 
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Русский 🇷🇺", callback_data="set_lang_ru")],
-        [InlineKeyboardButton(text="English 🇬🇧", callback_data="set_lang_en")]
+        [InlineKeyboardButton(text="English 🇬🇧", callback_data="set_lang_en")],
+        [InlineKeyboardButton(text="فارسی 🇮🇷", callback_data="set_lang_fa")]
     ])
     await message.answer(get_text('select_language', lang), reply_markup=keyboard)
 
@@ -398,7 +401,13 @@ async def callback_setup_vpn(callback: CallbackQuery, session: AsyncSession) -> 
         await callback.message.answer(get_text('no_servers_available', lang))
         return
 
-    buttons = [[InlineKeyboardButton(text=get_db_text(server.name, lang), callback_data=f"select_server_{server.id}")] for server in servers]
+    buttons = []
+    for server in servers:
+        server_name_localized = get_db_text(server.name, lang)
+        flag_emoji = constants.COUNTRY_EMOJIS.get(server_name_localized, "")
+        lock_emoji = constants.UNLOCK_EMOJI if server.is_active else constants.LOCK_EMOJI
+        button_text = f"{flag_emoji} {server_name_localized} {lock_emoji}".strip()
+        buttons.append([InlineKeyboardButton(text=button_text, callback_data=f"select_server_{server.id}")])
     buttons.append([InlineKeyboardButton(text=get_text('btn_main_menu', lang), callback_data="main_menu")])
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     
@@ -410,17 +419,21 @@ async def callback_setup_vpn(callback: CallbackQuery, session: AsyncSession) -> 
 
 @router.callback_query(F.data.startswith("select_server_"))
 async def callback_select_server(callback: CallbackQuery, session: AsyncSession) -> None:
-    lang = 'ru' # Default language in case of error
+    # Ensure lang is always defined, even if _get_user_and_lang fails
+    current_lang = 'ru'
     logger.info(f"User {callback.from_user.id} selected server via callback: {callback.data}")
     await callback.answer()
-    
+
     server_id = int(callback.data.split("_")[-1])
-    
-    user, lang = await _get_user_and_lang(session, callback.from_user.id)
+
+    user, fetched_lang = await _get_user_and_lang(session, callback.from_user.id)
+    if user:
+        current_lang = fetched_lang # Update lang if user is found
+
     selected_server = await session.get(Server, server_id)
 
     if not user or not selected_server:
-        await callback.message.answer(get_text('server_or_user_not_found', lang))
+        await callback.message.answer(get_text('server_or_user_not_found', current_lang))
         return
 
     now = datetime.utcnow()
@@ -436,32 +449,32 @@ async def callback_select_server(callback: CallbackQuery, session: AsyncSession)
     if existing_subscription:
         logger.info(f"Active subscription found for user {user.telegram_id} on server {selected_server.name}. Showing key.")
         try:
-            vless_link = await _generate_vless_link(selected_server, existing_subscription.xui_user_uuid, lang)
-            await callback.message.answer(get_text('vpn_key_info', lang).format(
-                server_name=get_db_text(selected_server.name, lang),
+            vless_link = await _generate_vless_link(selected_server, existing_subscription.xui_user_uuid, current_lang)
+            await callback.message.answer(get_text('vpn_key_info', current_lang).format(
+                server_name=get_db_text(selected_server.name, current_lang),
                 vless_link=vless_link,
                 expiry_date=existing_subscription.expires_at.strftime('%Y-%m-%d %H:%M')
             ), parse_mode='HTML')
         except Exception as e:
             logger.error(f"Unexpected error showing subscription: {e}")
-            await callback.message.answer(get_text('show_subscription_error', lang))
+            await callback.message.answer(get_text('show_subscription_error', current_lang))
         return
 
     buttons = []
     if user.unassigned_days > 0:
-        buttons.append([InlineKeyboardButton(text=get_text('btn_activate_unassigned_days', lang).format(days=user.unassigned_days), callback_data=f"activate_unassigned_days_{selected_server.id}")])
+        buttons.append([InlineKeyboardButton(text=get_text('btn_activate_unassigned_days', current_lang).format(days=user.unassigned_days), callback_data=f"activate_unassigned_days_{selected_server.id}")])
     
     total_referral_balance = user.referral_balance + user.l2_referral_balance
     if total_referral_balance > 0:
-        buttons.append([InlineKeyboardButton(text=get_text('btn_pay_from_referral_balance', lang).format(balance=total_referral_balance / 100), callback_data=f"pay_with_referral_balance_{selected_server.id}")])
+        buttons.append([InlineKeyboardButton(text=get_text('btn_pay_from_referral_balance', current_lang).format(balance=total_referral_balance / 100), callback_data=f"pay_with_referral_balance_{selected_server.id}")])
     
-    buttons.append([InlineKeyboardButton(text=get_text('btn_select_tariff_for_payment', lang), callback_data=f"pay_subscription_for_server_{selected_server.id}")])
-    buttons.append([InlineKeyboardButton(text=get_text('btn_main_menu', lang), callback_data="main_menu")])
+    buttons.append([InlineKeyboardButton(text=get_text('btn_select_tariff_for_payment', current_lang), callback_data=f"pay_subscription_for_server_{selected_server.id}")])
+    buttons.append([InlineKeyboardButton(text=get_text('btn_main_menu', current_lang), callback_data="main_menu")])
 
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     
     await callback.message.edit_text(
-        get_text('no_active_subscription_for_server', lang).format(server_name=get_db_text(selected_server.name, lang)),
+        get_text('no_active_subscription_for_server', current_lang).format(server_name=get_db_text(selected_server.name, current_lang)),
         reply_markup=keyboard
     )
 
@@ -894,18 +907,20 @@ async def callback_help(callback: CallbackQuery, session: AsyncSession):
 async def callback_terms_of_use(callback: CallbackQuery, session: AsyncSession):
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
     await callback.answer() # Answer the callback query to remove the loading state
-
+    # Create HTML links for terms of service and privacy policy
+    terms_of_service_html = f"<a href=\"{settings.TERMS_OF_SERVICE_URL}\">{get_text('license_agreement', lang)}</a>"
+    privacy_policy_html = f"<a href=\"{settings.PRIVACY_POLICY_URL}\">{get_text('privacy_policy', lang)}</a>"
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text=get_text('btn_cancel_subscription', lang), callback_data="cancel_subscription")], # Assuming you'll implement this handler
         [InlineKeyboardButton(text=get_text('btn_help', lang), callback_data="help")],
         [InlineKeyboardButton(text=get_text('btn_main_menu', lang), callback_data="main_menu")]
     ])
-
     await callback.message.edit_text(
         get_text('terms_of_use_full', lang).format(
+
             support_chat_link=settings.SUPPORT_CHAT_LINK,
-            terms_of_service_url=settings.TERMS_OF_SERVICE_URL,
-            privacy_policy_url=settings.PRIVACY_POLICY_URL
+            terms_of_service_html=terms_of_service_html,
+            privacy_policy_html=privacy_policy_html
         ),
         reply_markup=keyboard,
         disable_web_page_preview=True # Disable preview for links

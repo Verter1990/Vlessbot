@@ -136,8 +136,8 @@ async def startup_event():
     
     # Добавляем задачи в планировщик
     # Передаем session_maker в задачи, чтобы они могли создавать свои сессии
-    scheduler.add_job(check_expiring_subscriptions, 'cron', hour=9, minute=0, args=(bot, async_session_maker()))
-    scheduler.add_job(deactivate_expired_users, 'cron', hour=0, minute=5, args=(async_session_maker(),))
+    scheduler.add_job(check_expiring_subscriptions, 'cron', hour=9, minute=0, args=(bot, async_session_maker))
+    scheduler.add_job(deactivate_expired_users, 'cron', hour=0, minute=5, args=(async_session_maker,))
     scheduler.start()
     logger.info("Scheduler started.")
 

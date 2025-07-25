@@ -27,9 +27,9 @@ class XUIClient:
                 "/login",
                 data={'username': self.username, 'password': self.password}
             )
-            response.raise_for_status()
+            await response.raise_for_status()
             
-            result = response.json()
+            result = await response.json()
             if result.get("success"):
                 self.session_cookie = response.cookies.get('session') # Get session cookie if available
                 logger.info("Successfully logged in to XUI panel.")
@@ -56,8 +56,8 @@ class XUIClient:
                 f"/panel/api/inbounds/get/{inbound_id}",
                 cookies={"session": self.session_cookie}
             )
-            response.raise_for_status()
-            result = response.json()
+            await response.raise_for_status()
+            result = await response.json()
             if result.get("success"):
                 logger.info(f"Inbound {inbound_id} details retrieved successfully.")
                 inbound = result.get("obj", {})
@@ -101,8 +101,8 @@ class XUIClient:
                 data=payload,
                 cookies={"session": self.session_cookie}
             )
-            response.raise_for_status()
-            result = response.json()
+            await response.raise_for_status()
+            result = await response.json()
 
             if result.get("success"):
                 logger.info(f"User {email} created successfully.")
@@ -148,8 +148,8 @@ class XUIClient:
                 data=payload,
                 cookies={"session": self.session_cookie}
             )
-            response.raise_for_status()
-            result = response.json()
+            await response.raise_for_status()
+            result = await response.json()
 
             if result.get("success"):
                 logger.info(f"Client {uuid} updated successfully.")
@@ -174,8 +174,8 @@ class XUIClient:
                 f"/panel/api/inbounds/{inbound_id}/delClient/{uuid}",
                 cookies={"session": self.session_cookie}
             )
-            response.raise_for_status()
-            result = response.json()
+            await response.raise_for_status()
+            result = await response.json()
 
             if result.get("success"):
                 logger.info(f"Client {uuid} deleted successfully.")

@@ -19,7 +19,7 @@ async def check_expiring_subscriptions(bot: Bot, session: AsyncSession):
         Subscription.expires_at < three_days_from_now
     )
     result = await session.execute(stmt)
-    expiring_subscriptions = result.scalars().all()
+    expiring_subscriptions = await (await result.scalars()).all()
 
     logger.info(f"Found {len(expiring_subscriptions)} subscriptions expiring soon.")
 
@@ -48,7 +48,7 @@ async def deactivate_expired_users(session: AsyncSession):
         Subscription.expires_at < now
     )
     result = await session.execute(stmt)
-    expired_subscriptions = result.scalars().all()
+    expired_subscriptions = await (await result.scalars()).all()
 
     logger.info(f"Found {len(expired_subscriptions)} expired subscriptions to deactivate.")
 

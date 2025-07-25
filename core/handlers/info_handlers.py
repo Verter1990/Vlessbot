@@ -1,6 +1,7 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from core.locales.translations import get_text
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router = Router()
 
@@ -15,7 +16,7 @@ async def get_os_selection_keyboard(lang: str) -> InlineKeyboardMarkup:
             InlineKeyboardButton(text=get_text('btn_macos', lang), callback_data="info_macos")
         ],
         [
-            InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="back_to_main_menu")
+            InlineKeyboardButton(text=get_text('btn_back', lang), callback_data="main_menu")
         ]
     ]
     return InlineKeyboardMarkup(inline_keyboard=buttons)

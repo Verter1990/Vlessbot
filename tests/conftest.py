@@ -6,7 +6,7 @@ from core.database.models import Base
 from core.database.database import async_session_maker
 
 # Use an in-memory SQLite database for testing
-TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
+TEST_DATABASE_URL = "postgresql+asyncpg://vlessbot_user:vlessbot_password@db/vlessbot_db"
 
 @pytest.fixture(scope="session")
 def event_loop():
@@ -28,10 +28,13 @@ async def engine():
 
 @pytest.fixture(scope="function")
 async def session(engine):
-    """Create a new database session for each test function."""
-    async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
-    async with async_session_maker() as session:
-        yield session
+    """Create a new database session with a transaction for each test function."""
+    async with engine.connect() as connection:
+        async with connection.begin_nested():  # Use begin_nested for transactional tests
+            new_session = AsyncSession(bind=connection, expire_on_commit=False)
+            yield new_session
+            await new_session.close()
+            await connection.rollback() # Rollback the nested transaction
 
 @pytest.fixture(scope="function")
 async def client(session):
@@ -40,9 +43,4 @@ async def client(session):
     # For now, it just provides a session.
     yield session
 
-@pytest.fixture(autouse=True)
-async def clear_database(session):
-    """Clear all data from tables after each test to ensure isolation."""
-    for table in reversed(Base.metadata.sorted_tables):
-        await session.execute(table.delete())
-    await session.commit()
+

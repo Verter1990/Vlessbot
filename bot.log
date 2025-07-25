@@ -1,780 +1,270 @@
-2025-07-08 13:48:55.473 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 13:48:55.476 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 13:48:55.546 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 13:48:56.365 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:48:56.377 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:49:02.798 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 13:49:08.867 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 13:49:08.871 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 13:49:08.905 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 13:49:12.424 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 13:49:15.259 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 3 for server None. Showing payment options.
-2025-07-08 13:49:15.481 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 13:49:18.583 | INFO     | core.handlers.user_handlers:callback_select_server:122 - User 218265585 selected server via callback: select_server_1
-2025-07-08 13:49:18.782 | INFO     | core.handlers.user_handlers:callback_select_server:147 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-08 13:49:18.782 | INFO     | core.services.xui_client:_login:20 - Attempting to log in to XUI panel...
-2025-07-08 13:49:19.768 | INFO     | core.services.xui_client:_login:31 - Successfully logged in to XUI panel.
-2025-07-08 13:49:19.768 | INFO     | core.services.xui_client:get_inbound:49 - Getting inbound 20 details...
-2025-07-08 13:49:19.894 | INFO     | core.services.xui_client:get_inbound:58 - Inbound 20 details retrieved successfully.
-2025-07-08 13:49:47.082 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:49:50.202 | INFO     | core.handlers.user_handlers:callback_why_vpn:386 - User 218265585 clicked why_vpn
-2025-07-08 13:49:55.627 | INFO     | core.handlers.user_handlers:callback_terms_of_use:404 - User 218265585 clicked terms_of_use
-2025-07-08 13:49:58.493 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 13:50:18.292 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:50:20.507 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 13:51:06.739 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 13:51:06.913 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 13:57:36.518 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 13:57:36.521 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 13:57:36.553 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 13:57:43.805 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:57:49.804 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 13:57:51.043 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 13:57:51.173 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 13:58:07.974 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:58:14.751 | INFO     | core.handlers.user_handlers:callback_invite_friend:380 - User 218265585 clicked invite_friend
-2025-07-08 13:58:21.489 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:58:30.269 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:58:31.884 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 13:58:32.968 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 13:58:33.111 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 13:59:10.729 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 13:59:21.520 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 13:59:30.328 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 14:01:05.498 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 14:01:09.315 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 14:01:11.420 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 14:01:14.961 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 14:01:15.119 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 14:01:24.241 | INFO     | core.handlers.user_handlers:callback_select_server:122 - User 218265585 selected server via callback: select_server_1
-2025-07-08 14:01:24.373 | INFO     | core.handlers.user_handlers:callback_select_server:147 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-08 14:01:24.374 | INFO     | core.services.xui_client:_login:20 - Attempting to log in to XUI panel...
-2025-07-08 14:01:25.101 | INFO     | core.services.xui_client:_login:31 - Successfully logged in to XUI panel.
-2025-07-08 14:01:25.102 | INFO     | core.services.xui_client:get_inbound:49 - Getting inbound 20 details...
-2025-07-08 14:01:25.233 | INFO     | core.services.xui_client:get_inbound:58 - Inbound 20 details retrieved successfully.
-2025-07-08 14:04:26.365 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 14:04:26.379 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 14:04:26.859 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 14:04:27.340 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 14:04:27.380 | INFO     | core.handlers.user_handlers:command_start_handler:79 - User 218265585 not found in DB, adding new user.
-2025-07-08 14:04:27.406 | INFO     | core.handlers.user_handlers:command_start_handler:83 - New user 218265585 added to the database.
-2025-07-08 14:04:30.017 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 14:04:36.174 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 14:04:58.724 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 14:05:05.747 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 14:05:05.936 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 14:05:11.603 | INFO     | core.handlers.user_handlers:command_start_handler:73 - User 218265585 sent /start
-2025-07-08 14:05:14.012 | INFO     | core.handlers.user_handlers:callback_pay_subscription:181 - User 218265585 clicked pay_subscription
-2025-07-08 14:05:15.512 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 14:05:15.712 | INFO     | core.handlers.user_handlers:callback_setup_vpn:99 - User 218265585 clicked setup_vpn
-2025-07-08 14:07:34.124 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 14:07:34.138 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 14:07:34.341 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 14:07:55.033 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:07:56.942 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:07:58.338 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 2. Showing payment options.
-2025-07-08 14:08:07.465 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1. Showing payment options.
-2025-07-08 14:08:18.630 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:08:20.599 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:08:22.842 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1. Showing payment options.
-2025-07-08 14:08:24.585 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 2. Showing payment options.
-2025-07-08 14:08:25.010 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 3. Showing payment options.
-2025-07-08 14:09:04.441 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1. Showing payment options.
-2025-07-08 14:09:04.628 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 2. Showing payment options.
-2025-07-08 14:09:04.930 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 3. Showing payment options.
-2025-07-08 14:09:05.269 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 2. Showing payment options.
-2025-07-08 14:09:11.065 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:09:13.150 | INFO     | core.handlers.user_handlers:callback_invite_friend:388 - User 218265585 clicked invite_friend
-2025-07-08 14:09:15.143 | INFO     | core.handlers.user_handlers:callback_terms_of_use:412 - User 218265585 clicked terms_of_use
-2025-07-08 14:09:16.389 | INFO     | core.handlers.user_handlers:callback_help:406 - User 218265585 clicked help
-2025-07-08 14:09:17.996 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:352 - User 218265585 clicked get_free_vpn
-2025-07-08 14:09:18.260 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:18 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-08 14:09:18.264 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:43 - Creating new client 20b476ca-9b43-4c85-aff4-c5f2d429a580 on XUI for user 218265585
-2025-07-08 14:09:18.265 | INFO     | core.services.xui_client:_login:20 - Attempting to log in to XUI panel...
-2025-07-08 14:09:19.521 | INFO     | core.services.xui_client:_login:31 - Successfully logged in to XUI panel.
-2025-07-08 14:09:19.522 | INFO     | core.services.xui_client:create_user:75 - Creating user 218265585 for inbound 20...
-2025-07-08 14:09:19.677 | INFO     | core.services.xui_client:create_user:104 - User 218265585 created successfully.
-2025-07-08 14:09:19.689 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:60 - Created new subscription for user 218265585 on server Нидерланды
-2025-07-08 14:09:19.690 | INFO     | core.services.xui_client:_login:20 - Attempting to log in to XUI panel...
-2025-07-08 14:09:19.801 | INFO     | core.services.xui_client:_login:31 - Successfully logged in to XUI panel.
-2025-07-08 14:09:19.802 | INFO     | core.services.xui_client:get_inbound:49 - Getting inbound 20 details...
-2025-07-08 14:09:19.940 | INFO     | core.services.xui_client:get_inbound:58 - Inbound 20 details retrieved successfully.
-2025-07-08 14:10:32.285 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 14:10:32.298 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 14:10:32.480 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 14:10:57.122 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:11:01.788 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:11:03.735 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1. Showing payment options.
-2025-07-08 14:11:11.657 | INFO     | core.handlers.user_handlers:callback_pay_stars:268 - User 218265585 selected tariff 1 for Stars payment.
-2025-07-08 14:11:19.407 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:11:21.196 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1. Showing payment options.
-2025-07-08 14:11:23.310 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 14:11:23.312 | INFO     | core.handlers.user_handlers:command_start_handler:98 - User 7164378219 not found in DB, adding new user.
-2025-07-08 14:11:23.319 | INFO     | core.handlers.user_handlers:command_start_handler:102 - New user 7164378219 added to the database.
-2025-07-08 14:11:24.543 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:11:26.418 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 2. Showing payment options.
-2025-07-08 14:11:32.265 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:11:33.578 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 3. Showing payment options.
-2025-07-08 14:11:41.269 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:11:43.013 | INFO     | core.handlers.user_handlers:callback_setup_vpn:118 - User 218265585 clicked setup_vpn
-2025-07-08 14:12:42.125 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 3. Showing payment options.
-2025-07-08 14:12:49.756 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:12:57.739 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:13:01.272 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1. Showing payment options.
-2025-07-08 14:13:07.950 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:13:11.179 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:13:13.540 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 2. Showing payment options.
-2025-07-08 14:13:16.154 | INFO     | core.handlers.user_handlers:callback_pay_stars:268 - User 218265585 selected tariff 2 for Stars payment.
-2025-07-08 14:13:19.343 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:19:46.693 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:19:58.621 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:20:00.472 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:20:02.943 | INFO     | core.handlers.user_handlers:process_tariff_selection:208 - User 218265585 selected tariff 1. Showing payment options.
-2025-07-08 14:20:08.004 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:22:45.773 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:22:48.557 | INFO     | core.handlers.user_handlers:callback_pay_subscription:182 - User 218265585 clicked pay_subscription
-2025-07-08 14:22:54.768 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:24:41.756 | INFO     | core.handlers.user_handlers:callback_setup_vpn:118 - User 218265585 clicked setup_vpn
-2025-07-08 14:26:58.472 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 14:26:58.481 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 14:26:58.557 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 14:27:56.109 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 14:28:36.863 | INFO     | core.handlers.user_handlers:callback_setup_vpn:127 - User 218265585 clicked setup_vpn
-2025-07-08 14:30:29.218 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 14:32:44.513 | INFO     | core.handlers.user_handlers:callback_setup_vpn:127 - User 218265585 clicked setup_vpn
-2025-07-08 20:27:04.518 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:28:08.134 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 20:28:08.139 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 20:28:08.310 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 20:31:14.405 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 20:31:14.409 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 20:31:14.454 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 20:31:39.772 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 20:31:39.791 | INFO     | core.handlers.user_handlers:command_start_handler:98 - User 218265585 not found in DB, adding new user.
-2025-07-08 20:31:39.805 | INFO     | core.handlers.user_handlers:command_start_handler:102 - New user 218265585 added to the database.
-2025-07-08 20:31:43.000 | INFO     | core.handlers.user_handlers:callback_pay_subscription:223 - User 218265585 clicked pay_subscription
-2025-07-08 20:31:48.859 | INFO     | core.handlers.user_handlers:process_tariff_selection:251 - User 218265585 selected tariff 1. Showing payment options.
-2025-07-08 20:31:50.167 | INFO     | core.handlers.user_handlers:callback_pay_stars:313 - User 218265585 selected tariff 1 for Stars payment.
-2025-07-08 20:32:46.961 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:32:46.965 | INFO     | core.handlers.user_handlers:command_start_handler:98 - User 7164378219 not found in DB, adding new user.
-2025-07-08 20:32:46.971 | INFO     | core.handlers.user_handlers:command_start_handler:102 - New user 7164378219 added to the database.
-2025-07-08 20:32:48.855 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 20:32:51.889 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 20:32:52.116 | INFO     | core.handlers.user_handlers:callback_pay_subscription:223 - User 218265585 clicked pay_subscription
-2025-07-08 20:35:28.155 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:37:19.390 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 20:37:22.494 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:38:07.387 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:38:41.863 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 20:38:41.867 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 20:38:41.905 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 20:39:00.752 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 20:39:02.596 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 20:40:26.285 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 20:40:34.487 | INFO     | core.handlers.user_handlers:callback_pay_subscription:224 - User 218265585 clicked pay_subscription
-2025-07-08 20:40:40.290 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:40:41.967 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 20:40:45.158 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 20:40:49.636 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:41:31.441 | INFO     | core.handlers.user_handlers:callback_pay_subscription:224 - User 218265585 clicked pay_subscription
-2025-07-08 20:41:36.622 | INFO     | core.handlers.user_handlers:process_tariff_selection:256 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 20:41:46.597 | INFO     | core.handlers.user_handlers:callback_pay_stars:318 - User 218265585 selected tariff 1 for server None for Stars payment.
-2025-07-08 20:43:04.559 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:42 - Admin 218265585 accessed the admin panel.
-2025-07-08 20:43:10.361 | INFO     | core.handlers.admin_handlers:cmd_list_servers:68 - Admin 218265585 requested server list.
-2025-07-08 20:43:15.896 | INFO     | core.handlers.admin_handlers:cmd_list_tariffs:146 - Admin 218265585 requested tariff list.
-2025-07-08 20:47:23.246 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 20:47:23.251 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 20:47:23.301 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 20:47:56.748 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:48:00.894 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 20:48:03.374 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:48:05.688 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 20:48:08.018 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 20:48:11.857 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 20:48:24.756 | INFO     | core.handlers.user_handlers:callback_invite_friend:447 - User 218265585 clicked invite_friend
-2025-07-08 20:52:08.087 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 20:52:08.092 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 20:52:08.284 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 20:53:10.140 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 20:53:10.145 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 20:53:10.198 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 20:53:36.223 | INFO     | core.handlers.user_handlers:callback_invite_friend:447 - User 218265585 clicked invite_friend
-2025-07-08 20:55:12.501 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 20:55:12.515 | INFO     | core.handlers.user_handlers:command_start_handler:98 - User 218265585 not found in DB, adding new user.
-2025-07-08 20:55:12.526 | INFO     | core.handlers.user_handlers:command_start_handler:102 - New user 218265585 added to the database.
-2025-07-08 20:55:15.363 | INFO     | core.handlers.user_handlers:callback_invite_friend:447 - User 218265585 clicked invite_friend
-2025-07-08 20:55:17.025 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 20:55:18.678 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 21:07:54.642 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 21:07:54.646 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 21:07:54.785 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 21:07:56.354 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:07:56.379 | INFO     | core.handlers.user_handlers:command_start_handler:98 - User 218265585 not found in DB, adding new user.
-2025-07-08 21:07:56.394 | INFO     | core.handlers.user_handlers:command_start_handler:102 - New user 218265585 added to the database.
-2025-07-08 21:07:57.093 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:07:57.134 | INFO     | core.handlers.user_handlers:command_start_handler:98 - User 7164378219 not found in DB, adding new user.
-2025-07-08 21:07:57.140 | INFO     | core.handlers.user_handlers:command_start_handler:102 - New user 7164378219 added to the database.
-2025-07-08 21:07:59.938 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:08:02.571 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:08:07.153 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:08:10.681 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:08:12.290 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:08:14.275 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 21:08:17.673 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:08:19.635 | INFO     | core.handlers.user_handlers:callback_pay_subscription:224 - User 218265585 clicked pay_subscription
-2025-07-08 21:08:21.233 | INFO     | core.handlers.user_handlers:process_tariff_selection:256 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 21:08:24.153 | INFO     | core.handlers.user_handlers:callback_pay_stars:318 - User 218265585 selected tariff 1 for server None for Stars payment.
-2025-07-08 21:08:58.258 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 21:08:58.261 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 21:08:58.296 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 21:08:58.915 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:09:00.258 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:09:33.898 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:09:56.308 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:09:57.577 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 21:10:00.374 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:10:02.472 | INFO     | core.handlers.user_handlers:callback_pay_subscription:224 - User 218265585 clicked pay_subscription
-2025-07-08 21:10:04.769 | INFO     | core.handlers.user_handlers:process_tariff_selection:256 - User 218265585 selected tariff 1 for server None. Showing payment options.
-2025-07-08 21:10:08.949 | INFO     | core.handlers.user_handlers:callback_pay_stars:318 - User 218265585 selected tariff 1 for server None for Stars payment.
-2025-07-08 21:12:47.236 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 21:12:47.240 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 21:12:47.279 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 21:12:48.574 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:12:55.166 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:12:58.126 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 21:13:10.111 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:13:11.476 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:13:13.134 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:13:14.441 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:13:16.461 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 21:13:31.250 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:13:51.231 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 21:13:51.234 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 21:13:51.278 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 21:14:08.280 | INFO     | core.handlers.user_handlers:callback_invite_friend:447 - User 218265585 clicked invite_friend
-2025-07-08 21:14:26.516 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:14:28.213 | INFO     | core.handlers.user_handlers:callback_setup_vpn:137 - User 218265585 clicked setup_vpn
-2025-07-08 21:14:29.367 | INFO     | core.handlers.user_handlers:callback_select_server:161 - User 218265585 selected server via callback: select_server_1
-2025-07-08 21:16:05.185 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:18:20.738 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:411 - User 218265585 clicked get_free_vpn
-2025-07-08 21:18:21.108 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:18 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-08 21:18:21.116 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:43 - Creating new client 2b5cd4ba-f525-46f1-986d-5bf8a39bd2e5 on XUI for user 218265585
-2025-07-08 21:18:21.118 | INFO     | core.services.xui_client:_login:20 - Attempting to log in to XUI panel...
-2025-07-08 21:18:21.914 | INFO     | core.services.xui_client:_login:31 - Successfully logged in to XUI panel.
-2025-07-08 21:18:21.916 | INFO     | core.services.xui_client:create_user:75 - Creating user 218265585 for inbound 20...
-2025-07-08 21:18:22.014 | ERROR    | core.handlers.user_handlers:_create_or_update_vpn_key:84 - XUIClientError while creating/updating key for user 218265585: Failed to create user 218265585: Something went wrong! Failed: Duplicate email: 218265585
+2025-07-20 14:25:24.071 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 14:25:24.075 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 14:25:24.108 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 14:25:24.888 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:25:24.898 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:25:24.901 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:25:24.903 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:25:45.508 | INFO     | core.handlers.user_handlers:callback_setup_vpn:384 - User 218265585 clicked setup_vpn
+2025-07-20 14:25:47.678 | INFO     | core.handlers.user_handlers:callback_select_server:421 - User 218265585 selected server via callback: select_server_1
+2025-07-20 14:25:48.066 | INFO     | core.handlers.user_handlers:callback_select_server:447 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
+2025-07-20 14:25:48.076 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
+2025-07-20 14:25:48.763 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
+2025-07-20 14:25:48.764 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 23 details...
+2025-07-20 14:25:48.848 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 23 details retrieved successfully.
+2025-07-20 14:35:24.326 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:35:26.135 | INFO     | core.handlers.user_handlers:callback_setup_vpn:384 - User 218265585 clicked setup_vpn
+2025-07-20 14:42:39.415 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 14:42:39.419 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 14:42:39.460 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 14:42:40.283 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:42:40.294 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:42:40.296 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:45:41.477 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 14:45:41.481 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 14:45:41.512 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 14:45:54.082 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:47:52.326 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 14:47:52.331 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 14:47:52.369 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 14:48:35.740 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 14:56:45.996 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 14:56:46.001 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 14:56:46.048 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 14:56:47.203 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 15:01:53.955 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 15:01:53.959 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 15:01:53.993 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 15:09:39.775 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 15:09:39.779 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 15:09:39.812 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 15:09:41.540 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 15:09:41.547 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 15:25:26.189 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 15:25:26.193 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 15:25:26.230 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 15:25:39.175 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 15:27:01.631 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 15:43:42.996 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 16:35:50.410 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 16:35:50.415 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 16:35:50.483 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 16:35:51.224 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 16:35:51.232 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 16:36:14.273 | INFO     | core.handlers.user_handlers:callback_setup_vpn:384 - User 218265585 clicked setup_vpn
+2025-07-20 16:46:05.978 | INFO     | core.handlers.user_handlers:callback_setup_vpn:384 - User 218265585 clicked setup_vpn
+2025-07-20 16:54:55.126 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 16:55:42.703 | INFO     | core.handlers.user_handlers:callback_setup_vpn:384 - User 218265585 clicked setup_vpn
+2025-07-20 16:55:44.310 | INFO     | core.handlers.user_handlers:callback_select_server:421 - User 218265585 selected server via callback: select_server_1
+2025-07-20 16:55:44.463 | INFO     | core.handlers.user_handlers:callback_select_server:447 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
+2025-07-20 16:55:44.493 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
+2025-07-20 16:55:45.661 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
+2025-07-20 16:55:45.661 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 23 details...
+2025-07-20 16:55:45.742 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 23 details retrieved successfully.
+2025-07-20 16:55:58.951 | INFO     | core.handlers.user_handlers:command_start_handler:181 - User 218265585 sent /start with args: None
+2025-07-20 17:24:52.413 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 17:24:52.417 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 17:24:52.509 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 17:24:53.106 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 17:24:53.115 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 17:25:02.909 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 17:29:47.261 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 17:29:47.266 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 17:29:47.363 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 17:29:48.078 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 17:37:14.098 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 17:37:14.105 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 17:37:14.265 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 17:37:24.898 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 17:37:24.938 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: <welcome><subscription_active_until>
+2025-07-20 17:42:06.912 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 17:42:06.925 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 17:42:07.022 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 17:48:00.349 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 17:48:00.353 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 17:48:00.419 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 17:48:01.087 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 17:48:01.121 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: <welcome><subscription_active_until>
+2025-07-20 17:53:53.674 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 17:53:53.679 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 17:53:53.763 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 17:59:55.824 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 17:59:55.829 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 17:59:55.919 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 18:04:48.664 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 18:04:48.668 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 18:04:48.734 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 18:04:49.843 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 18:04:49.872 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: <welcome><subscription_active_until>
+2025-07-20 18:09:13.715 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 18:09:13.719 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 18:09:13.764 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 18:17:52.344 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 18:17:52.348 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 18:17:52.385 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 18:20:49.686 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 18:20:49.690 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 18:20:49.728 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 18:24:55.847 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 18:24:55.851 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 18:24:55.907 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 18:33:48.205 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 18:33:48.208 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 18:33:48.242 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 18:33:59.213 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 18:33:59.247 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
 
-2025-07-08 21:18:22.016 | ERROR    | core.handlers.user_handlers:callback_get_free_vpn:440 - Error creating trial VPN key: Failed to create user 218265585: Something went wrong! Failed: Duplicate email: 218265585
+Your subscription is active until: **2025-07-23 14:13**
+2025-07-20 19:29:33.863 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 19:29:33.885 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
 
-2025-07-08 21:18:31.734 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:19:17.396 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 21:19:17.400 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 21:19:17.443 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 21:19:35.636 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:19:40.209 | INFO     | core.handlers.user_handlers:callback_setup_vpn:140 - User 218265585 clicked setup_vpn
-2025-07-08 21:19:41.647 | INFO     | core.handlers.user_handlers:callback_select_server:164 - User 218265585 selected server via callback: select_server_1
-2025-07-08 21:19:42.037 | INFO     | core.handlers.user_handlers:callback_pay_subscription:273 - User 218265585 clicked pay_subscription
-2025-07-08 21:19:47.293 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:19:52.726 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:468 - User 218265585 clicked get_free_vpn
-2025-07-08 21:19:52.932 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:18 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-08 21:19:52.937 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:43 - Creating new client 3c170c25-d909-4cfd-8883-78156fd1ba5a on XUI for user 218265585
-2025-07-08 21:19:52.937 | INFO     | core.services.xui_client:_login:20 - Attempting to log in to XUI panel...
-2025-07-08 21:19:53.524 | INFO     | core.services.xui_client:_login:31 - Successfully logged in to XUI panel.
-2025-07-08 21:19:53.524 | INFO     | core.services.xui_client:create_user:75 - Creating user 218265585 for inbound 20...
-2025-07-08 21:19:53.633 | INFO     | core.services.xui_client:create_user:104 - User 218265585 created successfully.
-2025-07-08 21:19:53.661 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:60 - Created new subscription for user 218265585 on server Нидерланды
-2025-07-08 21:19:53.663 | INFO     | core.services.xui_client:_login:20 - Attempting to log in to XUI panel...
-2025-07-08 21:19:53.752 | INFO     | core.services.xui_client:_login:31 - Successfully logged in to XUI panel.
-2025-07-08 21:19:53.753 | INFO     | core.services.xui_client:get_inbound:49 - Getting inbound 20 details...
-2025-07-08 21:19:53.835 | INFO     | core.services.xui_client:get_inbound:58 - Inbound 20 details retrieved successfully.
-2025-07-08 21:20:45.943 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:21:07.966 | INFO     | core.handlers.user_handlers:callback_invite_friend:504 - User 218265585 clicked invite_friend
-2025-07-08 21:35:29.804 | INFO     | core.handlers.user_handlers:callback_invite_friend:504 - User 218265585 clicked invite_friend
-2025-07-08 21:35:32.665 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 218265585 sent /start
-2025-07-08 21:35:34.434 | INFO     | core.handlers.user_handlers:callback_pay_subscription:273 - User 218265585 clicked pay_subscription
-2025-07-08 21:35:36.023 | INFO     | core.handlers.user_handlers:command_start_handler:92 - User 7164378219 sent /start
-2025-07-08 21:35:38.563 | INFO     | core.handlers.user_handlers:callback_invite_friend:504 - User 218265585 clicked invite_friend
-2025-07-08 21:36:38.861 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 21:36:38.866 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 21:36:38.916 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 21:36:50.019 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 21:37:58.263 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 21:37:58.269 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 21:37:58.468 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 21:38:11.816 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 21:38:11.832 | INFO     | core.handlers.user_handlers:command_start_handler:130 - User 218265585 not found in DB, adding new user.
-2025-07-08 21:38:11.842 | INFO     | core.handlers.user_handlers:command_start_handler:141 - New user 218265585 added to the database.
-2025-07-08 21:46:05.617 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 7164378219 sent /start with args: 
-2025-07-08 21:46:05.623 | INFO     | core.handlers.user_handlers:command_start_handler:130 - User 7164378219 not found in DB, adding new user.
-2025-07-08 21:46:05.631 | INFO     | core.handlers.user_handlers:command_start_handler:141 - New user 7164378219 added to the database.
-2025-07-08 21:47:36.037 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 21:48:39.106 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 21:48:39.110 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 21:48:39.358 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 21:51:01.480 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 21:51:01.492 | INFO     | core.handlers.user_handlers:command_start_handler:130 - User 218265585 not found in DB, adding new user.
-2025-07-08 21:51:01.501 | INFO     | core.handlers.user_handlers:command_start_handler:141 - New user 218265585 added to the database.
-2025-07-08 21:51:48.524 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 21:52:16.752 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 7164378219 sent /start with args: 
-2025-07-08 21:52:16.757 | INFO     | core.handlers.user_handlers:command_start_handler:130 - User 7164378219 not found in DB, adding new user.
-2025-07-08 21:52:16.766 | INFO     | core.handlers.user_handlers:command_start_handler:141 - New user 7164378219 added to the database.
-2025-07-08 21:52:27.972 | INFO     | core.handlers.user_handlers:callback_setup_vpn:186 - User 218265585 clicked setup_vpn
-2025-07-08 21:52:54.794 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 21:52:56.498 | INFO     | core.handlers.user_handlers:callback_setup_vpn:186 - User 218265585 clicked setup_vpn
-2025-07-08 21:52:58.248 | INFO     | core.handlers.user_handlers:callback_select_server:210 - User 218265585 selected server via callback: select_server_1
-2025-07-08 21:53:02.679 | INFO     | core.handlers.user_handlers:callback_pay_subscription:319 - User 218265585 clicked pay_subscription
-2025-07-08 21:53:05.171 | INFO     | core.handlers.user_handlers:process_tariff_selection:350 - User 218265585 selected tariff 1 for server 1. Showing payment options.
-2025-07-08 21:58:43.537 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 7164378219 sent /start with args: 
-2025-07-08 21:58:46.660 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 22:03:48.147 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 22:09:10.516 | INFO     | core.handlers.user_handlers:command_start_handler:112 - User 218265585 sent /start with args: None
-2025-07-08 22:09:25.068 | INFO     | core.handlers.user_handlers:callback_setup_vpn:186 - User 218265585 clicked setup_vpn
-2025-07-08 22:24:18.811 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 22:24:18.816 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 22:24:19.042 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 22:25:06.348 | INFO     | core.handlers.user_handlers:command_start_handler:109 - User 218265585 sent /start with args: None
-2025-07-08 22:25:06.368 | INFO     | core.handlers.user_handlers:command_start_handler:117 - User 218265585 not found in DB, adding new user.
-2025-07-08 22:25:06.378 | INFO     | core.handlers.user_handlers:command_start_handler:121 - New user 218265585 added to the database.
-2025-07-08 22:26:49.756 | INFO     | core.handlers.user_handlers:command_start_handler:109 - User 218265585 sent /start with args: None
-2025-07-08 22:26:58.984 | INFO     | core.handlers.user_handlers:callback_pay_subscription:405 - User 218265585 clicked pay_subscription
-2025-07-08 22:27:03.915 | INFO     | core.handlers.user_handlers:command_start_handler:109 - User 218265585 sent /start with args: None
-2025-07-08 22:31:03.239 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-08 22:31:03.244 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-08 22:31:03.313 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-08 22:32:13.182 | INFO     | core.handlers.user_handlers:command_start_handler:109 - User 218265585 sent /start with args: None
-2025-07-08 22:32:18.432 | INFO     | core.handlers.user_handlers:callback_gift_subscription:766 - User 218265585 initiated gift subscription purchase.
-2025-07-08 22:34:27.123 | INFO     | core.handlers.user_handlers:command_start_handler:109 - User 218265585 sent /start with args: None
-2025-07-08 22:34:29.282 | INFO     | core.handlers.user_handlers:callback_setup_vpn:196 - User 218265585 clicked setup_vpn
-2025-07-08 22:34:30.974 | INFO     | core.handlers.user_handlers:callback_select_server:220 - User 218265585 selected server via callback: select_server_1
-2025-07-08 22:34:31.081 | INFO     | core.handlers.user_handlers:callback_select_server:244 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-08 22:34:31.082 | INFO     | core.services.xui_client:_login:20 - Attempting to log in to XUI panel...
-2025-07-08 22:34:31.812 | INFO     | core.services.xui_client:_login:31 - Successfully logged in to XUI panel.
-2025-07-08 22:34:31.814 | INFO     | core.services.xui_client:get_inbound:49 - Getting inbound 20 details...
-2025-07-08 22:34:31.900 | INFO     | core.services.xui_client:get_inbound:58 - Inbound 20 details retrieved successfully.
-2025-07-08 22:34:41.991 | INFO     | core.handlers.user_handlers:command_start_handler:109 - User 7164378219 sent /start with args: 
-2025-07-08 22:34:41.998 | INFO     | core.handlers.user_handlers:command_start_handler:117 - User 7164378219 not found in DB, adding new user.
-2025-07-08 22:34:42.034 | INFO     | core.handlers.user_handlers:command_start_handler:121 - New user 7164378219 added to the database.
-2025-07-08 22:34:55.294 | INFO     | core.handlers.user_handlers:callback_gift_subscription:766 - User 218265585 initiated gift subscription purchase.
-2025-07-12 10:41:56.390 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-12 10:41:56.394 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-12 10:57:24.381 | INFO     | core.handlers.user_handlers:command_start_handler:109 - User 218265585 sent /start with args: None
-2025-07-12 10:57:30.266 | INFO     | core.handlers.user_handlers:callback_setup_vpn:196 - User 218265585 clicked setup_vpn
-2025-07-12 10:57:32.417 | INFO     | core.handlers.user_handlers:command_start_handler:109 - User 7164378219 sent /start with args: 
-2025-07-12 11:01:28.923 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-12 11:01:28.926 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-12 11:01:28.963 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-12 11:01:29.707 | INFO     | core.handlers.user_handlers:command_start_handler:122 - User 218265585 sent /start with args: None
-2025-07-12 11:01:47.368 | INFO     | __main__:start_bot_polling:48 - Starting Telegram bot polling...
-2025-07-12 11:01:47.372 | INFO     | __main__:startup_event:31 - FastAPI application started!
-2025-07-12 11:01:47.442 | INFO     | __main__:startup_event:39 - Scheduler started.
-2025-07-12 11:01:48.110 | INFO     | core.handlers.user_handlers:callback_setup_vpn:209 - User 218265585 clicked setup_vpn
-2025-07-12 11:02:00.264 | INFO     | core.handlers.user_handlers:command_start_handler:122 - User 7164378219 sent /start with args: 
-2025-07-12 11:02:15.720 | INFO     | core.handlers.user_handlers:callback_setup_vpn:209 - User 218265585 clicked setup_vpn
-2025-07-12 11:02:18.075 | INFO     | core.handlers.user_handlers:callback_select_server:233 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:02:18.175 | INFO     | core.handlers.user_handlers:callback_select_server:257 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:02:18.189 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:02:18.989 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:02:18.990 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:02:19.068 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:02:23.815 | INFO     | core.handlers.user_handlers:command_start_handler:122 - User 7164378219 sent /start with args: 
-2025-07-12 11:06:04.614 | INFO     | __main__:start_bot_polling:56 - Starting Telegram bot polling...
-2025-07-12 11:06:04.619 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:06:05.391 | INFO     | __main__:startup_event:47 - Scheduler started.
-2025-07-12 11:06:05.424 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:06:15.465 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:09:39.752 | INFO     | __main__:start_bot_polling:56 - Starting Telegram bot polling...
-2025-07-12 11:09:39.756 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:09:40.366 | INFO     | __main__:startup_event:47 - Scheduler started.
-2025-07-12 11:10:28.022 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:13:27.719 | INFO     | __main__:start_bot_polling:56 - Starting Telegram bot polling...
-2025-07-12 11:13:27.722 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:13:28.367 | INFO     | __main__:startup_event:47 - Scheduler started.
-2025-07-12 11:13:43.265 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:16:05.380 | INFO     | __main__:start_bot_polling:56 - Starting Telegram bot polling...
-2025-07-12 11:16:05.383 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:16:05.998 | INFO     | __main__:startup_event:47 - Scheduler started.
-2025-07-12 11:16:37.804 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:16:39.995 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:17:01.678 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:17:01.682 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:17:01.719 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:17:52.086 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:17:58.103 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:18:02.609 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:18:06.874 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:21:48.393 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:21:48.397 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:21:48.434 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:21:59.197 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:22:07.185 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:22:09.072 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:22:12.256 | INFO     | core.handlers.user_handlers:callback_pay_subscription:411 - User 218265585 clicked pay_subscription
-2025-07-12 11:22:15.147 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:22:16.955 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:22:18.508 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:22:39.385 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:22:40.915 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:22:46.222 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:22:52.828 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:22:56.433 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:23:00.259 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:25:26.310 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:25:28.508 | INFO     | core.handlers.user_handlers:callback_pay_subscription:411 - User 218265585 clicked pay_subscription
-2025-07-12 11:25:32.826 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:25:39.275 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:26:41.848 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:26:44.882 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:26:47.570 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:26:51.853 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:26:54.025 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:26:58.482 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:28:02.265 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:28:02.268 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:28:02.335 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:28:41.595 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:28:47.919 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:28:52.674 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:28:55.831 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:29:01.314 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:29:03.560 | INFO     | core.handlers.user_handlers:callback_pay_subscription:417 - User 218265585 clicked pay_subscription
-2025-07-12 11:30:56.141 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:31:23.820 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:31:29.750 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:32:01.023 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:32:01.026 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:32:01.067 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:33:01.526 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:33:12.463 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:33:16.514 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:33:19.432 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:33:21.477 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:35:22.387 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:35:24.908 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:35:27.326 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:35:29.327 | INFO     | core.handlers.user_handlers:callback_pay_subscription:417 - User 218265585 clicked pay_subscription
-2025-07-12 11:35:32.042 | INFO     | core.handlers.user_handlers:callback_pay_subscription:417 - User 218265585 clicked pay_subscription
-2025-07-12 11:35:34.058 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:35:36.033 | INFO     | core.handlers.user_handlers:callback_pay_subscription:417 - User 218265585 clicked pay_subscription
-2025-07-12 11:35:37.830 | INFO     | core.handlers.user_handlers:callback_pay_subscription:417 - User 218265585 clicked pay_subscription
-2025-07-12 11:35:53.491 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:35:55.228 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:35:57.359 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:35:57.461 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:35:57.484 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:35:58.245 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:35:58.245 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:35:58.339 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:35:58.340 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:35:59.751 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:35:59.862 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:35:59.869 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:36:00.613 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:36:00.614 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:36:00.699 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:36:00.700 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:39:35.483 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:39:35.487 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:39:35.554 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:41:04.870 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:41:07.343 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:41:09.553 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:41:09.663 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:41:09.681 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:41:10.323 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:41:10.323 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:41:10.409 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:41:10.411 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:41:11.591 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:41:11.716 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:41:11.724 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:41:12.371 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:41:12.372 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:41:12.474 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:41:12.476 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:41:12.889 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:41:17.676 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:41:22.195 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:41:53.324 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:41:53.328 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:41:53.368 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:43:31.351 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:43:39.304 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:43:46.713 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:43:46.825 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:43:46.847 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:43:47.455 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:43:47.455 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:43:47.539 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:43:47.540 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:43:49.379 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:49:46.094 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:49:46.098 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:49:46.141 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:50:18.257 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:50:24.128 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:50:28.412 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:50:28.527 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:50:28.559 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:50:29.206 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:50:29.206 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:50:29.292 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:50:29.294 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:50:30.239 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:50:36.337 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:50:41.025 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:50:46.941 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:50:48.668 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:50:50.569 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:50:50.673 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:50:50.681 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:50:51.268 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:50:51.269 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:50:51.365 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:50:51.366 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:50:52.351 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:50:52.460 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:50:52.467 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:50:52.789 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:50:52.993 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:50:53.001 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:50:53.127 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:50:53.128 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:50:53.217 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:50:53.218 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:50:53.708 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:50:53.709 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:50:53.797 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:50:53.798 | ERROR    | core.handlers.user_handlers:callback_select_server:276 - Unexpected error showing subscription: name 'lang' is not defined
-2025-07-12 11:50:54.052 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:53:16.370 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:53:16.375 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:53:16.417 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:54:25.473 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:54:27.933 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:54:29.335 | INFO     | core.handlers.user_handlers:callback_select_server:242 - User 218265585 selected server via callback: select_server_1
-2025-07-12 11:54:29.443 | INFO     | core.handlers.user_handlers:callback_select_server:266 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 11:54:29.463 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 11:54:30.114 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 11:54:30.114 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 11:54:30.202 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 11:54:40.799 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:54:46.528 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 11:56:39.701 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 11:56:39.705 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 11:56:39.742 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 11:57:36.237 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 218265585 sent /start with args: None
-2025-07-12 11:57:40.796 | INFO     | core.handlers.user_handlers:callback_setup_vpn:216 - User 218265585 clicked setup_vpn
-2025-07-12 11:57:43.000 | INFO     | core.handlers.user_handlers:command_start_handler:123 - User 7164378219 sent /start with args: 
-2025-07-12 12:01:58.006 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 12:01:58.011 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 12:01:58.057 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 12:02:01.406 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 12:02:09.930 | INFO     | core.handlers.user_handlers:callback_setup_vpn:345 - User 218265585 clicked setup_vpn
-2025-07-12 12:02:11.573 | INFO     | core.handlers.user_handlers:callback_select_server:370 - User 218265585 selected server via callback: select_server_1
-2025-07-12 12:02:11.698 | INFO     | core.handlers.user_handlers:callback_select_server:393 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 12:02:11.726 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 12:02:12.429 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 12:02:12.430 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 12:02:12.517 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 12:02:38.624 | INFO     | core.handlers.user_handlers:callback_setup_vpn:345 - User 218265585 clicked setup_vpn
-2025-07-12 12:02:40.395 | INFO     | core.handlers.user_handlers:callback_select_server:370 - User 218265585 selected server via callback: select_server_1
-2025-07-12 12:02:40.527 | INFO     | core.handlers.user_handlers:callback_select_server:393 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 12:02:40.536 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 12:02:41.286 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 12:02:41.287 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 12:02:41.368 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 12:02:52.504 | INFO     | core.handlers.user_handlers:callback_pay_subscription:539 - User 218265585 clicked pay_subscription
-2025-07-12 12:03:04.281 | INFO     | core.handlers.user_handlers:callback_setup_vpn:345 - User 218265585 clicked setup_vpn
-2025-07-12 12:03:09.435 | INFO     | core.handlers.user_handlers:callback_pay_subscription:539 - User 218265585 clicked pay_subscription
-2025-07-12 12:03:16.281 | INFO     | core.handlers.user_handlers:callback_pay_subscription:539 - User 218265585 clicked pay_subscription
-2025-07-12 12:03:18.335 | INFO     | core.handlers.user_handlers:process_tariff_selection:573 - User 218265585 selected tariff 3 for server None. Showing payment options.
-2025-07-12 12:03:36.615 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 12:04:06.998 | INFO     | core.handlers.user_handlers:callback_setup_vpn:345 - User 218265585 clicked setup_vpn
-2025-07-12 12:04:08.863 | INFO     | core.handlers.user_handlers:callback_select_server:370 - User 218265585 selected server via callback: select_server_1
-2025-07-12 12:04:08.965 | INFO     | core.handlers.user_handlers:callback_select_server:393 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 12:04:08.973 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 12:04:09.603 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 12:04:09.604 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 12:04:09.696 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 12:16:53.424 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 12:30:28.021 | INFO     | core.handlers.user_handlers:callback_setup_vpn:345 - User 218265585 clicked setup_vpn
-2025-07-12 12:30:29.417 | INFO     | core.handlers.user_handlers:callback_select_server:370 - User 218265585 selected server via callback: select_server_1
-2025-07-12 12:30:29.519 | INFO     | core.handlers.user_handlers:callback_select_server:393 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 12:30:29.531 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 12:30:30.152 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 12:30:30.153 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 12:30:30.233 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 12:30:35.860 | INFO     | core.handlers.user_handlers:callback_pay_subscription:539 - User 218265585 clicked pay_subscription
-2025-07-12 12:30:44.382 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:763 - User 218265585 clicked get_free_vpn
-2025-07-12 12:30:45.122 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:62 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-12 12:30:45.140 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:76 - Updating existing client 6c98adb0-5513-4c5d-83e9-f6da7e459e8c on XUI for user 218265585
-2025-07-12 12:30:45.141 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 12:30:45.900 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 12:30:45.900 | INFO     | core.services.xui_client:update_client:123 - Updating client 6c98adb0-5513-4c5d-83e9-f6da7e459e8c for inbound 20...
-2025-07-12 12:30:45.901 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 12:30:45.996 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 12:30:45.997 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 12:30:46.088 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 12:30:46.189 | ERROR    | core.services.xui_client:update_client:161 - HTTP error updating client 6c98adb0-5513-4c5d-83e9-f6da7e459e8c: 404 - 
-2025-07-12 12:30:46.192 | ERROR    | core.handlers.user_handlers:_create_or_update_vpn_key:117 - XUIClientError while creating/updating key for user 218265585: HTTP error updating client: 404
-2025-07-12 12:30:46.193 | ERROR    | core.handlers.user_handlers:callback_get_free_vpn:789 - Error creating trial VPN key: HTTP error updating client: 404
-2025-07-12 12:30:57.207 | INFO     | core.handlers.user_handlers:callback_setup_vpn:345 - User 218265585 clicked setup_vpn
-2025-07-12 12:34:01.999 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 12:34:02.005 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 12:34:02.058 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 12:34:02.894 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 12:34:02.906 | INFO     | core.handlers.user_handlers:callback_setup_vpn:346 - User 218265585 clicked setup_vpn
-2025-07-12 12:34:05.302 | INFO     | core.handlers.user_handlers:callback_setup_vpn:346 - User 218265585 clicked setup_vpn
-2025-07-12 12:34:06.844 | INFO     | core.handlers.user_handlers:callback_select_server:371 - User 218265585 selected server via callback: select_server_1
-2025-07-12 12:34:06.980 | INFO     | core.handlers.user_handlers:callback_select_server:394 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 12:34:06.990 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 12:34:08.815 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 12:34:08.816 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 12:34:08.919 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 12:34:20.713 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 12:35:18.012 | INFO     | core.handlers.user_handlers:callback_setup_vpn:346 - User 218265585 clicked setup_vpn
-2025-07-12 12:52:45.896 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 12:52:45.900 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 12:52:45.936 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 12:56:34.863 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 12:56:42.279 | INFO     | core.handlers.user_handlers:callback_setup_vpn:346 - User 218265585 clicked setup_vpn
-2025-07-12 13:02:42.854 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 13:02:42.858 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 13:02:42.894 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 13:03:52.665 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 13:04:08.145 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:71 - Admin 218265585 accessed the admin panel.
-2025-07-12 13:05:14.892 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 13:07:28.991 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:71 - Admin 218265585 accessed the admin panel.
-2025-07-12 13:12:13.276 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 13:12:13.281 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 13:12:13.339 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 13:12:14.224 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 13:12:14.233 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 13:12:14.235 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:76 - Admin 218265585 accessed the admin panel.
-2025-07-12 13:12:14.237 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:76 - Admin 218265585 accessed the admin panel.
-2025-07-12 13:12:22.694 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 13:12:27.174 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:76 - Admin 218265585 accessed the admin panel.
-2025-07-12 13:13:16.086 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 13:13:16.092 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 13:13:16.132 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 13:14:22.183 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:76 - Admin 218265585 accessed the admin panel.
-2025-07-12 13:18:11.832 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 13:18:16.865 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:76 - Admin 218265585 accessed the admin panel.
-2025-07-12 15:59:25.849 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 15:59:25.855 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 15:59:26.021 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 15:59:27.043 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 15:59:27.060 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 15:59:27.067 | INFO     | core.handlers.user_handlers:command_start_handler:171 - User 218265585 not found in DB, adding new user.
-2025-07-12 15:59:27.083 | INFO     | core.handlers.user_handlers:command_start_handler:183 - New user 218265585 added to the database with lang_code: ru
-2025-07-12 15:59:44.786 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 15:59:44.791 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 15:59:44.852 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 16:00:15.112 | INFO     | core.handlers.user_handlers:callback_setup_vpn:367 - User 218265585 clicked setup_vpn
-2025-07-12 16:00:18.274 | INFO     | core.handlers.user_handlers:callback_setup_vpn:367 - User 218265585 clicked setup_vpn
-2025-07-12 16:02:56.408 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 16:02:56.414 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 16:02:56.459 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 16:04:01.014 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 16:04:01.018 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 16:04:01.064 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 16:04:20.584 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:04:25.877 | INFO     | core.handlers.user_handlers:callback_setup_vpn:367 - User 218265585 clicked setup_vpn
-2025-07-12 16:05:19.390 | INFO     | core.handlers.user_handlers:callback_pay_subscription:565 - User 218265585 clicked pay_subscription
-2025-07-12 16:05:34.422 | INFO     | core.handlers.user_handlers:callback_gift_subscription:821 - User 218265585 initiated gift subscription purchase.
-2025-07-12 16:05:49.051 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:789 - User 218265585 clicked get_free_vpn
-2025-07-12 16:05:49.461 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:62 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-12 16:05:49.479 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:82 - Creating new client 25c87d8e-fd03-430b-b9a0-7beb227bcb5b on XUI for user 218265585
-2025-07-12 16:05:49.480 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:05:50.681 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:05:50.683 | INFO     | core.services.xui_client:create_user:79 - Creating user 218265585 for inbound 20...
-2025-07-12 16:05:50.854 | ERROR    | core.handlers.user_handlers:_create_or_update_vpn_key:117 - XUIClientError while creating/updating key for user 218265585: Failed to create user 218265585: Something went wrong! Failed: Duplicate email: 218265585
+Your subscription is active until: **2025-07-23 14:13**
+2025-07-20 19:29:50.649 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 19:29:50.655 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
 
-2025-07-12 16:05:50.856 | ERROR    | core.handlers.user_handlers:callback_get_free_vpn:815 - Error creating trial VPN key: Failed to create user 218265585: Something went wrong! Failed: Duplicate email: 218265585
+Your subscription is active until: **2025-07-23 14:13**
+2025-07-20 19:30:24.727 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 19:30:24.735 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
 
-2025-07-12 16:07:00.938 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:07:03.922 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:789 - User 218265585 clicked get_free_vpn
-2025-07-12 16:07:04.389 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:62 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-12 16:07:04.402 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:82 - Creating new client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 on XUI for user 218265585
-2025-07-12 16:07:04.403 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:07:05.309 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:07:05.310 | INFO     | core.services.xui_client:create_user:79 - Creating user 218265585 for inbound 20...
-2025-07-12 16:07:05.456 | INFO     | core.services.xui_client:create_user:108 - User 218265585 created successfully.
-2025-07-12 16:07:05.468 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:111 - Subscription for user 218265585 on server Нидерланды created/updated in DB.
-2025-07-12 16:07:05.477 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:07:06.381 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:07:06.382 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 16:07:06.525 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 16:13:23.328 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 16:13:23.335 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 16:13:23.386 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 16:13:59.194 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:14:01.763 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:789 - User 218265585 clicked get_free_vpn
-2025-07-12 16:17:46.716 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 16:17:46.721 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 16:17:46.775 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 16:17:48.005 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:17:50.831 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:789 - User 218265585 clicked get_free_vpn
-2025-07-12 16:17:51.245 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:62 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-12 16:17:51.275 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:76 - Updating existing client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 on XUI for user 218265585
-2025-07-12 16:17:51.277 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:17:52.298 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:17:52.299 | INFO     | core.services.xui_client:update_client:123 - Updating client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 for inbound 20...
-2025-07-12 16:17:52.300 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:17:52.423 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:17:52.424 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 16:17:52.574 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 16:17:52.574 | ERROR    | core.handlers.user_handlers:_create_or_update_vpn_key:117 - XUIClientError while creating/updating key for user 218265585: Client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 not found in inbound 20
-2025-07-12 16:17:52.575 | ERROR    | core.handlers.user_handlers:callback_get_free_vpn:815 - Error creating trial VPN key: Client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 not found in inbound 20
-2025-07-12 16:19:19.204 | INFO     | core.handlers.user_handlers:callback_setup_vpn:367 - User 218265585 clicked setup_vpn
-2025-07-12 16:19:21.963 | INFO     | core.handlers.user_handlers:callback_select_server:396 - User 218265585 selected server via callback: select_server_1
-2025-07-12 16:19:22.145 | INFO     | core.handlers.user_handlers:callback_select_server:419 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 16:19:22.157 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:19:23.057 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:19:23.059 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 16:19:23.214 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 16:19:39.160 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:19:43.691 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:789 - User 218265585 clicked get_free_vpn
-2025-07-12 16:19:44.027 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:62 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-12 16:19:44.042 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:76 - Updating existing client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 on XUI for user 218265585
-2025-07-12 16:19:44.042 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:19:44.841 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:19:44.842 | INFO     | core.services.xui_client:update_client:123 - Updating client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 for inbound 20...
-2025-07-12 16:19:44.842 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:19:44.960 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:19:44.961 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 16:19:45.072 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 16:19:45.073 | ERROR    | core.handlers.user_handlers:_create_or_update_vpn_key:117 - XUIClientError while creating/updating key for user 218265585: Client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 not found in inbound 20
-2025-07-12 16:19:45.073 | ERROR    | core.handlers.user_handlers:callback_get_free_vpn:815 - Error creating trial VPN key: Client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 not found in inbound 20
-2025-07-12 16:35:37.462 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 16:35:37.466 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 16:35:37.533 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 16:35:38.814 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:35:38.829 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:35:38.832 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:35:38.833 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:35:38.835 | INFO     | core.handlers.user_handlers:command_start_handler:164 - User 218265585 sent /start with args: None
-2025-07-12 16:36:04.398 | INFO     | __main__:start_bot_polling:49 - Starting Telegram bot polling...
-2025-07-12 16:36:04.404 | INFO     | __main__:startup_event:32 - FastAPI application started!
-2025-07-12 16:36:04.463 | INFO     | __main__:startup_event:40 - Scheduler started.
-2025-07-12 16:36:05.588 | INFO     | core.handlers.user_handlers:callback_setup_vpn:367 - User 218265585 clicked setup_vpn
-2025-07-12 16:36:05.608 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:790 - User 218265585 clicked get_free_vpn
-2025-07-12 16:36:06.783 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:62 - Creating/updating VPN key for user 218265585 on server Нидерланды for 3 days.
-2025-07-12 16:36:06.800 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:76 - Updating existing client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 on XUI for user 218265585
-2025-07-12 16:36:06.801 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:36:08.082 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:36:08.083 | INFO     | core.services.xui_client:update_client:123 - Updating client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 for inbound 20...
-2025-07-12 16:36:08.084 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:36:08.201 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:36:08.202 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 16:36:08.333 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 16:36:08.335 | ERROR    | core.handlers.user_handlers:_create_or_update_vpn_key:117 - XUIClientError while creating/updating key for user 218265585: Client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 not found in inbound 20
-2025-07-12 16:36:08.337 | ERROR    | core.handlers.user_handlers:callback_get_free_vpn:816 - Error creating trial VPN key: Client 6d65dce3-2fe6-47a9-9b2d-f7b717e72572 not found in inbound 20
-2025-07-12 16:36:12.015 | INFO     | core.handlers.user_handlers:callback_setup_vpn:367 - User 218265585 clicked setup_vpn
-2025-07-12 16:36:15.304 | INFO     | core.handlers.user_handlers:callback_select_server:397 - User 218265585 selected server via callback: select_server_1
-2025-07-12 16:36:15.458 | INFO     | core.handlers.user_handlers:callback_select_server:420 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
-2025-07-12 16:36:15.468 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
-2025-07-12 16:36:16.525 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
-2025-07-12 16:36:16.526 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 20 details...
-2025-07-12 16:36:16.673 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 20 details retrieved successfully.
-2025-07-12 16:43:57.227 | INFO     | core.handlers.user_handlers:callback_setup_vpn:367 - User 218265585 clicked setup_vpn
+Your subscription is active until: **2025-07-23 14:13**
+2025-07-20 21:27:57.214 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:27:57.220 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:27:57.297 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:30:16.435 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:30:16.439 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:30:16.516 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:32:33.065 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:32:33.069 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:32:33.128 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:34:43.897 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:34:43.900 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:34:43.956 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:37:53.208 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:37:53.212 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:37:53.266 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:40:03.205 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:40:03.209 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:40:03.267 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:42:16.911 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:42:16.915 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:42:16.973 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:44:29.113 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:44:29.116 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:44:29.169 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:46:40.471 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:46:40.474 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:46:40.530 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:48:51.457 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:48:51.462 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:48:51.518 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:51:03.505 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:51:03.509 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:51:03.563 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:53:41.607 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:53:41.614 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:53:41.675 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:55:56.810 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:55:56.814 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:55:56.866 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 21:58:10.808 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 21:58:10.812 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 21:58:10.862 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:00:34.522 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 22:00:34.527 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 22:00:34.587 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:02:59.710 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 22:02:59.715 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 22:02:59.771 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:05:19.230 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 22:05:19.234 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 22:05:19.299 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:07:42.856 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 22:07:42.860 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 22:07:42.924 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:10:08.295 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 22:10:08.300 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 22:10:08.355 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:12:35.684 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 22:12:35.687 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 22:12:35.743 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:14:59.929 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 22:14:59.934 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 22:14:59.993 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:17:21.855 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-20 22:17:21.860 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-20 22:17:21.921 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-20 22:17:34.742 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 22:17:34.782 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+Ваша подписка активна до: **2025-07-23 14:13**
+2025-07-20 22:17:51.928 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 22:17:51.936 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Hello, Alexey Avvakumov! This is the main menu.
+
+Your subscription is active until: **2025-07-23 14:13**
+2025-07-20 22:18:35.074 | INFO     | core.handlers.user_handlers:callback_setup_vpn:386 - User 218265585 clicked setup_vpn
+2025-07-20 22:18:37.432 | INFO     | core.handlers.user_handlers:callback_select_server:423 - User 218265585 selected server via callback: select_server_1
+2025-07-20 22:18:37.541 | INFO     | core.handlers.user_handlers:callback_select_server:449 - Active subscription found for user 218265585 on server Нидерланды. Showing key.
+2025-07-20 22:18:37.574 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
+2025-07-20 22:18:38.224 | INFO     | core.services.xui_client:_login:35 - Successfully logged in to XUI panel.
+2025-07-20 22:18:38.225 | INFO     | core.services.xui_client:get_inbound:53 - Getting inbound 23 details...
+2025-07-20 22:18:38.305 | INFO     | core.services.xui_client:get_inbound:62 - Inbound 23 details retrieved successfully.
+2025-07-20 22:18:42.169 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-20 22:18:42.178 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+Ваша подписка активна до: **2025-07-23 14:13**
+2025-07-21 12:53:54.395 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 12:53:54.399 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 12:53:54.436 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 12:54:16.501 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-21 12:54:16.548 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+Ваша подписка активна до: **2025-07-23 14:13**
+2025-07-21 12:54:25.206 | INFO     | core.handlers.admin_handlers:cmd_admin_panel:82 - Admin 218265585 accessed the admin panel.
+2025-07-21 12:56:40.787 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-21 12:56:40.810 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+Ваша подписка активна до: **2025-07-23 14:13**
+2025-07-21 12:56:42.972 | INFO     | core.handlers.user_handlers:callback_setup_vpn:386 - User 218265585 clicked setup_vpn
+2025-07-21 12:59:09.361 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 12:59:09.364 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 12:59:09.421 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:03:42.284 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:03:42.288 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:03:42.352 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:06:31.232 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:06:31.237 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:06:31.305 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:13:18.362 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:13:18.366 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:13:18.426 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:15:20.069 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:15:20.075 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:15:20.161 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:17:18.361 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:17:18.366 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:17:18.427 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:18:36.454 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-21 13:18:36.490 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+Ваша подписка активна до: **2025-07-23 14:13**
+2025-07-21 13:21:59.995 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:22:00.000 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:22:00.038 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:24:26.324 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:24:26.328 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:24:26.368 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:26:49.108 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:26:49.112 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:26:49.174 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:29:16.444 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:29:16.448 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:29:16.519 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:31:54.399 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:31:54.403 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:31:54.464 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:35:10.229 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:35:10.234 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:35:10.309 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-21 13:37:43.451 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-21 13:37:43.456 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-21 13:37:43.519 | INFO     | __main__:startup_event:142 - Scheduler started.
