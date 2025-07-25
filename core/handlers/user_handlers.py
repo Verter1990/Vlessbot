@@ -750,6 +750,7 @@ async def successful_payment_handler(message: Message, session: AsyncSession, bo
 
             logger.info(f"Processing successful payment for user {user.telegram_id}, tariff {get_db_text(tariff.name, lang)}")
 
+            '''            # Начисляем бонусы рефералам
             if user.referrer_id:
                 l1_referrer = (await session.execute(select(User).where(User.telegram_id == user.referrer_id))).scalars().first()
                 if l1_referrer:
@@ -763,7 +764,31 @@ async def successful_payment_handler(message: Message, session: AsyncSession, bo
                             l2_commission = int(tariff.price_rub * (constants.L2_REFERRAL_COMMISSION_PERCENT / 100))
                             l2_referrer.l2_referral_balance += l2_commission
                             logger.info(f"Awarded {l2_commission/100} RUB (L2) to referrer {l2_referrer.telegram_id}")
-            await session.commit()
+
+            # Создаем или обновляем ключ для пользователя
+            if server_id:
+                server = await session.get(Server, server_id)
+                if server:
+                    try:
+                        vless_link = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang)
+                        await bot.send_message(user.telegram_id, get_text('payment_success_key_created', lang).format(
+                            server_name=get_db_text(server.name, lang),
+                            vless_link=vless_link,
+                            days=tariff.duration_days
+                        ), parse_mode='HTML')
+                    except Exception as e:
+                        logger.error(f"[Stars Payment] Error creating VPN key for user {user.telegram_id}: {e}", exc_info=True)
+                        user.unassigned_days += tariff.duration_days
+                        await bot.send_message(user.telegram_id, get_text('payment_success_key_error_webhook', lang).format(days=tariff.duration_days))
+                else:
+                    logger.error(f"[Stars Payment] Server {server_id} not found for user {user.telegram_id}")
+                    user.unassigned_days += tariff.duration_days
+                    await bot.send_message(user.telegram_id, get_text('payment_success_days_added_server_fail', lang).format(days=tariff.duration_days))
+            else:
+                user.unassigned_days += tariff.duration_days
+                await bot.send_message(user.telegram_id, get_text('payment_success_days_added', lang).format(days=tariff.duration_days))
+
+            await session.commit()''
 
         elif payment_type == 'gift':
             if not (len(parts) == 3):
