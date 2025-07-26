@@ -19,7 +19,7 @@ async def main():
     logger.info("Initializing bot...")
 
     # Инициализация базы данных
-    await init_db()
+    # await init_db()
 
     # Инициализация бота и диспетчера
     bot = Bot(token=settings.BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
