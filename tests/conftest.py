@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from core.database.models import Base
 from core.database.database import async_session_maker
+import sqlalchemy as sa
 
 # Use an in-memory SQLite database for testing
 TEST_DATABASE_URL = "postgresql+asyncpg://vlessbot_user:vlessbot_password@db/vlessbot_db"
@@ -15,7 +16,7 @@ def event_loop():
     yield loop
     loop.close()
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 async def engine():
     """Create an async engine for the in-memory SQLite database."""
     engine = create_async_engine(TEST_DATABASE_URL, echo=False)
@@ -23,7 +24,12 @@ async def engine():
         await conn.run_sync(Base.metadata.create_all)
     yield engine
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
+        # Drop tables in a specific order to handle dependencies
+        for table_name in ['gift_codes', 'transactions', 'subscriptions', 'payout_requests', 'tariffs', 'servers', 'users']:
+            try:
+                await conn.execute(sa.text(f"DROP TABLE IF EXISTS {table_name} CASCADE;"))
+            except Exception as e:
+                print(f"Error dropping table {table_name}: {e}")
     await engine.dispose()
 
 @pytest.fixture(scope="function")
@@ -42,5 +48,3 @@ async def client(session):
     # This fixture is a placeholder. Actual FastAPI app mocking would go here.
     # For now, it just provides a session.
     yield session
-
-

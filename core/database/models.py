@@ -33,7 +33,7 @@ class Server(Base):
     __tablename__ = 'servers'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, unique=True, nullable=False)
+    name = Column(JSON, nullable=False)
     api_url = Column(String, nullable=False)
     api_user = Column(String, nullable=False)
     api_password = Column(String, nullable=False)

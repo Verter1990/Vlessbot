@@ -95,7 +95,7 @@ def get_instruction_text(os_type: str, lang: str) -> str:
             get_text('info_faq1_macos', lang),
             get_text('info_faq2_macos', lang),
         ])
-    return "Инструкция не найдена."
+    return get_text('instruction_not_found', lang)
 
 @router.callback_query(F.data.startswith("info_"))
 async def show_instruction(callback: CallbackQuery, session: AsyncSession):

@@ -34,7 +34,7 @@ async def seed_db():
         if not existing_servers:
             logger.info("No servers found. Adding default servers.")
             default_server = Server(
-                name="Нидерланды",
+                name={"ru": "Нидерланды", "en": "Netherlands", "fa": "هلند"},
                 api_url="https://vpn.myvless.fun/",
                 api_user="admin",
                 api_password=encrypt_password("Forexmonarh1990"),
@@ -56,9 +56,9 @@ async def seed_db():
         if not existing_tariffs:
             logger.info("No tariffs found. Adding default tariffs.")
             tariffs_to_add = [
-                Tariff(name="Неделя", duration_days=7, price_rub=3000, price_stars=20),
-                Tariff(name="Месяц", duration_days=30, price_rub=9900, price_stars=66),
-                Tariff(name="Год", duration_days=365, price_rub=100000, price_stars=666) # Assuming 1000 rub for year
+                Tariff(name={"ru": "Неделя", "en": "Week", "fa": "هفته"}, duration_days=7, price_rub=3000, price_stars=20),
+                Tariff(name={"ru": "Месяц", "en": "Month", "fa": "ماه"}, duration_days=30, price_rub=9900, price_stars=66),
+                Tariff(name={"ru": "Год", "en": "Year", "fa": "سال"}, duration_days=365, price_rub=100000, price_stars=666)
             ]
             session.add_all(tariffs_to_add)
             await session.commit()

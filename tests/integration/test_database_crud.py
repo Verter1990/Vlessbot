@@ -64,28 +64,28 @@ class TestUserCRUD:
 class TestServerCRUD:
     async def test_create_server(self, session: AsyncSession):
         unique_id = random.randint(1000, 9999)
-        server = Server(name=f"TestServer1_{unique_id}", api_url=f"http://api1.com/{unique_id}", api_user=f"user1_{unique_id}", api_password=f"pass1_{unique_id}", inbound_id=unique_id)
+        server = Server(name={"ru": f"TestServer1_{unique_id}", "en": f"TestServer1_{unique_id}"}, api_url=f"http://api1.com/{unique_id}", api_user=f"user1_{unique_id}", api_password=f"pass1_{unique_id}", inbound_id=unique_id)
         session.add(server)
         await session.flush()
 
         fetched_server = await session.get(Server, server.id)
         assert fetched_server is not None
-        assert fetched_server.name == f"TestServer1_{unique_id}"
+        assert fetched_server.name["ru"] == f"TestServer1_{unique_id}"
 
     async def test_read_server(self, session: AsyncSession):
         unique_id = random.randint(1000, 9999)
-        server = Server(name=f"TestServer2_{unique_id}", api_url=f"http://api2.com/{unique_id}", api_user=f"user2_{unique_id}", api_password=f"pass2_{unique_id}", inbound_id=unique_id)
+        server = Server(name={"ru": f"TestServer2_{unique_id}", "en": f"TestServer2_{unique_id}"}, api_url=f"http://api2.com/{unique_id}", api_user=f"user2_{unique_id}", api_password=f"pass2_{unique_id}", inbound_id=unique_id)
         session.add(server)
         await session.flush()
 
-        fetched_server = await session.execute(select(Server).where(Server.name == f"TestServer2_{unique_id}"))
+        fetched_server = await session.execute(select(Server).where(Server.name.op('->>')('ru') == f"TestServer2_{unique_id}"))
         fetched_server = fetched_server.scalars().first()
         assert fetched_server is not None
         assert fetched_server.api_url == f"http://api2.com/{unique_id}"
 
     async def test_update_server(self, session: AsyncSession):
         unique_id = random.randint(1000, 9999)
-        server = Server(name=f"TestServer3_{unique_id}", api_url=f"http://api3.com/{unique_id}", api_user=f"user3_{unique_id}", api_password=f"pass3_{unique_id}", inbound_id=unique_id)
+        server = Server(name={"ru": f"TestServer3_{unique_id}", "en": f"TestServer3_{unique_id}"}, api_url=f"http://api3.com/{unique_id}", api_user=f"user3_{unique_id}", api_password=f"pass3_{unique_id}", inbound_id=unique_id)
         session.add(server)
         await session.flush()
 
@@ -99,7 +99,7 @@ class TestServerCRUD:
 
     async def test_delete_server(self, session: AsyncSession):
         unique_id = random.randint(1000, 9999)
-        server = Server(name=f"TestServer4_{unique_id}", api_url=f"http://api4.com/{unique_id}", api_user=f"user4_{unique_id}", api_password=f"pass4_{unique_id}", inbound_id=unique_id)
+        server = Server(name={"ru": f"TestServer4_{unique_id}", "en": f"TestServer4_{unique_id}"}, api_url=f"http://api4.com/{unique_id}", api_user=f"user4_{unique_id}", api_password=f"pass4_{unique_id}", inbound_id=unique_id)
         session.add(server)
         await session.flush()
 

@@ -28,7 +28,10 @@ def generate_unique_code(length=constants.GIFT_CODE_LENGTH):
 async def _get_user_and_lang(session: AsyncSession, user_id: int) -> tuple[User | None, str]:
     """Fetches user from DB and determines their language code."""
     user = (await session.execute(select(User).where(User.telegram_id == user_id))).scalars().first()
-    lang = user.language_code if user else 'ru'
+    # Ensure lang is always a valid string, defaulting to 'ru'
+    lang = 'ru' # Default language
+    if user and user.language_code:
+        lang = user.language_code
     return user, lang
 
 async def _generate_vless_link(server: Server, user_uuid: str, lang: str) -> str:
@@ -52,8 +55,9 @@ async def _generate_vless_link(server: Server, user_uuid: str, lang: str) -> str
         parsed_url = urlparse(server.api_url)
         host = parsed_url.hostname
         port = parsed_url.port or 443
-        # Use get_db_text for the server name in the link fragment
-        vless_link = f"vless://{user_uuid}@{host}:{port}?{params}#VPN_{get_db_text(server.name, lang)}"
+        # Use server.name JSON field directly for localized server name
+        server_name_localized = server.name.get(lang) or server.name.get('ru') or ''
+        vless_link = f"vless://{user_uuid}@{host}:{port}?{params}#VPN_{server_name_localized}"
         
         return vless_link
     except XUIClientError as e:
@@ -139,40 +143,46 @@ async def _create_or_update_vpn_key(session: AsyncSession, user: User, server: S
 
 async def _get_main_menu_content(user: User, from_user: AiogramUser, session: AsyncSession) -> tuple[str, InlineKeyboardMarkup]:
     """Prepares the text and keyboard for the main menu."""
-    lang = user.language_code
-    
-    welcome_message = get_text('welcome', lang).format(full_name=from_user.full_name)
+    import logging
+    try:
+        lang = user.language_code
+        
+        welcome_message = get_text('welcome', lang).format(full_name=from_user.full_name)
 
-    now = datetime.utcnow()
-    active_subscriptions = (await session.execute(
-        select(Subscription).where(Subscription.user_id == user.telegram_id, Subscription.expires_at > now, Subscription.is_active == True)
-    )).scalars().all()
+        now = datetime.utcnow()
+        active_subscriptions = (await session.execute(
+            select(Subscription).where(Subscription.user_id == user.telegram_id, Subscription.expires_at > now, Subscription.is_active == True)
+        )).scalars().all()
 
-    if active_subscriptions:
-        latest_expiry = max([sub.expires_at for sub in active_subscriptions])
-        welcome_message += get_text('subscription_active_until', lang).format(expiry_date=latest_expiry.strftime('%Y-%m-%d %H:%M'))
-    else:
-        welcome_message += get_text('no_active_subscription', lang)
+        if active_subscriptions:
+            latest_expiry = max([sub.expires_at for sub in active_subscriptions])
+            welcome_message += get_text('subscription_active_until', lang).format(expiry_date=latest_expiry.strftime('%Y-%m-%d %H:%M'))
+        else:
+            welcome_message += get_text('no_active_subscription', lang)
 
-    if user.unassigned_days > 0:
-        welcome_message += get_text('unassigned_days', lang).format(days=user.unassigned_days)
-    
-    total_referrals = (await session.execute(select(func.count(User.id)).where(User.referrer_id == user.telegram_id))).scalar_one()
-    total_earnings = (user.referral_balance + user.l2_referral_balance) / 100
-    
-    if total_referrals > 0:
-        welcome_message += get_text('referral_stats', lang).format(referrals=total_referrals, earnings=total_earnings)
+        if user.unassigned_days > 0:
+            welcome_message += get_text('unassigned_days', lang).format(days=user.unassigned_days)
+        
+        total_referrals = (await session.execute(select(func.count(User.id)).where(User.referrer_id == user.telegram_id))).scalar_one()
+        total_earnings = (user.referral_balance + user.l2_referral_balance) / 100
+        
+        if total_referrals > 0:
+            welcome_message += get_text('referral_stats', lang).format(referrals=total_referrals, earnings=total_earnings)
 
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=get_text('btn_setup_vpn', lang), callback_data="setup_vpn")],
-        [InlineKeyboardButton(text=get_text('btn_pay_subscription', lang), callback_data="pay_subscription_main_menu")],
-        [InlineKeyboardButton(text="❓ Как подключиться?", callback_data="how_to_connect")],
-        [InlineKeyboardButton(text=get_text('btn_referral_program', lang), callback_data="referral_program")],
-        [InlineKeyboardButton(text=get_text('btn_why_vpn', lang), callback_data="why_vpn")],
-        [InlineKeyboardButton(text=get_text('btn_get_free_vpn', lang), callback_data="get_free_vpn")],
-        [InlineKeyboardButton(text=get_text('btn_help', lang), callback_data="help")],
-        [InlineKeyboardButton(text=get_text('btn_terms_of_use', lang), callback_data="terms_of_use")]
-    ])
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text=get_text('btn_setup_vpn', lang), callback_data="setup_vpn")],
+            [InlineKeyboardButton(text=get_text('btn_pay_subscription', lang), callback_data="pay_subscription_main_menu")],
+            [InlineKeyboardButton(text=get_text('btn_how_to_connect', lang), callback_data="how_to_connect")],
+            [InlineKeyboardButton(text=get_text('btn_referral_program', lang), callback_data="referral_program")],
+            [InlineKeyboardButton(text=get_text('btn_why_vpn', lang), callback_data="why_vpn")],
+            [InlineKeyboardButton(text=get_text('btn_get_free_vpn', lang), callback_data="get_free_vpn")],
+            [InlineKeyboardButton(text=get_text('btn_help', lang), callback_data="help")],
+            [InlineKeyboardButton(text=get_text('btn_terms_of_use', lang), callback_data="terms_of_use")]
+        ])
+    except Exception as e:
+        logging.error(f"Error generating main menu content for user {user.telegram_id}: {e}", exc_info=True)
+        welcome_message = get_text('error_generic', lang)
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[])
     return welcome_message, keyboard
 
 # --- COMMAND HANDLERS ---
@@ -190,7 +200,7 @@ async def command_start_handler(message: Message, command: CommandObject, sessio
         user = User(
             telegram_id=user_id,
             username=message.from_user.username,
-            language_code=message.from_user.language_code,
+            language_code=message.from_user.language_code or 'ru', # Fallback to 'ru'
             unassigned_days=0,
             referral_balance=0,
             l2_referral_balance=0
@@ -365,22 +375,53 @@ async def callback_show_main_menu_after_welcome(callback: CallbackQuery, session
     await callback.message.edit_text(text, reply_markup=keyboard)
 
 @router.callback_query(F.data.startswith("set_lang_"))
-async def callback_set_language(callback: CallbackQuery, session: AsyncSession, bot: Bot):
-    lang_code = callback.data.split('_')[-1]
-    user_id = callback.from_user.id
+async def set_language_callback(callback: CallbackQuery, session: AsyncSession, bot: Bot):
+    """
+    Handles the language selection callback.
+    Updates the user's language in the database and refreshes the main menu.
+    """
+    try:
+        # 1. Extract language code from callback data
+        lang_code = callback.data.split("_")[-1]
+        user_id = callback.from_user.id
+        logger.info(f"Step 1: User {user_id} selected language '{lang_code}'.")
 
-    user = (await session.execute(select(User).where(User.telegram_id == user_id))).scalars().first()
-    if user:
+        # 2. Find the user in the database by their telegram_id
+        user_query = select(User).where(User.telegram_id == user_id)
+        result = await session.execute(user_query)
+        user = result.scalars().first()
+
+        if not user:
+            logger.warning(f"Step 2: User {user_id} not found in DB. Aborting language change.")
+            await callback.answer("Please /start the bot first.", show_alert=True)
+            return
+        
+        logger.info(f"Step 2: Found user {user_id} with current language '{user.language_code}'.")
+
+        # 3. Update user's language and save to DB
         user.language_code = lang_code
+        session.add(user)
         await session.commit()
-        await callback.answer(get_text('language_changed', lang_code))
+        logger.info(f"Step 3: Successfully committed language '{lang_code}' for user {user_id} to DB.")
+
+        # 4. Inform the user about the successful change in their new language
+        language_names = {'ru': 'Русский', 'en': 'English', 'fa': 'فارسی'}
+        language_name = language_names.get(lang_code, lang_code)
         
+        response_text = get_text('language_changed', lang_code).format(language=language_name)
+        logger.info(f"Step 4: Answering callback with text: '{response_text}' in language '{lang_code}'.")
+        await callback.answer(text=response_text, show_alert=False)
+
+        # 5. Refresh the main menu with the new language
         await session.refresh(user)
-        
+        logger.info(f"Step 5: Refreshed user object. Language is now '{user.language_code}'. Generating main menu.")
         text, keyboard = await _get_main_menu_content(user, callback.from_user, session)
         await callback.message.edit_text(text, reply_markup=keyboard)
-    else:
-        await callback.answer("User not found, please type /start first.", show_alert=True)
+        logger.info(f"Step 6: Successfully sent new main menu to user {user_id}.")
+
+    except Exception as e:
+        logger.error(f"CRITICAL ERROR in set_language_callback for user {callback.from_user.id}: {e}", exc_info=True)
+        await callback.answer("An error occurred. Please try again.", show_alert=True)
 
 @router.callback_query(F.data == "setup_vpn")
 async def callback_setup_vpn(callback: CallbackQuery, session: AsyncSession) -> None:
@@ -403,7 +444,7 @@ async def callback_setup_vpn(callback: CallbackQuery, session: AsyncSession) -> 
 
     buttons = []
     for server in servers:
-        server_name_localized = get_db_text(server.name, lang)
+        server_name_localized = server.name.get(lang) or server.name.get('ru') or ''
         flag_emoji = constants.COUNTRY_EMOJIS.get(server_name_localized, "")
         lock_emoji = constants.UNLOCK_EMOJI if server.is_active else constants.LOCK_EMOJI
         button_text = f"{flag_emoji} {server_name_localized} {lock_emoji}".strip()
@@ -474,7 +515,7 @@ async def callback_select_server(callback: CallbackQuery, session: AsyncSession)
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     
     await callback.message.edit_text(
-        get_text('no_active_subscription_for_server', current_lang).format(server_name=get_db_text(selected_server.name, current_lang)),
+        get_text('no_active_subscription_for_server', current_lang).format(server_name=selected_server.name.get(current_lang) or selected_server.name.get('ru') or ''),
         reply_markup=keyboard
     )
 
@@ -552,7 +593,7 @@ async def confirm_referral_payment(callback: CallbackQuery, session: AsyncSessio
         await callback.message.answer(
             get_text('referral_payment_success', lang).format(
                 tariff_name=get_db_text(tariff.name, lang),
-                server_name=get_db_text(selected_server.name, lang),
+                server_name=selected_server.name.get(lang) or selected_server.name.get('ru') or '',
                 vless_link=vless_link,
                 days=tariff.duration_days
             ), parse_mode='HTML', reply_markup=keyboard
@@ -749,46 +790,6 @@ async def successful_payment_handler(message: Message, session: AsyncSession, bo
                 raise ValueError(f"User or Tariff not found for stars payment: user={user_telegram_id}, tariff={tariff_id}")
 
             logger.info(f"Processing successful payment for user {user.telegram_id}, tariff {get_db_text(tariff.name, lang)}")
-
-            '''            # Начисляем бонусы рефералам
-            if user.referrer_id:
-                l1_referrer = (await session.execute(select(User).where(User.telegram_id == user.referrer_id))).scalars().first()
-                if l1_referrer:
-                    l1_commission = int(tariff.price_rub * (constants.L1_REFERRAL_COMMISSION_PERCENT / 100))
-                    l1_referrer.referral_balance += l1_commission
-                    logger.info(f"Awarded {l1_commission/100} RUB (L1) to referrer {l1_referrer.telegram_id}")
-                    
-                    if l1_referrer.referrer_id:
-                        l2_referrer = (await session.execute(select(User).where(User.telegram_id == l1_referrer.referrer_id))).scalars().first()
-                        if l2_referrer:
-                            l2_commission = int(tariff.price_rub * (constants.L2_REFERRAL_COMMISSION_PERCENT / 100))
-                            l2_referrer.l2_referral_balance += l2_commission
-                            logger.info(f"Awarded {l2_commission/100} RUB (L2) to referrer {l2_referrer.telegram_id}")
-
-            # Создаем или обновляем ключ для пользователя
-            if server_id:
-                server = await session.get(Server, server_id)
-                if server:
-                    try:
-                        vless_link = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang)
-                        await bot.send_message(user.telegram_id, get_text('payment_success_key_created', lang).format(
-                            server_name=get_db_text(server.name, lang),
-                            vless_link=vless_link,
-                            days=tariff.duration_days
-                        ), parse_mode='HTML')
-                    except Exception as e:
-                        logger.error(f"[Stars Payment] Error creating VPN key for user {user.telegram_id}: {e}", exc_info=True)
-                        user.unassigned_days += tariff.duration_days
-                        await bot.send_message(user.telegram_id, get_text('payment_success_key_error_webhook', lang).format(days=tariff.duration_days))
-                else:
-                    logger.error(f"[Stars Payment] Server {server_id} not found for user {user.telegram_id}")
-                    user.unassigned_days += tariff.duration_days
-                    await bot.send_message(user.telegram_id, get_text('payment_success_days_added_server_fail', lang).format(days=tariff.duration_days))
-            else:
-                user.unassigned_days += tariff.duration_days
-                await bot.send_message(user.telegram_id, get_text('payment_success_days_added', lang).format(days=tariff.duration_days))
-
-            await session.commit()''
 
         elif payment_type == 'gift':
             if not (len(parts) == 3):

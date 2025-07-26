@@ -1,17 +1,12 @@
 {
-    "db_content": {
-        "Неделя": "Week",
-        "Месяц": "Month",
-        "Год": "Year",
-        "Нидерланды": "Netherlands"
-    },
+    
     "error_generic": "An error occurred. Please try again later.",
     "btn_main_menu": "Main Menu",
     "btn_back": "Back",
     "user_not_found_error": "An error occurred, user not found.",
     "tariff_not_found": "An error occurred. Tariff not found.",
     "select_language": "Please select a language:",
-    "language_changed": "Language changed to English.",
+    "language_changed": "Language changed to {language}.",
     "welcome_new_user": "What can this bot do?\nIntroducing our VPN service: fast, stable, and easy to use. Forget about all blockages! Enjoy access on any device: iOS, Android, MacOS, Windows\nReady to go? Press the button below",
     "btn_start_bot": "Let's go!",
     "welcome": "Hello, {full_name}! This is the main menu.",
@@ -174,5 +169,6 @@
     "info_faq1_macos": "- <i>Internet not working:</i> Make sure \"Global Mode\" is selected in the V2RayU menu.",
     "info_faq2_macos": "- <i>Server doesn't appear after import:</i> Try updating the subscription manually via the \"Subscribe\" -> \"Subscribe settings\" -> \"Update\".",
     "license_agreement": "license agreement",
-    "privacy_policy": "privacy policy"
+    "privacy_policy": "Privacy Policy",
+    "instruction_not_found": "Instruction not found."
 }

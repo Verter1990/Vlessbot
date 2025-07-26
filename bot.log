@@ -268,3 +268,233 @@ Your subscription is active until: **2025-07-23 14:13**
 2025-07-21 13:37:43.451 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
 2025-07-21 13:37:43.456 | INFO     | __main__:startup_event:134 - FastAPI application started!
 2025-07-21 13:37:43.519 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:02:39.199 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-25 21:02:39.207 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-25 21:02:39.338 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:03:06.982 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-25 21:03:06.985 | INFO     | core.handlers.user_handlers:command_start_handler:189 - User 218265585 not found in DB, adding new user.
+2025-07-25 21:03:07.010 | INFO     | core.handlers.user_handlers:command_start_handler:201 - New user 218265585 added to the database with lang_code: ru
+2025-07-25 21:03:23.865 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:03:26.407 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:03:28.577 | INFO     | core.handlers.user_handlers:callback_pay_subscription:610 - User 218265585 clicked pay_subscription
+2025-07-25 21:03:39.662 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-25 21:03:39.674 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: سلام، Alexey Avvakumov! این منوی اصلی است.
+
+شما هنوز اشتراک فعالی ندارید.
+2025-07-25 21:03:48.070 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:04:18.328 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-25 21:04:18.333 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-25 21:04:18.376 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:06:16.805 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:06:20.956 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-25 21:06:20.966 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: سلام، Alexey Avvakumov! این منوی اصلی است.
+
+شما هنوز اشتراک فعالی ندارید.
+2025-07-25 21:06:26.223 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:06:28.492 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:06:31.941 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:06:34.177 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-25 21:06:34.187 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: سلام، Alexey Avvakumov! این منوی اصلی است.
+
+شما هنوز اشتراک فعالی ندارید.
+2025-07-25 21:06:45.480 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:06:51.001 | INFO     | core.handlers.user_handlers:callback_pay_subscription:610 - User 218265585 clicked pay_subscription
+2025-07-25 21:07:53.950 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:07:56.692 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:07:58.730 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:08:19.178 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-25 21:08:19.183 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-25 21:08:19.253 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:08:38.078 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-25 21:08:38.102 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: سلام، Alexey Avvakumov! این منوی اصلی است.
+
+شما هنوز اشتراک فعالی ندارید.
+2025-07-25 21:09:21.537 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-25 21:09:21.541 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-25 21:09:21.597 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:11:08.410 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-25 21:11:08.419 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-25 21:11:08.595 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:13:16.701 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-25 21:13:16.706 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-25 21:13:16.745 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:16:09.327 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-25 21:16:09.331 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-25 21:16:09.371 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:16:21.682 | INFO     | core.handlers.user_handlers:command_start_handler:182 - User 218265585 sent /start with args: None
+2025-07-25 21:16:21.727 | DEBUG    | core.handlers.user_handlers:command_start_handler:248 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+У вас еще нет активной подписки.
+2025-07-25 21:17:38.121 | INFO     | __main__:start_bot_polling:151 - Starting Telegram bot polling...
+2025-07-25 21:17:38.126 | INFO     | __main__:startup_event:134 - FastAPI application started!
+2025-07-25 21:17:38.164 | INFO     | __main__:startup_event:142 - Scheduler started.
+2025-07-25 21:20:08.252 | INFO     | core.handlers.user_handlers:callback_pay_subscription:610 - User 218265585 clicked pay_subscription
+2025-07-25 21:20:19.445 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:20:23.380 | INFO     | core.handlers.user_handlers:callback_pay_subscription:610 - User 218265585 clicked pay_subscription
+2025-07-25 21:20:25.027 | INFO     | core.handlers.user_handlers:callback_setup_vpn:393 - User 218265585 clicked setup_vpn
+2025-07-25 21:20:29.926 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:798 - User 218265585 clicked get_free_vpn
+2025-07-26 11:39:01.384 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:39:02.244 | INFO     | __main__:main:43 - Starting bot polling...
+2025-07-26 11:40:57.693 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:40:58.343 | INFO     | __main__:main:43 - Starting bot polling...
+2025-07-26 11:46:07.579 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:46:08.452 | INFO     | __main__:main:43 - Starting bot polling...
+2025-07-26 11:46:36.017 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_language', lang_code: 'ru'
+2025-07-26 11:46:36.018 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_language' in 'ru'.
+2025-07-26 11:46:37.668 | INFO     | core.handlers.user_handlers:callback_set_language:379 - Callback received: set_lang_fa
+2025-07-26 11:46:37.669 | INFO     | core.handlers.user_handlers:callback_set_language:382 - User 218265585 attempts to set language to fa
+2025-07-26 11:46:42.932 | INFO     | core.handlers.user_handlers:callback_setup_vpn:408 - User 218265585 clicked setup_vpn
+2025-07-26 11:46:47.007 | INFO     | core.handlers.user_handlers:command_start_handler:192 - User 218265585 sent /start with args: None
+2025-07-26 11:46:47.010 | INFO     | core.handlers.user_handlers:command_start_handler:199 - User 218265585 not found in DB, adding new user.
+2025-07-26 11:46:47.031 | INFO     | core.handlers.user_handlers:command_start_handler:211 - New user 218265585 added to the database with lang_code: ru
+2025-07-26 11:46:47.032 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_start_bot', lang_code: 'ru'
+2025-07-26 11:46:47.032 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_start_bot' in 'ru'.
+2025-07-26 11:46:47.033 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome_new_user', lang_code: 'ru'
+2025-07-26 11:46:47.034 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome_new_user' in 'ru'.
+2025-07-26 11:46:48.960 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'ru'
+2025-07-26 11:46:48.961 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'ru'.
+2025-07-26 11:46:48.966 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'ru'
+2025-07-26 11:46:48.967 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'ru'.
+2025-07-26 11:46:48.976 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'ru'
+2025-07-26 11:46:48.977 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'ru'.
+2025-07-26 11:46:48.977 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'ru'
+2025-07-26 11:46:48.978 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'ru'.
+2025-07-26 11:46:48.978 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'ru'
+2025-07-26 11:46:48.979 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'ru'.
+2025-07-26 11:46:48.979 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'ru'
+2025-07-26 11:46:48.979 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'ru'.
+2025-07-26 11:46:48.980 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'ru'
+2025-07-26 11:46:48.980 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'ru'.
+2025-07-26 11:46:48.981 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'ru'
+2025-07-26 11:46:48.981 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'ru'.
+2025-07-26 11:46:48.981 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'ru'
+2025-07-26 11:46:48.982 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'ru'.
+2025-07-26 11:46:48.982 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'ru'
+2025-07-26 11:46:48.983 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'ru'.
+2025-07-26 11:46:51.317 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_language', lang_code: 'ru'
+2025-07-26 11:46:51.318 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_language' in 'ru'.
+2025-07-26 11:46:52.399 | INFO     | core.handlers.user_handlers:callback_set_language:379 - Callback received: set_lang_fa
+2025-07-26 11:46:52.405 | INFO     | core.handlers.user_handlers:callback_set_language:382 - User 218265585 attempts to set language to fa
+2025-07-26 11:47:34.971 | INFO     | core.handlers.user_handlers:command_start_handler:192 - User 218265585 sent /start with args: None
+2025-07-26 11:47:34.976 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'ru'
+2025-07-26 11:47:34.977 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'ru'.
+2025-07-26 11:47:34.980 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'ru'
+2025-07-26 11:47:34.980 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'ru'.
+2025-07-26 11:47:34.984 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'ru'
+2025-07-26 11:47:34.985 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'ru'.
+2025-07-26 11:47:34.986 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'ru'
+2025-07-26 11:47:34.986 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'ru'.
+2025-07-26 11:47:34.986 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'ru'
+2025-07-26 11:47:34.987 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'ru'.
+2025-07-26 11:47:34.988 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'ru'
+2025-07-26 11:47:34.988 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'ru'.
+2025-07-26 11:47:34.989 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'ru'
+2025-07-26 11:47:34.989 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'ru'.
+2025-07-26 11:47:34.990 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'ru'
+2025-07-26 11:47:34.990 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'ru'.
+2025-07-26 11:47:34.991 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'ru'
+2025-07-26 11:47:34.991 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'ru'.
+2025-07-26 11:47:34.992 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'ru'
+2025-07-26 11:47:34.992 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'ru'.
+2025-07-26 11:47:34.992 | DEBUG    | core.handlers.user_handlers:command_start_handler:258 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+У вас еще нет активной подписки.
+2025-07-26 11:47:36.699 | INFO     | core.handlers.user_handlers:callback_setup_vpn:408 - User 218265585 clicked setup_vpn
+2025-07-26 11:47:37.954 | INFO     | core.handlers.user_handlers:callback_setup_vpn:408 - User 218265585 clicked setup_vpn
+2025-07-26 11:47:39.362 | INFO     | core.handlers.user_handlers:callback_pay_subscription:625 - User 218265585 clicked pay_subscription
+2025-07-26 11:47:39.465 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'ru'
+2025-07-26 11:47:39.465 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'ru'.
+2025-07-26 11:47:39.466 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'choose_tariff', lang_code: 'ru'
+2025-07-26 11:47:39.466 | DEBUG    | core.locales.translations:get_text:46 - Found key 'choose_tariff' in 'ru'.
+2025-07-26 11:47:42.349 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'ru'
+2025-07-26 11:47:42.350 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'ru'.
+2025-07-26 11:47:42.352 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'ru'
+2025-07-26 11:47:42.352 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'ru'.
+2025-07-26 11:47:42.354 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'ru'
+2025-07-26 11:47:42.355 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'ru'.
+2025-07-26 11:47:42.355 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'ru'
+2025-07-26 11:47:42.356 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'ru'.
+2025-07-26 11:47:42.357 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'ru'
+2025-07-26 11:47:42.358 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'ru'.
+2025-07-26 11:47:42.359 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'ru'
+2025-07-26 11:47:42.360 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'ru'.
+2025-07-26 11:47:42.361 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'ru'
+2025-07-26 11:47:42.363 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'ru'.
+2025-07-26 11:47:42.364 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'ru'
+2025-07-26 11:47:42.364 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'ru'.
+2025-07-26 11:47:42.365 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'ru'
+2025-07-26 11:47:42.365 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'ru'.
+2025-07-26 11:47:42.366 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'ru'
+2025-07-26 11:47:42.366 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'ru'.
+2025-07-26 11:47:44.017 | INFO     | core.handlers.user_handlers:callback_setup_vpn:408 - User 218265585 clicked setup_vpn
+2025-07-26 11:47:45.182 | INFO     | core.handlers.user_handlers:callback_setup_vpn:408 - User 218265585 clicked setup_vpn
+2025-07-26 11:47:46.135 | INFO     | core.handlers.user_handlers:callback_setup_vpn:408 - User 218265585 clicked setup_vpn
+2025-07-26 11:50:17.021 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:50:32.477 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:50:33.467 | INFO     | __main__:main:43 - Starting bot polling...
+2025-07-26 11:52:30.868 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:52:31.719 | INFO     | __main__:main:43 - Starting bot polling...
+2025-07-26 11:54:24.067 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:54:24.684 | INFO     | __main__:main:43 - Starting bot polling...
+2025-07-26 11:55:17.899 | INFO     | core.handlers.user_handlers:callback_setup_vpn:408 - User 218265585 clicked setup_vpn
+2025-07-26 11:55:18.660 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'ru'
+2025-07-26 11:55:18.662 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'ru'.
+2025-07-26 11:55:18.663 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'vpn_setup_instructions', lang_code: 'ru'
+2025-07-26 11:55:18.664 | DEBUG    | core.locales.translations:get_text:46 - Found key 'vpn_setup_instructions' in 'ru'.
+2025-07-26 11:55:18.664 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_server_for_setup', lang_code: 'ru'
+2025-07-26 11:55:18.665 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_server_for_setup' in 'ru'.
+2025-07-26 11:55:53.026 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:55:53.746 | INFO     | __main__:main:43 - Starting bot polling...
+2025-07-26 11:56:10.317 | INFO     | core.handlers.user_handlers:command_start_handler:192 - User 218265585 sent /start with args: None
+2025-07-26 11:56:10.331 | INFO     | core.handlers.user_handlers:command_start_handler:199 - User 218265585 not found in DB, adding new user.
+2025-07-26 11:56:10.344 | INFO     | core.handlers.user_handlers:command_start_handler:211 - New user 218265585 added to the database with lang_code: ru
+2025-07-26 11:56:10.346 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_start_bot', lang_code: 'ru'
+2025-07-26 11:56:10.346 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_start_bot' in 'ru'.
+2025-07-26 11:56:10.347 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome_new_user', lang_code: 'ru'
+2025-07-26 11:56:10.347 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome_new_user' in 'ru'.
+2025-07-26 11:56:12.703 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'ru'
+2025-07-26 11:56:12.704 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'ru'.
+2025-07-26 11:56:12.710 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'ru'
+2025-07-26 11:56:12.711 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'ru'.
+2025-07-26 11:56:12.716 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'ru'
+2025-07-26 11:56:12.718 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'ru'.
+2025-07-26 11:56:12.719 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'ru'
+2025-07-26 11:56:12.720 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'ru'.
+2025-07-26 11:56:12.721 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'ru'
+2025-07-26 11:56:12.721 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'ru'.
+2025-07-26 11:56:12.722 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'ru'
+2025-07-26 11:56:12.722 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'ru'.
+2025-07-26 11:56:12.723 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'ru'
+2025-07-26 11:56:12.723 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'ru'.
+2025-07-26 11:56:12.724 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'ru'
+2025-07-26 11:56:12.724 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'ru'.
+2025-07-26 11:56:12.725 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'ru'
+2025-07-26 11:56:12.725 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'ru'.
+2025-07-26 11:56:12.726 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'ru'
+2025-07-26 11:56:12.726 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'ru'.
+2025-07-26 11:56:15.232 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_language', lang_code: 'ru'
+2025-07-26 11:56:15.233 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_language' in 'ru'.
+2025-07-26 11:56:18.329 | INFO     | core.handlers.user_handlers:command_start_handler:192 - User 218265585 sent /start with args: None
+2025-07-26 11:56:18.335 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'ru'
+2025-07-26 11:56:18.336 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'ru'.
+2025-07-26 11:56:18.338 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'ru'
+2025-07-26 11:56:18.339 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'ru'.
+2025-07-26 11:56:18.340 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'ru'
+2025-07-26 11:56:18.341 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'ru'.
+2025-07-26 11:56:18.341 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'ru'
+2025-07-26 11:56:18.342 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'ru'.
+2025-07-26 11:56:18.342 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'ru'
+2025-07-26 11:56:18.342 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'ru'.
+2025-07-26 11:56:18.343 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'ru'
+2025-07-26 11:56:18.343 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'ru'.
+2025-07-26 11:56:18.344 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'ru'
+2025-07-26 11:56:18.344 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'ru'.
+2025-07-26 11:56:18.344 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'ru'
+2025-07-26 11:56:18.345 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'ru'.
+2025-07-26 11:56:18.345 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'ru'
+2025-07-26 11:56:18.345 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'ru'.
+2025-07-26 11:56:18.346 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'ru'
+2025-07-26 11:56:18.346 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'ru'.
+2025-07-26 11:56:18.347 | DEBUG    | core.handlers.user_handlers:command_start_handler:258 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+У вас еще нет активной подписки.

@@ -19,7 +19,7 @@ services:
 
   app:
     build: .
-    command: bash -c "python main.py"
+    command: python main.py
     volumes:
       - .:/app
     env_file:
@@ -31,13 +31,13 @@ services:
       - "8000:8000"
     restart: always
 
-  support_bot:
-    build:
-      context: ./support_bot
-      dockerfile: Dockerfile
-    env_file:
-      - ./support_bot/.env
-    restart: always
+  # support_bot:
+  #   build:
+  #     context: ./support_bot
+  #     dockerfile: Dockerfile
+  #   env_file:
+  #     - ./support_bot/.env
+  #   restart: always
 
 volumes:
   postgres_data:
