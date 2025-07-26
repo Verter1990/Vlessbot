@@ -1,13 +1,13 @@
-import pytest
-import asyncio
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
-from core.database.models import Base
-from core.database.database import async_session_maker
-import sqlalchemy as sa
+# tests/conftest.py
 
-# Use an in-memory SQLite database for testing
-TEST_DATABASE_URL = "postgresql+asyncpg://vlessbot_user:vlessbot_password@db/vlessbot_db"
+import asyncio
+import pytest
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+
+from core.database.models import Base
+
+# Используем SQLite в памяти для тестов
+TEST_DB_URL = "sqlite+aiosqlite:///:memory:"
 
 @pytest.fixture(scope="session")
 def event_loop():
@@ -16,35 +16,32 @@ def event_loop():
     yield loop
     loop.close()
 
+@pytest.fixture(scope="session")
+async def test_engine():
+    """Создает асинхронный движок для тестовой БД."""
+    engine = create_async_engine(TEST_DB_URL, echo=False)
+    return engine
+
 @pytest.fixture(scope="function")
-async def engine():
-    """Create an async engine for the in-memory SQLite database."""
-    engine = create_async_engine(TEST_DATABASE_URL, echo=False)
-    async with engine.begin() as conn:
+async def setup_database(test_engine):
+    """
+    Для каждого теста создает все таблицы в чистой БД в памяти.
+    После теста удаляет все таблицы.
+    """
+    async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    yield engine
-    async with engine.begin() as conn:
-        # Drop tables in a specific order to handle dependencies
-        for table_name in ['gift_codes', 'transactions', 'subscriptions', 'payout_requests', 'tariffs', 'servers', 'users']:
-            try:
-                await conn.execute(sa.text(f"DROP TABLE IF EXISTS {table_name} CASCADE;"))
-            except Exception as e:
-                print(f"Error dropping table {table_name}: {e}")
-    await engine.dispose()
+    
+    yield
+    
+    async with test_engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
 
 @pytest.fixture(scope="function")
-async def session(engine):
-    """Create a new database session with a transaction for each test function."""
-    async with engine.connect() as connection:
-        async with connection.begin_nested():  # Use begin_nested for transactional tests
-            new_session = AsyncSession(bind=connection, expire_on_commit=False)
-            yield new_session
-            await new_session.close()
-            await connection.rollback() # Rollback the nested transaction
-
-@pytest.fixture(scope="function")
-async def client(session):
-    """Mock the FastAPI app and provide a test client."""
-    # This fixture is a placeholder. Actual FastAPI app mocking would go here.
-    # For now, it just provides a session.
-    yield session
+async def db_session(setup_database, test_engine):
+    """
+    Создает и предоставляет сессию для взаимодействия с тестовой БД в рамках одного теста.
+    Гарантирует, что сессия будет закрыта после выполнения теста.
+    """
+    async_session_factory = async_sessionmaker(test_engine, expire_on_commit=False)
+    async with async_session_factory() as session:
+        yield session

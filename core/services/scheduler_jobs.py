@@ -28,8 +28,10 @@ async def check_expiring_subscriptions(bot: Bot, session_maker: callable):
             # Fetch user and server within the same session
             user_stmt = select(User).where(User.telegram_id == sub.user_id)
             server_stmt = select(Server).where(Server.id == sub.server_id)
-            user = (await session.execute(user_stmt)).scalars().first()
-            server = (await session.execute(server_stmt)).scalars().first()
+            user_result = await session.execute(user_stmt)
+            user = user_result.scalars().first()
+            server_result = await session.execute(server_stmt)
+            server = server_result.scalars().first()
             
             if user and server:
                 try:
@@ -37,10 +39,10 @@ async def check_expiring_subscriptions(bot: Bot, session_maker: callable):
                     await bot.send_message(
                         chat_id=user.telegram_id,
                         text=f"Здравствуйте, {user.username or 'пользователь'}!\n\n"
-                             f"Ваша подписка на сервер \"{server.name}\" истекает через 3 дня.\n\n"
+                             f"Ваша подписка на сервер \"{server.name.get('ru', '???')}\" истекает через 3 дня.\n\n"
                              f"Чтобы продлить ее и не потерять доступ, пожалуйста, оплатите подписку."
                     )
-                    logger.info(f"Sent renewal reminder to user {user.telegram_id} for server {server.name}")
+                    logger.info(f"Sent renewal reminder to user {user.telegram_id} for server {server.name.get('ru', '???')}")
                 except Exception as e:
                     logger.error(f"Failed to send renewal reminder to {user.telegram_id}: {e}")
 
@@ -65,19 +67,18 @@ async def deactivate_expired_users(session_maker: callable):
                 continue
 
             try:
-                logger.info(f"Deactivating client {sub.xui_user_uuid} on server {server.name} for user {user.telegram_id}")
+                logger.info(f"Deactivating client {sub.xui_user_uuid} on server {server.name.get('ru', '???')} for user {user.telegram_id}")
                 xui_client = get_client(server)
                 await xui_client.delete_user(server.inbound_id, sub.xui_user_uuid)
                 sub.is_active = False
-                logger.info(f"Successfully deactivated user {user.telegram_id} from server {server.name}")
+                logger.info(f"Successfully deactivated user {user.telegram_id} from server {server.name.get('ru', '???')}")
             except XUIClientError as e:
                 if "Client not found" in str(e): # Handle cases where client is already deleted in X-UI
                     sub.is_active = False
                     logger.warning(f"Client {sub.xui_user_uuid} was already deleted in X-UI. Marking as inactive in DB.")
                 else:
-                    logger.error(f"XUI error deactivating {user.telegram_id} from server {server.name}: {e}")
+                    logger.error(f"XUI error deactivating {user.telegram_id} from server {server.name.get('ru', '???')}: {e}")
             except Exception as e:
-                logger.error(f"Unexpected error deactivating {user.telegram_id} from server {server.name}: {e}")
+                logger.error(f"Unexpected error deactivating {user.telegram_id} from server {server.name.get('ru', '???')}: {e}")
         
         await session.commit()
-
