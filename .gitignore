@@ -95,3 +95,4 @@ venv.bak
 *.conf
 secret_key.txt
 commit_message.txt
+bot.log 
