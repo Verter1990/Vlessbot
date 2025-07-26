@@ -498,3 +498,502 @@ Your subscription is active until: **2025-07-23 14:13**
 2025-07-26 11:56:18.347 | DEBUG    | core.handlers.user_handlers:command_start_handler:258 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
 
 У вас еще нет активной подписки.
+2025-07-26 11:57:35.459 | INFO     | __main__:main:19 - Initializing bot...
+2025-07-26 11:57:36.147 | INFO     | __main__:main:43 - Starting bot polling...
+2025-07-26 11:57:46.699 | INFO     | core.handlers.user_handlers:command_start_handler:192 - User 218265585 sent /start with args: None
+2025-07-26 11:57:46.714 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'ru'
+2025-07-26 11:57:46.714 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'ru'.
+2025-07-26 11:57:46.719 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'ru'
+2025-07-26 11:57:46.720 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'ru'.
+2025-07-26 11:57:46.723 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'ru'
+2025-07-26 11:57:46.723 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'ru'.
+2025-07-26 11:57:46.724 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'ru'
+2025-07-26 11:57:46.725 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'ru'.
+2025-07-26 11:57:46.725 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'ru'
+2025-07-26 11:57:46.726 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'ru'.
+2025-07-26 11:57:46.727 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'ru'
+2025-07-26 11:57:46.727 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'ru'.
+2025-07-26 11:57:46.728 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'ru'
+2025-07-26 11:57:46.728 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'ru'.
+2025-07-26 11:57:46.729 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'ru'
+2025-07-26 11:57:46.729 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'ru'.
+2025-07-26 11:57:46.730 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'ru'
+2025-07-26 11:57:46.731 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'ru'.
+2025-07-26 11:57:46.732 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'ru'
+2025-07-26 11:57:46.732 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'ru'.
+2025-07-26 11:57:46.733 | DEBUG    | core.handlers.user_handlers:command_start_handler:258 - Sending message text: Здравствуйте, Alexey Avvakumov! Это главное меню.
+
+У вас еще нет активной подписки.
+2025-07-26 11:57:49.403 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_language', lang_code: 'ru'
+2025-07-26 11:57:49.404 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_language' in 'ru'.
+2025-07-26 11:57:50.412 | INFO     | core.handlers.user_handlers:set_language_callback:387 - Step 1: User 218265585 selected language 'fa'.
+2025-07-26 11:57:50.416 | INFO     | core.handlers.user_handlers:set_language_callback:399 - Step 2: Found user 218265585 with current language 'ru'.
+2025-07-26 11:57:50.425 | INFO     | core.handlers.user_handlers:set_language_callback:405 - Step 3: Successfully committed language 'fa' for user 218265585 to DB.
+2025-07-26 11:57:50.426 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'language_changed', lang_code: 'fa'
+2025-07-26 11:57:50.427 | DEBUG    | core.locales.translations:get_text:46 - Found key 'language_changed' in 'fa'.
+2025-07-26 11:57:50.429 | INFO     | core.handlers.user_handlers:set_language_callback:412 - Step 4: Answering callback with text: 'زبان به فارسی تغییر کرد.' in language 'fa'.
+2025-07-26 11:57:50.542 | INFO     | core.handlers.user_handlers:set_language_callback:417 - Step 5: Refreshed user object. Language is now 'fa'. Generating main menu.
+2025-07-26 11:57:50.543 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:57:50.544 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:57:50.547 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:57:50.548 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:57:50.552 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:57:50.553 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:57:50.553 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:57:50.554 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:57:50.554 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:57:50.555 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:57:50.555 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:57:50.556 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:57:50.556 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:57:50.556 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:57:50.557 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:57:50.558 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:57:50.559 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:57:50.560 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:57:50.560 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:57:50.561 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:57:50.684 | INFO     | core.handlers.user_handlers:set_language_callback:420 - Step 6: Successfully sent new main menu to user 218265585.
+2025-07-26 11:57:53.721 | INFO     | core.handlers.user_handlers:callback_setup_vpn:428 - User 218265585 clicked setup_vpn
+2025-07-26 11:57:53.960 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'fa'
+2025-07-26 11:57:53.960 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'fa'.
+2025-07-26 11:57:53.961 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'vpn_setup_instructions', lang_code: 'fa'
+2025-07-26 11:57:53.962 | DEBUG    | core.locales.translations:get_text:46 - Found key 'vpn_setup_instructions' in 'fa'.
+2025-07-26 11:57:53.963 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_server_for_setup', lang_code: 'fa'
+2025-07-26 11:57:53.964 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_server_for_setup' in 'fa'.
+2025-07-26 11:58:11.610 | INFO     | core.handlers.user_handlers:set_language_callback:387 - Step 1: User 218265585 selected language 'fa'.
+2025-07-26 11:58:11.614 | INFO     | core.handlers.user_handlers:set_language_callback:399 - Step 2: Found user 218265585 with current language 'fa'.
+2025-07-26 11:58:11.615 | INFO     | core.handlers.user_handlers:set_language_callback:405 - Step 3: Successfully committed language 'fa' for user 218265585 to DB.
+2025-07-26 11:58:11.616 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'language_changed', lang_code: 'fa'
+2025-07-26 11:58:11.616 | DEBUG    | core.locales.translations:get_text:46 - Found key 'language_changed' in 'fa'.
+2025-07-26 11:58:11.617 | INFO     | core.handlers.user_handlers:set_language_callback:412 - Step 4: Answering callback with text: 'زبان به فارسی تغییر کرد.' in language 'fa'.
+2025-07-26 11:58:11.760 | INFO     | core.handlers.user_handlers:set_language_callback:417 - Step 5: Refreshed user object. Language is now 'fa'. Generating main menu.
+2025-07-26 11:58:11.761 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:58:11.761 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:58:11.763 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:58:11.763 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:58:11.765 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:58:11.765 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:58:11.766 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:58:11.766 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:58:11.767 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:58:11.767 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:58:11.767 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:58:11.768 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:58:11.768 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:58:11.769 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:58:11.769 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:58:11.770 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:58:11.770 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:58:11.770 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:58:11.771 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:58:11.771 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:58:11.881 | INFO     | core.handlers.user_handlers:set_language_callback:420 - Step 6: Successfully sent new main menu to user 218265585.
+2025-07-26 11:58:18.728 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:58:18.728 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:58:18.730 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:58:18.731 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:58:18.732 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:58:18.733 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:58:18.733 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:58:18.734 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:58:18.734 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:58:18.735 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:58:18.735 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:58:18.736 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:58:18.738 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:58:18.738 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:58:18.740 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:58:18.741 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:58:18.743 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:58:18.743 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:58:18.744 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:58:18.744 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:58:20.811 | INFO     | core.handlers.user_handlers:callback_pay_subscription:645 - User 218265585 clicked pay_subscription
+2025-07-26 11:58:20.914 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'fa'
+2025-07-26 11:58:20.915 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'fa'.
+2025-07-26 11:58:20.915 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'choose_tariff', lang_code: 'fa'
+2025-07-26 11:58:20.916 | DEBUG    | core.locales.translations:get_text:46 - Found key 'choose_tariff' in 'fa'.
+2025-07-26 11:58:24.692 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_language', lang_code: 'fa'
+2025-07-26 11:58:24.692 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_language' in 'fa'.
+2025-07-26 11:58:26.283 | INFO     | core.handlers.user_handlers:set_language_callback:387 - Step 1: User 218265585 selected language 'fa'.
+2025-07-26 11:58:26.288 | INFO     | core.handlers.user_handlers:set_language_callback:399 - Step 2: Found user 218265585 with current language 'fa'.
+2025-07-26 11:58:26.289 | INFO     | core.handlers.user_handlers:set_language_callback:405 - Step 3: Successfully committed language 'fa' for user 218265585 to DB.
+2025-07-26 11:58:26.290 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'language_changed', lang_code: 'fa'
+2025-07-26 11:58:26.291 | DEBUG    | core.locales.translations:get_text:46 - Found key 'language_changed' in 'fa'.
+2025-07-26 11:58:26.291 | INFO     | core.handlers.user_handlers:set_language_callback:412 - Step 4: Answering callback with text: 'زبان به فارسی تغییر کرد.' in language 'fa'.
+2025-07-26 11:58:26.424 | INFO     | core.handlers.user_handlers:set_language_callback:417 - Step 5: Refreshed user object. Language is now 'fa'. Generating main menu.
+2025-07-26 11:58:26.425 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:58:26.426 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:58:26.429 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:58:26.430 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:58:26.435 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:58:26.436 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:58:26.436 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:58:26.437 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:58:26.437 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:58:26.438 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:58:26.438 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:58:26.439 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:58:26.439 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:58:26.440 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:58:26.440 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:58:26.441 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:58:26.442 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:58:26.444 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:58:26.445 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:58:26.446 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:58:26.552 | INFO     | core.handlers.user_handlers:set_language_callback:420 - Step 6: Successfully sent new main menu to user 218265585.
+2025-07-26 11:58:28.165 | INFO     | core.handlers.user_handlers:callback_setup_vpn:428 - User 218265585 clicked setup_vpn
+2025-07-26 11:58:28.377 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'fa'
+2025-07-26 11:58:28.377 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'fa'.
+2025-07-26 11:58:28.378 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'vpn_setup_instructions', lang_code: 'fa'
+2025-07-26 11:58:28.378 | DEBUG    | core.locales.translations:get_text:46 - Found key 'vpn_setup_instructions' in 'fa'.
+2025-07-26 11:58:28.379 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_server_for_setup', lang_code: 'fa'
+2025-07-26 11:58:28.379 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_server_for_setup' in 'fa'.
+2025-07-26 11:58:30.826 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:58:30.826 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:58:30.828 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:58:30.828 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:58:30.830 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:58:30.831 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:58:30.833 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:58:30.834 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:58:30.835 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:58:30.836 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:58:30.838 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:58:30.838 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:58:30.839 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:58:30.840 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:58:30.840 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:58:30.840 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:58:30.841 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:58:30.841 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:58:30.842 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:58:30.842 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:58:36.880 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:58:36.881 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:58:36.883 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:58:36.883 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:58:36.885 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:58:36.885 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:58:36.886 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:58:36.886 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:58:36.887 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:58:36.887 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:58:36.888 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:58:36.888 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:58:36.889 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:58:36.889 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:58:36.890 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:58:36.891 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:58:36.892 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:58:36.893 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:58:36.895 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:58:36.896 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:58:39.836 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:58:39.837 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:58:39.839 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:58:39.839 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:58:39.842 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:58:39.843 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:58:39.844 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:58:39.845 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:58:39.847 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:58:39.848 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:58:39.849 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:58:39.849 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:58:39.850 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:58:39.850 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:58:39.851 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:58:39.851 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:58:39.852 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:58:39.853 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:58:39.854 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:58:39.855 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:58:41.387 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:831 - User 218265585 clicked get_free_vpn
+2025-07-26 11:58:41.594 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'trial_key_creation_wait', lang_code: 'fa'
+2025-07-26 11:58:41.595 | DEBUG    | core.locales.translations:get_text:46 - Found key 'trial_key_creation_wait' in 'fa'.
+2025-07-26 11:58:41.765 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:68 - Creating/updating VPN key for user 218265585 on server {'ru': 'Нидерланды', 'en': 'Netherlands', 'fa': 'هلند'} for 3 days.
+2025-07-26 11:58:41.787 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:88 - Creating new client a17966f6-5dee-45eb-91b7-f8ed62560778 on XUI for user 218265585
+2025-07-26 11:58:41.787 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
+2025-07-26 11:58:43.264 | ERROR    | core.handlers.user_handlers:_create_or_update_vpn_key:141 - Unexpected error while creating/updating key for user 218265585: object Response can't be used in 'await' expression
+2025-07-26 11:58:43.264 | ERROR    | core.handlers.user_handlers:callback_get_free_vpn:862 - Error creating trial VPN key: object Response can't be used in 'await' expression
+2025-07-26 11:58:43.265 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'trial_key_creation_error', lang_code: 'fa'
+2025-07-26 11:58:43.265 | DEBUG    | core.locales.translations:get_text:46 - Found key 'trial_key_creation_error' in 'fa'.
+2025-07-26 11:58:45.272 | INFO     | core.handlers.user_handlers:command_start_handler:192 - User 218265585 sent /start with args: None
+2025-07-26 11:58:45.276 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:58:45.276 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:58:45.279 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:58:45.279 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:58:45.281 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:58:45.281 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:58:45.282 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:58:45.283 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:58:45.284 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:58:45.286 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:58:45.286 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:58:45.287 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:58:45.287 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:58:45.288 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:58:45.288 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:58:45.289 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:58:45.289 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:58:45.290 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:58:45.290 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:58:45.291 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:58:45.291 | DEBUG    | core.handlers.user_handlers:command_start_handler:258 - Sending message text: سلام، Alexey Avvakumov! این منوی اصلی است.
+
+شما هنوز اشتراک فعالی ندارید.
+2025-07-26 11:58:57.541 | INFO     | core.handlers.user_handlers:callback_setup_vpn:428 - User 218265585 clicked setup_vpn
+2025-07-26 11:58:57.633 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'fa'
+2025-07-26 11:58:57.634 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'fa'.
+2025-07-26 11:58:57.634 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'vpn_setup_instructions', lang_code: 'fa'
+2025-07-26 11:58:57.635 | DEBUG    | core.locales.translations:get_text:46 - Found key 'vpn_setup_instructions' in 'fa'.
+2025-07-26 11:58:57.635 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_server_for_setup', lang_code: 'fa'
+2025-07-26 11:58:57.636 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_server_for_setup' in 'fa'.
+2025-07-26 11:58:59.303 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:58:59.304 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:58:59.306 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:58:59.306 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:58:59.308 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:58:59.308 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:58:59.309 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:58:59.309 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:58:59.310 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:58:59.310 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:58:59.311 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:58:59.312 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:58:59.313 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:58:59.314 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:58:59.315 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:58:59.315 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:58:59.317 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:58:59.318 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:58:59.319 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:58:59.319 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:59:02.954 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:59:02.955 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:59:02.959 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:59:02.960 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:59:02.962 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:59:02.962 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:59:02.963 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:59:02.964 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:59:02.964 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:59:02.965 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:59:02.966 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:59:02.967 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:59:02.968 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:59:02.970 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:59:02.971 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:59:02.972 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:59:02.972 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:59:02.973 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:59:02.973 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:59:02.974 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:59:08.179 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_title_ios', lang_code: 'fa'
+2025-07-26 11:59:08.179 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_title_ios' in 'fa'.
+2025-07-26 11:59:08.180 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_app_recommendation_ios', lang_code: 'fa'
+2025-07-26 11:59:08.180 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_app_recommendation_ios' in 'fa'.
+2025-07-26 11:59:08.181 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_app_foxray', lang_code: 'fa'
+2025-07-26 11:59:08.182 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_app_foxray' in 'fa'.
+2025-07-26 11:59:08.182 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_app_shadowrocket', lang_code: 'fa'
+2025-07-26 11:59:08.183 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_app_shadowrocket' in 'fa'.
+2025-07-26 11:59:08.184 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_setup_title_ios', lang_code: 'fa'
+2025-07-26 11:59:08.185 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_setup_title_ios' in 'fa'.
+2025-07-26 11:59:08.185 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_step1_ios', lang_code: 'fa'
+2025-07-26 11:59:08.186 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_step1_ios' in 'fa'.
+2025-07-26 11:59:08.187 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_step2_ios', lang_code: 'fa'
+2025-07-26 11:59:08.188 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_step2_ios' in 'fa'.
+2025-07-26 11:59:08.189 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_step3_ios', lang_code: 'fa'
+2025-07-26 11:59:08.190 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_step3_ios' in 'fa'.
+2025-07-26 11:59:08.190 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_step4_ios', lang_code: 'fa'
+2025-07-26 11:59:08.192 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_step4_ios' in 'fa'.
+2025-07-26 11:59:08.193 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_step5_ios', lang_code: 'fa'
+2025-07-26 11:59:08.194 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_step5_ios' in 'fa'.
+2025-07-26 11:59:08.195 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_faq_title', lang_code: 'fa'
+2025-07-26 11:59:08.195 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_faq_title' in 'fa'.
+2025-07-26 11:59:08.196 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_faq1_ios', lang_code: 'fa'
+2025-07-26 11:59:08.196 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_faq1_ios' in 'fa'.
+2025-07-26 11:59:08.197 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_faq2_ios', lang_code: 'fa'
+2025-07-26 11:59:08.197 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_faq2_ios' in 'fa'.
+2025-07-26 11:59:08.197 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_back_to_os_selection', lang_code: 'fa'
+2025-07-26 11:59:08.198 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_back_to_os_selection' in 'fa'.
+2025-07-26 11:59:09.746 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_ios', lang_code: 'fa'
+2025-07-26 11:59:09.746 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_ios' in 'fa'.
+2025-07-26 11:59:09.747 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_android', lang_code: 'fa'
+2025-07-26 11:59:09.747 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_android' in 'fa'.
+2025-07-26 11:59:09.748 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_windows', lang_code: 'fa'
+2025-07-26 11:59:09.748 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_windows' in 'fa'.
+2025-07-26 11:59:09.749 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_macos', lang_code: 'fa'
+2025-07-26 11:59:09.749 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_macos' in 'fa'.
+2025-07-26 11:59:09.750 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_back', lang_code: 'fa'
+2025-07-26 11:59:09.750 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_back' in 'fa'.
+2025-07-26 11:59:09.750 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'info_os_selection_title', lang_code: 'fa'
+2025-07-26 11:59:09.751 | DEBUG    | core.locales.translations:get_text:46 - Found key 'info_os_selection_title' in 'fa'.
+2025-07-26 11:59:11.833 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:59:11.833 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:59:11.835 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:59:11.835 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:59:11.837 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:59:11.838 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:59:11.839 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:59:11.840 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:59:11.841 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:59:11.842 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:59:11.843 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:59:11.845 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:59:11.846 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:59:11.846 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:59:11.847 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:59:11.847 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:59:11.848 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:59:11.849 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:59:11.850 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:59:11.851 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:59:15.729 | INFO     | core.handlers.user_handlers:callback_get_free_vpn:831 - User 218265585 clicked get_free_vpn
+2025-07-26 11:59:15.921 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'trial_key_creation_wait', lang_code: 'fa'
+2025-07-26 11:59:15.921 | DEBUG    | core.locales.translations:get_text:46 - Found key 'trial_key_creation_wait' in 'fa'.
+2025-07-26 11:59:16.140 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:68 - Creating/updating VPN key for user 218265585 on server {'ru': 'Нидерланды', 'en': 'Netherlands', 'fa': 'هلند'} for 3 days.
+2025-07-26 11:59:16.151 | INFO     | core.handlers.user_handlers:_create_or_update_vpn_key:88 - Creating new client 053db4cd-bcc6-418c-b123-08b8a05fda13 on XUI for user 218265585
+2025-07-26 11:59:16.152 | INFO     | core.services.xui_client:_login:24 - Attempting to log in to XUI panel...
+2025-07-26 11:59:16.758 | ERROR    | core.handlers.user_handlers:_create_or_update_vpn_key:141 - Unexpected error while creating/updating key for user 218265585: object Response can't be used in 'await' expression
+2025-07-26 11:59:16.759 | ERROR    | core.handlers.user_handlers:callback_get_free_vpn:862 - Error creating trial VPN key: object Response can't be used in 'await' expression
+2025-07-26 11:59:16.759 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'trial_key_creation_error', lang_code: 'fa'
+2025-07-26 11:59:16.760 | DEBUG    | core.locales.translations:get_text:46 - Found key 'trial_key_creation_error' in 'fa'.
+2025-07-26 11:59:27.924 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:59:27.925 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:59:27.929 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:59:27.930 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:59:27.932 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:59:27.932 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:59:27.933 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:59:27.933 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:59:27.934 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:59:27.934 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:59:27.935 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:59:27.935 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:59:27.936 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:59:27.936 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:59:27.937 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:59:27.937 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:59:27.938 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:59:27.938 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:59:27.939 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:59:27.940 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:59:29.388 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_language', lang_code: 'fa'
+2025-07-26 11:59:29.389 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_language' in 'fa'.
+2025-07-26 11:59:30.800 | INFO     | core.handlers.user_handlers:set_language_callback:387 - Step 1: User 218265585 selected language 'fa'.
+2025-07-26 11:59:30.804 | INFO     | core.handlers.user_handlers:set_language_callback:399 - Step 2: Found user 218265585 with current language 'fa'.
+2025-07-26 11:59:30.807 | INFO     | core.handlers.user_handlers:set_language_callback:405 - Step 3: Successfully committed language 'fa' for user 218265585 to DB.
+2025-07-26 11:59:30.808 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'language_changed', lang_code: 'fa'
+2025-07-26 11:59:30.809 | DEBUG    | core.locales.translations:get_text:46 - Found key 'language_changed' in 'fa'.
+2025-07-26 11:59:30.809 | INFO     | core.handlers.user_handlers:set_language_callback:412 - Step 4: Answering callback with text: 'زبان به فارسی تغییر کرد.' in language 'fa'.
+2025-07-26 11:59:30.955 | INFO     | core.handlers.user_handlers:set_language_callback:417 - Step 5: Refreshed user object. Language is now 'fa'. Generating main menu.
+2025-07-26 11:59:30.955 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:59:30.956 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:59:30.958 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:59:30.959 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:59:30.962 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:59:30.964 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:59:30.965 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:59:30.966 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:59:30.966 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:59:30.967 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:59:30.968 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:59:30.968 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:59:30.969 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:59:30.969 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:59:30.970 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:59:30.970 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:59:30.971 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:59:30.972 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:59:30.973 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:59:30.974 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:59:31.149 | INFO     | core.handlers.user_handlers:set_language_callback:420 - Step 6: Successfully sent new main menu to user 218265585.
+2025-07-26 11:59:33.060 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_go_to_support_chat', lang_code: 'fa'
+2025-07-26 11:59:33.061 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_go_to_support_chat' in 'fa'.
+2025-07-26 11:59:33.062 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'fa'
+2025-07-26 11:59:33.062 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'fa'.
+2025-07-26 11:59:33.063 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'support_redirect_message', lang_code: 'fa'
+2025-07-26 11:59:33.064 | DEBUG    | core.locales.translations:get_text:46 - Found key 'support_redirect_message' in 'fa'.
+2025-07-26 11:59:34.673 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:59:34.673 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:59:34.675 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:59:34.676 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:59:34.679 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:59:34.680 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:59:34.681 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:59:34.682 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:59:34.684 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:59:34.685 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:59:34.685 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:59:34.686 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:59:34.686 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:59:34.687 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:59:34.688 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:59:34.689 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:59:34.690 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:59:34.691 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:59:34.692 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:59:34.692 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:59:35.929 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'license_agreement', lang_code: 'fa'
+2025-07-26 11:59:35.930 | DEBUG    | core.locales.translations:get_text:46 - Found key 'license_agreement' in 'fa'.
+2025-07-26 11:59:35.931 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'privacy_policy', lang_code: 'fa'
+2025-07-26 11:59:35.931 | DEBUG    | core.locales.translations:get_text:46 - Found key 'privacy_policy' in 'fa'.
+2025-07-26 11:59:35.932 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_cancel_subscription', lang_code: 'fa'
+2025-07-26 11:59:35.933 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_cancel_subscription' in 'fa'.
+2025-07-26 11:59:35.934 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:59:35.934 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:59:35.936 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'fa'
+2025-07-26 11:59:35.937 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'fa'.
+2025-07-26 11:59:35.938 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'terms_of_use_full', lang_code: 'fa'
+2025-07-26 11:59:35.938 | DEBUG    | core.locales.translations:get_text:46 - Found key 'terms_of_use_full' in 'fa'.
+2025-07-26 11:59:37.333 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:59:37.334 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:59:37.337 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:59:37.339 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:59:37.341 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:59:37.342 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:59:37.342 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:59:37.343 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:59:37.343 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:59:37.344 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:59:37.344 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:59:37.345 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:59:37.345 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:59:37.345 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:59:37.346 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:59:37.346 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:59:37.347 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:59:37.347 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:59:37.348 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:59:37.348 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
+2025-07-26 11:59:40.936 | INFO     | core.handlers.user_handlers:callback_setup_vpn:428 - User 218265585 clicked setup_vpn
+2025-07-26 11:59:41.041 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_main_menu', lang_code: 'fa'
+2025-07-26 11:59:41.042 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_main_menu' in 'fa'.
+2025-07-26 11:59:41.043 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'vpn_setup_instructions', lang_code: 'fa'
+2025-07-26 11:59:41.043 | DEBUG    | core.locales.translations:get_text:46 - Found key 'vpn_setup_instructions' in 'fa'.
+2025-07-26 11:59:41.044 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'select_server_for_setup', lang_code: 'fa'
+2025-07-26 11:59:41.044 | DEBUG    | core.locales.translations:get_text:46 - Found key 'select_server_for_setup' in 'fa'.
+2025-07-26 11:59:42.984 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'welcome', lang_code: 'fa'
+2025-07-26 11:59:42.984 | DEBUG    | core.locales.translations:get_text:46 - Found key 'welcome' in 'fa'.
+2025-07-26 11:59:42.986 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'no_active_subscription', lang_code: 'fa'
+2025-07-26 11:59:42.986 | DEBUG    | core.locales.translations:get_text:46 - Found key 'no_active_subscription' in 'fa'.
+2025-07-26 11:59:42.988 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_setup_vpn', lang_code: 'fa'
+2025-07-26 11:59:42.990 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_setup_vpn' in 'fa'.
+2025-07-26 11:59:42.990 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_pay_subscription', lang_code: 'fa'
+2025-07-26 11:59:42.991 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_pay_subscription' in 'fa'.
+2025-07-26 11:59:42.993 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_how_to_connect', lang_code: 'fa'
+2025-07-26 11:59:42.994 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_how_to_connect' in 'fa'.
+2025-07-26 11:59:42.996 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_referral_program', lang_code: 'fa'
+2025-07-26 11:59:42.996 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_referral_program' in 'fa'.
+2025-07-26 11:59:42.997 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_why_vpn', lang_code: 'fa'
+2025-07-26 11:59:42.997 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_why_vpn' in 'fa'.
+2025-07-26 11:59:42.998 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_get_free_vpn', lang_code: 'fa'
+2025-07-26 11:59:42.998 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_get_free_vpn' in 'fa'.
+2025-07-26 11:59:42.998 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_help', lang_code: 'fa'
+2025-07-26 11:59:42.999 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_help' in 'fa'.
+2025-07-26 11:59:42.999 | DEBUG    | core.locales.translations:get_text:34 - get_text called with key: 'btn_terms_of_use', lang_code: 'fa'
+2025-07-26 11:59:43.000 | DEBUG    | core.locales.translations:get_text:46 - Found key 'btn_terms_of_use' in 'fa'.
