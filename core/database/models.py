@@ -1,13 +1,15 @@
 from sqlalchemy import Column, Integer, String, BigInteger, DateTime, Boolean, ForeignKey, JSON
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
+from typing import List, Optional
 
 class Base(DeclarativeBase):
     pass
 
 class User(Base):
     __tablename__ = 'users'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     telegram_id = Column(BigInteger, unique=True, nullable=False)
@@ -25,12 +27,15 @@ class User(Base):
     total_paid_out = Column(Integer, default=0)
     is_banned = Column(Boolean, default=False, nullable=False, server_default='f')
 
+    subscriptions: Mapped[List["Subscription"]] = relationship(back_populates="user")
+
     def __repr__(self):
         return f"<User(id={self.id}, telegram_id={self.telegram_id}, username='{self.username}')>"
 
 
 class Server(Base):
     __tablename__ = 'servers'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True, nullable=False)
@@ -46,6 +51,7 @@ class Server(Base):
 
 class Tariff(Base):
     __tablename__ = 'tariffs'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     name = Column(JSON, nullable=False)
@@ -60,6 +66,7 @@ class Tariff(Base):
 
 class Subscription(Base):
     __tablename__ = 'subscriptions'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     user_id = Column(BigInteger, ForeignKey('users.telegram_id'), nullable=False)
@@ -69,12 +76,15 @@ class Subscription(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=func.now())
 
+    user: Mapped["User"] = relationship(back_populates="subscriptions")
+
     def __repr__(self):
         return f"<Subscription(id={self.id}, user_id={self.user_id}, server_id={self.server_id})>"
 
 
 class Transaction(Base):
     __tablename__ = 'transactions'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(String, primary_key=True)
     user_id = Column(BigInteger, ForeignKey('users.telegram_id'), nullable=False)
@@ -91,6 +101,7 @@ class Transaction(Base):
 
 class GiftCode(Base):
     __tablename__ = 'gift_codes'
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True)
     code = Column(String, unique=True, nullable=False)

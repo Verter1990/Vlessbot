@@ -5,6 +5,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func, delete
+from sqlalchemy.orm import selectinload
 from loguru import logger
 from datetime import datetime, timedelta
 
@@ -40,48 +41,46 @@ class AdminFSM(StatesGroup):
     edit_user_balance = State()
     edit_user_days = State()
 
+# --- Клавиатуры для админки ---
+async def get_main_admin_keyboard():
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Управление пользователями", callback_data="admin_users_menu")],
+        [InlineKeyboardButton(text="Управление серверами", callback_data="admin_servers_menu")],
+        [InlineKeyboardButton(text="Управление тарифами", callback_data="admin_tariffs_menu")],
+        [InlineKeyboardButton(text="Статистика", callback_data="admin_stats")],
+    ])
+
+async def get_servers_menu_keyboard():
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Список серверов", callback_data="admin_list_servers")],
+        [InlineKeyboardButton(text="Добавить сервер", callback_data="admin_add_server_start")],
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_main_menu")],
+    ])
+
+async def get_users_menu_keyboard():
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Список пользователей", callback_data="admin_list_users")],
+        [InlineKeyboardButton(text="Найти пользователя", callback_data="admin_find_user_start")],
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_main_menu")],
+    ])
+
+async def get_tariffs_menu_keyboard():
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Список тарифов", callback_data="admin_list_tariffs")],
+        [InlineKeyboardButton(text="Добавить тариф", callback_data="admin_add_tariff_start")],
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_main_menu")],
+    ])
+
 router.message.filter(IsAdmin())
 router.callback_query.filter(IsAdmin())
 
-# --- Клавиатуры ---
 
-async def get_main_admin_keyboard() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🖥️ Управление серверами", callback_data="admin_servers_menu")],
-        [InlineKeyboardButton(text="💵 Управление тарифами", callback_data="admin_tariffs_menu")],
-        [InlineKeyboardButton(text="👤 Управление пользователями", callback_data="admin_users_menu")],
-        [InlineKeyboardButton(text="📊 Статистика", callback_data="admin_stats")]
-    ])
-
-async def get_servers_menu_keyboard() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📋 Список серверов", callback_data="admin_list_servers")],
-        [InlineKeyboardButton(text="➕ Добавить сервер", callback_data="admin_add_server_start")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_main_menu")]
-    ])
-
-async def get_tariffs_menu_keyboard() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="📋 Список тарифов", callback_data="admin_list_tariffs")],
-        [InlineKeyboardButton(text="➕ Добавить тариф", callback_data="admin_add_tariff_start")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_main_menu")]
-    ])
-
-async def get_users_menu_keyboard() -> InlineKeyboardMarkup:
-    return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🔍 Найти пользователя", callback_data="admin_find_user_start")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_main_menu")]
-    ])
 
 
 
 # --- Главное меню админки ---
 
-@router.message(Command("admin"))
-async def cmd_admin_panel(message: Message):
-    logger.info(f"Admin {message.from_user.id} accessed the admin panel.")
-    keyboard = await get_main_admin_keyboard()
-    await message.answer("<b>Панель администратора</b>", reply_markup=keyboard)
+
 
 @router.callback_query(F.data == "admin_main_menu")
 async def cq_admin_panel(callback: CallbackQuery):
@@ -89,29 +88,16 @@ async def cq_admin_panel(callback: CallbackQuery):
     keyboard = await get_main_admin_keyboard()
     await callback.message.edit_text("<b>Панель администратора</b>", reply_markup=keyboard)
 
+@router.callback_query(F.data == "admin_panel_main")
+async def callback_admin_panel_main(callback: CallbackQuery):
+    await callback.answer()
+    keyboard = await get_main_admin_keyboard()
+    await callback.message.edit_text("<b>Панель администратора</b>", reply_markup=keyboard)
+
 # --- Отмена FSM ---
 
 @router.message(Command("cancel"))
-@router.callback_query(F.data == "admin_cancel_fsm")
-async def cancel_handler(event: Message | CallbackQuery, state: FSMContext):
-    current_state = await state.get_state()
-    if current_state is None:
-        if isinstance(event, CallbackQuery):
-            await event.answer()
-            await event.message.edit_text("Нет активных действий для отмены.")
-        else:
-            await event.answer("Нет активных действий для отмены.")
-        return
 
-    logger.info(f"Admin {event.from_user.id} cancelled state {current_state}")
-    await state.clear()
-    
-    if isinstance(event, CallbackQuery):
-        await event.answer("Действие отменено.")
-        keyboard = await get_main_admin_keyboard()
-        await event.message.edit_text("<b>Панель администратора</b>", reply_markup=keyboard)
-    else:
-        await event.answer("Действие отменено.")
 
 # --- Управление серверами ---
 
@@ -125,7 +111,7 @@ async def cq_servers_menu(callback: CallbackQuery):
 async def cq_list_servers(callback: CallbackQuery, session: AsyncSession):
     await callback.answer()
     servers = (await session.execute(select(Server).order_by(Server.id))).scalars().all()
-    
+
     if not servers:
         await callback.message.edit_text(
             "В базе данных нет ни одного сервера.",
@@ -170,6 +156,32 @@ async def cq_users_menu(callback: CallbackQuery):
     await callback.answer()
     keyboard = await get_users_menu_keyboard()
     await callback.message.edit_text("<b>Управление пользователями</b>", reply_markup=keyboard)
+
+@router.callback_query(F.data == "admin_list_users")
+async def cq_list_users(callback: CallbackQuery, session: AsyncSession):
+    await callback.answer()
+    users = (await session.execute(select(User).options(selectinload(User.subscriptions)).order_by(User.id))).scalars().all()
+
+    if not users:
+        await callback.message.edit_text(
+            "В базе данных нет ни одного пользователя.",
+            reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_users_menu")]
+            ])
+        )
+        return
+
+    response_text = "<b>Список пользователей:</b>\n\n"
+    for user in users:
+        status = "✅" if not user.is_banned else "🚫"
+        response_text += f"{status} ID: <code>{user.telegram_id}</code> | @{user.username if user.username else 'N/A'}\n"
+        response_text += f"   Дни: {user.unassigned_days} | Баланс: {user.referral_balance / 100} RUB\n"
+        response_text += f"   Подписки: {len([s for s in user.subscriptions if s.is_active and s.expires_at > datetime.utcnow()])}\n\n"
+
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data="admin_users_menu")]
+    ])
+    await callback.message.edit_text(response_text, reply_markup=keyboard)
 
 @router.callback_query(F.data == "admin_tariffs_menu")
 async def cq_tariffs_menu(callback: CallbackQuery):

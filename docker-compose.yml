@@ -19,19 +19,24 @@ services:
 
   app:
     build: .
-    command: bash -c "python seed.py && python main.py"
-    volumes:
-      - .:/app
+    command: bash -c "python main.py"
     env_file:
       - .env
     environment:
       PYTHONUNBUFFERED: 1
+      LANG: C.UTF-8
+      PYTHONIOENCODING: utf-8
+      PYTHONPATH: /app
     depends_on:
       db:
         condition: service_healthy
     ports:
-      - "8000:8000"
+      - "8001:8000"
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 2G
 
   support_bot:
     build:

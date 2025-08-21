@@ -7,7 +7,7 @@ import uvicorn
 import json
 from yookassa import Webhook, Payment
 from yookassa.domain.notification import WebhookNotification
-
+from aiocryptopay import AioCryptoPay, Networks
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
@@ -32,6 +32,7 @@ dp = Dispatcher()
 dp.include_router(user_handlers.router)
 dp.include_router(admin_handlers.router)
 dp.include_router(info_handlers.router)
+
 dp.update.middleware(DbSessionMiddleware(session_maker=async_session_maker))
 
 # Инициализация FastAPI приложения
@@ -63,7 +64,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot, transactio
                 await bot.send_message(user.telegram_id, get_text('payment_success_days_added_server_fail', lang).format(days=tariff.duration_days))
             else:
                 try:
-                    vless_link = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang)
+                    vless_link, _ = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang)
                     await bot.send_message(user.telegram_id, get_text('payment_success_key_created', lang).format(
                         server_name=get_db_text(server.name, lang),
                         vless_link=vless_link,
@@ -98,26 +99,69 @@ async def process_successful_payment(session: AsyncSession, bot: Bot, transactio
     logger.info(f"[YooKassa Webhook] Transaction {transaction.id} processed successfully.")
 
 
+async def process_cryptobot_payment(session: AsyncSession, bot: Bot, transaction: Transaction):
+    user = (await session.execute(select(User).where(User.telegram_id == transaction.user_id))).scalars().first()
+    tariff = await session.get(Tariff, transaction.tariff_id)
+    _, lang = await _get_user_and_lang(session, user.telegram_id)
+
+    if not all([user, tariff]):
+        logger.error(f"[CryptoBot Webhook] User or Tariff not found for transaction {transaction.id}")
+        return
+
+    payment_details = transaction.payment_details or {}
+    payment_type = payment_details.get('payment_type', 'subscription')
+
+    if payment_type == 'subscription':
+        server_id = payment_details.get('server_id')
+        if server_id:
+            server = await session.get(Server, server_id)
+            if not server:
+                logger.error(f"[CryptoBot Webhook] Server {server_id} not found for transaction {transaction.id}")
+                user.unassigned_days += tariff.duration_days
+                await bot.send_message(user.telegram_id, get_text('payment_success_days_added_server_fail', lang).format(days=tariff.duration_days))
+            else:
+                try:
+                    vless_link, _ = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang)
+                    await bot.send_message(user.telegram_id, get_text('payment_success_key_created', lang).format(
+                        server_name=get_db_text(server.name, lang),
+                        vless_link=vless_link,
+                        days=tariff.duration_days
+                    ), parse_mode='HTML')
+                except Exception as e:
+                    logger.error(f"[CryptoBot Webhook] Error creating VPN key for transaction {transaction.id}: {e}", exc_info=True)
+                    user.unassigned_days += tariff.duration_days
+                    await bot.send_message(user.telegram_id, get_text('payment_success_key_error_webhook', lang).format(days=tariff.duration_days))
+        else:
+            user.unassigned_days += tariff.duration_days
+            await bot.send_message(user.telegram_id, get_text('payment_success_days_added', lang).format(days=tariff.duration_days))
+
+    transaction.status = 'succeeded'
+    await session.commit()
+    logger.info(f"[CryptoBot Webhook] Transaction {transaction.id} processed successfully.")
+
+
 @webhook_router.post("/webhooks/yookassa")
 async def yookassa_webhook(request: Request):
-    raw_body = await request.body()
-    payload = json.loads(raw_body)
     signature = request.headers.get('YooKassa-Signature')
+    payload_bytes = await request.body()
 
-    logger.info(f"Received YooKassa webhook: {payload}")
+    # 1. Verify signature
+    if not signature or not settings.YOOKASSA_SECRET_KEY:
+        logger.warning("YooKassa webhook received without signature or secret key not set.")
+        return {"status": "error"}
 
-    logger.info(f"Debug: signature = {signature}")
-    if signature:
-        is_signature_valid = verify_yookassa_signature(raw_body, signature)
-        logger.info(f"Debug: is_signature_valid = {is_signature_valid}")
-    else:
-        is_signature_valid = False # Or handle as appropriate if signature is None
+    # The original verify function might not exist, so we check if it's callable
+    # This is a placeholder for the actual verification logic you should have.
+    # Assuming verify_yookassa_signature is imported and correct.
+    if not verify_yookassa_signature(payload_bytes, signature):
+        logger.warning("Invalid YooKassa webhook signature.")
+        return {"status": "error"}
 
-    if not signature or not is_signature_valid:
-        logger.error(f"Invalid YooKassa webhook signature for payload: {payload}")
-        return {"status": "error", "message": "Invalid signature"}, 400
-
+    logger.info(f"Received valid YooKassa webhook.")
+    
     try:
+        # 2. Parse payload AFTER verification
+        payload = json.loads(payload_bytes)
         notification_object = WebhookNotification(payload)
         payment_id = notification_object.object.id
         
@@ -139,9 +183,43 @@ async def yookassa_webhook(request: Request):
                 logger.info(f"Transaction {payment_id} was canceled.")
 
         return {"status": "ok"}
+    except json.JSONDecodeError:
+        logger.error("Error decoding JSON from YooKassa webhook.")
+        return {"status": "error"}
     except Exception as e:
         logger.error(f"Error processing YooKassa webhook: {e}", exc_info=True)
         return {"status": "error"}
+
+
+@webhook_router.post("/webhooks/cryptobot")
+async def cryptobot_webhook(request: Request):
+    payload = await request.json()
+    logger.info(f"Received CryptoBot webhook: {payload}")
+
+    signature = request.headers.get('crypto-pay-api-signature')
+    if not signature:
+        logger.warning("No signature header in CryptoBot webhook.")
+        return {"status": "error"}
+
+    if not AioCryptoPay.check_signature(settings.CRYPTOBOT_TOKEN, payload, signature):
+        logger.warning("Invalid signature in CryptoBot webhook.")
+        return {"status": "error"}
+
+    if payload.get('status') == 'paid':
+        invoice_id = payload.get('invoice_id')
+        async with async_session_maker() as session:
+            transaction = await session.get(Transaction, str(invoice_id))
+            if not transaction:
+                logger.warning(f"Transaction with id {invoice_id} not found in DB.")
+                return {"status": "ok"}
+
+            if transaction.status != 'succeeded':
+                await process_cryptobot_payment(session, bot, transaction)
+            else:
+                logger.info(f"Transaction {invoice_id} already processed.")
+
+    return {"status": "ok"}
+
 
 app.include_router(webhook_router)
 

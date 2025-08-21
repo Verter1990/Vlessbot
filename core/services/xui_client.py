@@ -260,6 +260,21 @@ class XUIClient:
             raise XUIClientError(f"Error updating client: {e}") from e
 
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(2), retry=retry_if_exception_type(httpx.RequestError))
+    async def get_client_by_email(self, inbound_id: int, email: str) -> Optional[ClientConfig]:
+        """Finds a client within an inbound by their email."""
+        inbound = await self.get_inbound(inbound_id)
+        if not inbound:
+            raise XUIClientError(f"Inbound {inbound_id} not found, cannot search for client.")
+
+        for client in inbound.settings.clients:
+            if client.email == email:
+                logger.info(f"Found client with email {email} in inbound {inbound_id}.")
+                return client
+        
+        logger.info(f"Client with email {email} not found in inbound {inbound_id}.")
+        return None
+
+    @retry(stop=stop_after_attempt(3), wait=wait_fixed(2), retry=retry_if_exception_type(httpx.RequestError))
     async def delete_client(self, inbound_id: int, uuid: str) -> dict:
         """Deletes a client from a specific inbound configuration."""
         await self._ensure_authenticated()

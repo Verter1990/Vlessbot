@@ -42,4 +42,7 @@ class Settings(BaseSettings):
     CRYPTO_ETH_ADDRESS: Optional[str] = None
     CRYPTO_USDT_TRC20_ADDRESS: Optional[str] = None
 
+    CRYPTOBOT_TOKEN: Optional[str] = None
+    CURRENCY_EXCHANGE_API_URL: Optional[str] = None
+
 settings = Settings()

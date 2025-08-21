@@ -1,11 +1,15 @@
 import loguru
+import asyncio
 from aiogram import Router, F, Bot
 from aiogram.filters import Command, CommandObject
-from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, LabeledPrice, PreCheckoutQuery, SuccessfulPayment, User as AiogramUser
+from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, LabeledPrice, PreCheckoutQuery, SuccessfulPayment, User as AiogramUser, InlineQuery, InlineQueryResultArticle, InputTextMessageContent
 from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 from yookassa import Configuration, Payment
+from aiocryptopay import AioCryptoPay, Networks
+
+import httpx
 from core.database.models import Server, Subscription, User, Tariff, GiftCode, Transaction
 from core.services.xui_client import get_client, XUIClientError, ClientConfig
 from core.config import settings
@@ -205,16 +209,21 @@ async def _get_main_menu_content(user: User, from_user: AiogramUser, session: As
     if total_referrals > 0:
         welcome_message += get_text('referral_stats', lang).format(referrals=total_referrals, earnings=total_earnings)
 
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+    keyboard_buttons = [
         [InlineKeyboardButton(text=get_text('btn_setup_vpn', lang), callback_data="setup_vpn")],
         [InlineKeyboardButton(text=get_text('btn_pay_subscription', lang), callback_data="pay_subscription_main_menu")],
         [InlineKeyboardButton(text="❓ Как подключиться?", callback_data="how_to_connect")],
         [InlineKeyboardButton(text=get_text('btn_referral_program', lang), callback_data="referral_program")],
-        [InlineKeyboardButton(text=get_text('btn_why_vpn', lang), callback_data="why_vpn")],
         [InlineKeyboardButton(text=get_text('btn_get_free_vpn', lang), callback_data="get_free_vpn")],
         [InlineKeyboardButton(text=get_text('btn_help', lang), callback_data="help")],
         [InlineKeyboardButton(text=get_text('btn_terms_of_use', lang), callback_data="terms_of_use")]
-    ])
+    ]
+
+    if from_user.id in settings.ADMIN_IDS_LIST:
+        keyboard_buttons.append([InlineKeyboardButton(text=get_text('btn_admin_panel', lang), callback_data="admin_panel_main")])
+
+    logger.debug(f"Main menu keyboard buttons: {keyboard_buttons}")
+    keyboard = InlineKeyboardMarkup(inline_keyboard=keyboard_buttons)
     return welcome_message, keyboard
 
 # --- COMMAND HANDLERS ---
@@ -227,7 +236,9 @@ async def command_start_handler(message: Message, command: CommandObject, sessio
     user_id = message.from_user.id
     
     user, lang = await _get_user_and_lang(session, user_id)
-    if not user:
+    is_new_user = not user
+
+    if is_new_user:
         logger.info(f"User {user_id} not found in DB, adding new user.")
         user = User(
             telegram_id=user_id,
@@ -239,56 +250,60 @@ async def command_start_handler(message: Message, command: CommandObject, sessio
         )
         session.add(user)
         await session.commit()
-        await session.refresh(user) # Load default values from the DB
+        await session.refresh(user)
         logger.info(f"New user {user_id} added to the database with lang_code: {user.language_code}")
         lang = user.language_code
 
-        # Send new welcome message for new users
+    # --- Handle referral link, if present ---
+    if args and args.startswith("R_"):
+        if not user.referrer_id:
+            referral_code = args.split("R_")[1]
+            logger.info(f"User {user_id} trying to apply referral code: {referral_code}")
+            referrer = (await session.execute(select(User).where(User.referral_code == referral_code))).scalars().first()
+            if referrer and referrer.telegram_id != user_id:
+                user.referrer_id = referrer.telegram_id
+                # Give bonus to the new user
+                user.referral_balance += constants.REFERRAL_BONUS_RUPEES * 100
+                await message.answer(get_text('referral_bonus_applied', lang))
+                logger.info(f"User {user_id} is now a referral of {referrer.telegram_id} and received a bonus.")
+            else:
+                logger.warning(f"Referral code {referral_code} not found or invalid for user {user_id}.")
+        else:
+            logger.info(f"User {user_id} already has a referrer, ignoring referral code.")
+
+    # --- Handle gift code for existing users ---
+    if args and args.startswith("G_"):
+        gift_code_str = args.split("G_")[1]
+        logger.info(f"User {user_id} trying to activate gift code: {gift_code_str}")
+        gift_code = (await session.execute(select(GiftCode).where(GiftCode.code == gift_code_str, GiftCode.is_activated == False))).scalars().first()
+        if gift_code:
+            tariff = await session.get(Tariff, gift_code.tariff_id)
+            if tariff:
+                user.unassigned_days += tariff.duration_days
+                gift_code.is_activated = True
+                gift_code.activated_by_user_id = user_id
+                gift_code.activated_at = datetime.utcnow()
+                await message.answer(get_text('gift_activated', lang).format(days=tariff.duration_days))
+                logger.info(f"Gift code {gift_code_str} activated by user {user_id}.")
+            else:
+                await message.answer(get_text('gift_activation_error', lang))
+                logger.warning(f"Gift code {gift_code_str} activated by user {user_id}, but tariff {gift_code.tariff_id} not found.")
+        else:
+            await message.answer(get_text('gift_not_found_or_used', lang))
+            logger.warning(f"User {user_id} failed to activate gift code {gift_code_str}.")
+
+    await session.commit()
+
+    # --- Show appropriate welcome message ---
+    if is_new_user:
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text=get_text('btn_start_bot', lang), callback_data="show_main_menu_after_welcome")]
         ])
         await message.answer(get_text('welcome_new_user', lang), reply_markup=keyboard)
-        return # Exit here for new users, they will click the button to proceed
-
-    if args:
-        if args.startswith("R_"):
-            if not user.referrer_id:
-                referral_code = args.split("R_")[1]
-                logger.info(f"User {user_id} joined with referral code: {referral_code}")
-                referrer = (await session.execute(select(User).where(User.referral_code == referral_code))).scalars().first()
-                if referrer and referrer.telegram_id != user_id:
-                    user.referrer_id = referrer.telegram_id
-                    user.referral_balance = constants.REFERRAL_BONUS_RUPEES * 100
-                    await message.answer(get_text('referral_bonus_applied', lang))
-                    logger.info(f"User {user_id} is now a referral of {referrer.telegram_id}. Awarded {constants.REFERRAL_BONUS_RUPEES} RUB bonus.")
-                else:
-                    logger.warning(constants.MSG_REFERRAL_CODE_NOT_FOUND.format(code=referral_code, user_id=user_id))
-        
-        elif args.startswith("G_"):
-            gift_code_str = args.split("G_")[1]
-            logger.info(f"User {user_id} trying to activate gift code: {gift_code_str}")
-            gift_code = (await session.execute(select(GiftCode).where(GiftCode.code == gift_code_str, GiftCode.is_activated == False))).scalars().first()
-            if gift_code:
-                tariff = await session.get(Tariff, gift_code.tariff_id)
-                if tariff:
-                    user.unassigned_days += tariff.duration_days
-                    gift_code.is_activated = True
-                    gift_code.activated_by_user_id = user_id
-                    gift_code.activated_at = datetime.utcnow()
-                    await message.answer(get_text('gift_activated', lang).format(days=tariff.duration_days))
-                    logger.info(f"Gift code {gift_code_str} activated by user {user_id}.")
-                else:
-                    await message.answer(get_text('gift_activation_error', lang))
-                    logger.warning(f"Gift code {gift_code_str} activated by user {user_id}, but tariff {gift_code.tariff_id} not found.")
-            else:
-                await message.answer(get_text('gift_not_found_or_used', lang))
-                logger.warning(f"User {user_id} failed to activate gift code {gift_code_str}.")
-
-    await session.commit()
-
-    text, keyboard = await _get_main_menu_content(user, message.from_user, session)
-    logger.debug(f"Sending message text: {text}")
-    await message.answer(text, reply_markup=keyboard)
+    else:
+        text, keyboard = await _get_main_menu_content(user, message.from_user, session)
+        logger.debug(f"Sending message text: {text}")
+        await message.answer(text, reply_markup=keyboard)
 
 @router.message(Command("ref"))
 @router.callback_query(F.data == "referral_program")
@@ -478,7 +493,7 @@ async def callback_select_server(callback: CallbackQuery, session: AsyncSession,
         await callback.message.edit_text(get_text('server_or_user_not_found', lang))
         return
 
-    # --- NEW LOGIC --- 
+    # --- NEW LOGIC ---
     # 1. Prepare all possible action buttons first.
     buttons = []
     if user.unassigned_days > 0:
@@ -601,12 +616,11 @@ async def confirm_referral_payment(callback: CallbackQuery, session: AsyncSessio
             user.referral_balance = 0
             user.l2_referral_balance -= remaining_cost
         
-        vless_link = await _create_or_update_vpn_key(session, user, selected_server, tariff.duration_days, lang)
+        vless_link, _ = await _create_or_update_vpn_key(session, user, selected_server, tariff.duration_days, lang)
         await session.commit()
 
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=get_text('btn_how_to_connect', lang), callback_data="how_to_connect")]
-        ])
+            [InlineKeyboardButton(text=get_text('btn_how_to_connect', lang), callback_data="how_to_connect")]])
 
         await callback.message.answer(
             get_text('referral_payment_success', lang).format(
@@ -639,13 +653,12 @@ async def activate_unassigned_days(callback: CallbackQuery, session: AsyncSessio
         return
 
     try:
-        vless_link = await _create_or_update_vpn_key(session, user, selected_server, user.unassigned_days, lang)
+        vless_link, _ = await _create_or_update_vpn_key(session, user, selected_server, user.unassigned_days, lang)
         user.unassigned_days = 0
         await session.commit()
 
         keyboard = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(text=get_text('btn_how_to_connect', lang), callback_data="how_to_connect")]
-        ])
+            [InlineKeyboardButton(text=get_text('btn_how_to_connect', lang), callback_data="how_to_connect")]])
 
         await callback.message.answer(
             get_text('unassigned_days_activation_success', lang).format(
@@ -660,13 +673,16 @@ async def activate_unassigned_days(callback: CallbackQuery, session: AsyncSessio
 @router.callback_query(F.data == "pay_subscription_main_menu")
 @router.callback_query(F.data.startswith("pay_subscription_for_server_"))
 async def callback_pay_subscription(callback: CallbackQuery, session: AsyncSession):
-    logger.info(f"User {callback.from_user.id} clicked pay_subscription")
-    await callback.answer()
-    
+    logger.info(f"User {callback.from_user.id} clicked pay_subscription with data: {callback.data}")
+    await callback.answer()    
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
     server_id = None
     if callback.data.startswith("pay_subscription_for_server_"):
-        server_id = int(callback.data.split("_")[-1])
+        try:
+            server_id = int(callback.data.split("_")[-1])
+        except (ValueError, IndexError):
+            logger.warning(f"Could not parse server_id from callback data: {callback.data}")
+            # server_id remains None, which is handled below
 
     try:
         stmt = select(Tariff).where(Tariff.is_active == True).order_by(Tariff.duration_days)
@@ -681,7 +697,11 @@ async def callback_pay_subscription(callback: CallbackQuery, session: AsyncSessi
         await callback.message.answer(get_text('no_tariffs_available', lang))
         return
 
-    buttons = [[InlineKeyboardButton(text=f"{get_db_text(tariff.name, lang)} - {tariff.price_rub/100}₽ / {tariff.price_stars}*", callback_data=f"select_tariff_{tariff.id}_{server_id if server_id else 'none'}")] for tariff in tariffs]
+    buttons = [[InlineKeyboardButton(text=f"{get_db_text(tariff.name, lang)} - {tariff.price_rub/100}₽ / {tariff.price_stars}", callback_data=f"select_tariff_{tariff.id}_{server_id if server_id else 'none'}")] for tariff in tariffs]    
+    # Add a back button that goes to the server selection if a server was chosen, otherwise main menu
+    if server_id:
+        buttons.append([InlineKeyboardButton(text=get_text('btn_back_to_server_selection', lang), callback_data=f"select_server_{server_id}")])
+    
     buttons.append([InlineKeyboardButton(text=get_text('btn_main_menu', lang), callback_data="main_menu")])
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     
@@ -691,7 +711,9 @@ async def callback_pay_subscription(callback: CallbackQuery, session: AsyncSessi
 async def process_tariff_selection(callback: CallbackQuery, session: AsyncSession):
     parts = callback.data.split("_")
     tariff_id = int(parts[2])
-    server_id = int(parts[3]) if len(parts) > 3 and parts[3] != 'none' else None
+    server_id_str = parts[3]
+    server_id = int(server_id_str) if server_id_str != 'none' else None
+    
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
     
     logger.info(f"User {callback.from_user.id} selected tariff {tariff_id} for server {server_id}. Showing payment options.")
@@ -703,14 +725,14 @@ async def process_tariff_selection(callback: CallbackQuery, session: AsyncSessio
         return
 
     buttons = [
-        [InlineKeyboardButton(text=get_text('btn_pay_card', lang).format(price=tariff.price_rub/100), callback_data=f"pay_card_{tariff.id}_{server_id if server_id else 'none'}")],
-        [InlineKeyboardButton(text=get_text('btn_pay_stars', lang).format(stars=tariff.price_stars), callback_data=f"pay_stars_{tariff.id}_{server_id if server_id else 'none'}")],
-        [InlineKeyboardButton(text=get_text('btn_pay_transfer', lang), callback_data=f"pay_transfer_{tariff.id}_{server_id if server_id else 'none'}")],
+        [InlineKeyboardButton(text=get_text('btn_pay_card', lang).format(price=tariff.price_rub/100), callback_data=f"pay_card_{tariff.id}_{server_id_str}")],
+        [InlineKeyboardButton(text=get_text('btn_pay_stars', lang).format(stars=tariff.price_stars), callback_data=f"pay_stars_{tariff.id}_{server_id_str}")],
+        [InlineKeyboardButton(text=get_text('btn_pay_cryptobot', lang), callback_data=f"pay_cryptobot_{tariff.id}_{server_id_str}")]
     ]
-    if tariff.duration_days >= 365:
-        buttons.append([InlineKeyboardButton(text=get_text('btn_pay_crypto', lang), callback_data=f"pay_crypto_{tariff.id}_{server_id if server_id else 'none'}")])
     
-    buttons.append([InlineKeyboardButton(text=get_text('btn_back_to_tariffs', lang), callback_data=f"pay_subscription_for_server_{server_id}")])
+    # Correct back button logic
+    back_callback = f"pay_subscription_for_server_{server_id}" if server_id else "pay_subscription_main_menu"
+    buttons.append([InlineKeyboardButton(text=get_text('btn_back_to_tariffs', lang), callback_data=back_callback)])
     buttons.append([InlineKeyboardButton(text=get_text('btn_main_menu', lang), callback_data="main_menu")])
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
 
@@ -720,11 +742,11 @@ async def process_tariff_selection(callback: CallbackQuery, session: AsyncSessio
     )
     await callback.answer()
 
-@router.callback_query(F.data.startswith("pay_crypto_"))
-async def callback_pay_crypto(callback: CallbackQuery, session: AsyncSession):
+@router.callback_query(F.data.startswith("pay_cryptobot_"))
+async def callback_pay_cryptobot(callback: CallbackQuery, session: AsyncSession):
     parts = callback.data.split("_")
     tariff_id = int(parts[2])
-    server_id = int(parts[3]) if len(parts) > 3 and parts[3] != 'none' else None
+    server_id_str = parts[3]
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
 
     tariff = await session.get(Tariff, tariff_id)
@@ -733,27 +755,77 @@ async def callback_pay_crypto(callback: CallbackQuery, session: AsyncSession):
         await callback.answer()
         return
 
-    text = get_text('crypto_payment_info', lang).format(
-        price_usd=settings.CRYPTO_YEARLY_PRICE_USD,
-        btc_address=settings.CRYPTO_BTC_ADDRESS,
-        eth_address=settings.CRYPTO_ETH_ADDRESS,
-        usdt_address=settings.CRYPTO_USDT_TRC20_ADDRESS
+    if not settings.CRYPTOBOT_TOKEN:
+        logger.warning("CryptoBot token is not set.")
+        await callback.message.answer(get_text('payment_cryptobot_unavailable', lang))
+        return
+
+    try:
+        async with httpx.AsyncClient() as client:
+            # Используем API из настроек, если оно есть
+            if settings.CURRENCY_EXCHANGE_API_URL:
+                response = await client.get(settings.CURRENCY_EXCHANGE_API_URL)
+                response.raise_for_status()
+                # Предполагаем, что API возвращает JSON вида {"USDT": {"RUB": 92.5}}
+                usdt_rub_rate = float(response.json()['USDT']['RUB'])
+            else:
+                # Фоллбэк на Binance, если API в настройках не указан
+                logger.warning("CURRENCY_EXCHANGE_API_URL not set, falling back to Binance API.")
+                response = await client.get('https://api.binance.com/api/v3/ticker/price?symbol=USDTRUB')
+                response.raise_for_status()
+                usdt_rub_rate = float(response.json()['price'])
+
+    except (httpx.HTTPStatusError, KeyError, ValueError) as e:
+        logger.error(f"Could not fetch USDT/RUB exchange rate: {e}")
+        await callback.message.answer(get_text('error_generic', lang))
+        return
+
+    amount_usdt = round((tariff.price_rub / 100) / usdt_rub_rate, 2)
+
+    transaction_id = str(uuid.uuid4())
+    metadata = {
+        'telegram_user_id': callback.from_user.id,
+        'tariff_id': tariff_id,
+        'payment_type': 'subscription',
+        'server_id': int(server_id_str) if server_id_str != 'none' else None
+    }
+
+    new_transaction = Transaction(
+        id=transaction_id, # Используем наш UUID как временный ID
+        user_id=callback.from_user.id,
+        tariff_id=tariff_id,
+        amount=int(amount_usdt * 100), # Храним в центах
+        currency="USDT",
+        payment_system="CryptoBot",
+        status="pending",
+        payment_details=metadata
     )
+    session.add(new_transaction)
+    await session.commit()
+
+    crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN, network=Networks.MAIN_NET)
+    invoice = await crypto.create_invoice(asset='USDT', amount=amount_usdt, payload=transaction_id)
+    await crypto.close()
+    
+    # Обновляем ID транзакции на тот, что вернул CryptoBot
+    new_transaction.id = str(invoice.invoice_id)
+    await session.commit()
+
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=get_text('btn_send_check_to_support', lang), url=settings.SUPPORT_CHAT_LINK)],
-        [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data=f"select_tariff_{tariff_id}_{server_id if server_id else 'none'}")]
+        [InlineKeyboardButton(text=get_text('btn_go_to_payment', lang), url=invoice.bot_invoice_url)],
+        [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data=f"select_tariff_{tariff_id}_{server_id_str}")]
     ])
-    await callback.message.edit_text(text, reply_markup=keyboard, disable_web_page_preview=True)
+    await callback.message.edit_text(get_text('payment_redirect_info', lang), reply_markup=keyboard)
     await callback.answer()
 
 @router.callback_query(F.data.startswith("pay_stars_"))
 async def callback_pay_stars(callback: CallbackQuery, session: AsyncSession):
     parts = callback.data.split("_")
     tariff_id = int(parts[2])
-    server_id = int(parts[3]) if len(parts) > 3 and parts[3] != 'none' else None
+    server_id_str = parts[3]
     user, lang = await _get_user_and_lang(session, callback.from_user.id)
     
-    logger.info(f"User {callback.from_user.id} selected tariff {tariff_id} for server {server_id} for Stars payment.")
+    logger.info(f"User {callback.from_user.id} selected tariff {tariff_id} for server {server_id_str} for Stars payment.")
 
     tariff = await session.get(Tariff, tariff_id)
     if not tariff:
@@ -767,7 +839,7 @@ async def callback_pay_stars(callback: CallbackQuery, session: AsyncSession):
         await callback.answer()
         return
 
-    payload = f"stars_{callback.from_user.id}_{tariff.id}_{server_id if server_id else 'none'}"
+    payload = f"stars_{callback.from_user.id}_{tariff.id}_{server_id_str}"
     
     await callback.bot.send_invoice(
         chat_id=callback.from_user.id,
@@ -829,7 +901,7 @@ async def successful_payment_handler(message: Message, session: AsyncSession, bo
                 server = await session.get(Server, server_id)
                 if server:
                     try:
-                        vless_link = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang)
+                        vless_link, _ = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang)
                         await bot.send_message(user.telegram_id, get_text('payment_success_key_created', lang).format(
                             server_name=get_db_text(server.name, lang),
                             vless_link=vless_link,
@@ -915,19 +987,19 @@ async def callback_get_free_vpn(callback: CallbackQuery, session: AsyncSession, 
             [InlineKeyboardButton(text=get_text('btn_how_to_connect', lang), callback_data="how_to_connect")]
         ])
         
-        # Сообщение теперь отправляется здесь, а не внутри _create_or_update_vpn_key
-        await bot.send_message(callback.from_user.id, get_text('trial_key_creation_success', lang).format(
+        success_text = get_text('trial_key_creation_success', lang).format(
             vless_link=vless_link,
             expires_at=expire_time.strftime("%d.%m.%Y %H:%M")
-            ), 
-            parse_mode='HTML', 
-            reply_markup=keyboard
         )
-        # Удаляем сообщение "Пожалуйста, подождите..."
-        await callback.message.delete()
+        
+        await callback.message.edit_text(
+            text=success_text,
+            reply_markup=keyboard,
+            parse_mode='HTML'
+        )
 
     except Exception as e:
-        logger.error(f"Error creating trial VPN key for {callback.from_user.id}: {e}")
+        logger.error(f"Error creating trial VPN key for {callback.from_user.id}: {e}", exc_info=True)
         await callback.message.edit_text(get_text('trial_key_creation_error', lang))
 
 @router.callback_query(F.data == "gift_subscription")
@@ -1032,7 +1104,8 @@ async def callback_pay_card(callback: CallbackQuery, session: AsyncSession):
 
     parts = callback.data.split("_")
     tariff_id = int(parts[2])
-    server_id = int(parts[3]) if len(parts) > 3 and parts[3] != 'none' else None
+    server_id_str = parts[3]
+    server_id = int(server_id_str) if server_id_str != 'none' else None
 
     tariff = await session.get(Tariff, tariff_id)
     if not tariff:
@@ -1041,6 +1114,14 @@ async def callback_pay_card(callback: CallbackQuery, session: AsyncSession):
 
     Configuration.account_id = settings.YOOKASSA_SHOP_ID
     Configuration.secret_key = settings.YOOKASSA_SECRET_KEY
+
+    metadata = {
+        'telegram_user_id': callback.from_user.id,
+        'tariff_id': tariff_id,
+        'payment_type': 'subscription'
+    }
+    if server_id:
+        metadata['server_id'] = server_id
 
     transaction_id = str(uuid.uuid4())
     payment = Payment.create({
@@ -1054,12 +1135,7 @@ async def callback_pay_card(callback: CallbackQuery, session: AsyncSession):
         },
         "capture": True,
         "description": f"Оплата тарифа '{get_db_text(tariff.name, lang)}'",
-        "metadata": {
-            'telegram_user_id': callback.from_user.id,
-            'tariff_id': tariff_id,
-            'server_id': server_id,
-            'payment_type': 'subscription'
-        }
+        "metadata": metadata
     }, transaction_id)
 
     new_transaction = Transaction(
@@ -1078,7 +1154,7 @@ async def callback_pay_card(callback: CallbackQuery, session: AsyncSession):
     payment_url = payment.confirmation.confirmation_url
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text=get_text('btn_go_to_payment', lang), url=payment_url)],
-        [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data=f"select_tariff_{tariff_id}_{server_id if server_id else 'none'}")]
+        [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data=f"select_tariff_{tariff_id}_{server_id_str}")]
     ])
     await callback.message.edit_text(get_text('payment_redirect_info', lang), reply_markup=keyboard)
 

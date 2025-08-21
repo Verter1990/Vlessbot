@@ -23,8 +23,7 @@ async def wait_for_db():
 
 async def seed_db():
     logger.info("Initializing database and seeding default data...")
-    await wait_for_db()
-    await init_db() # Ensure tables are created if not already
+    await wait_for_db() # Ensure tables are created if not already
 
     async with async_session_maker() as session:
         # Seed Servers
