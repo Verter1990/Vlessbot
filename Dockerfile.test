@@ -1,0 +1,5 @@
+FROM python:3.11-slim-buster
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir pycryptopay
+CMD ["python", "-c", "import pycryptopay; print('pycryptopay imported successfully')"]

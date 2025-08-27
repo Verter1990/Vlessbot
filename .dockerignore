@@ -1,0 +1,6 @@
+downloaded_app_files
+__pycache__
+*.pyc
+.git
+.gitignore
+.env
