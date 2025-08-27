@@ -1,30 +1,15 @@
 import asyncio
-from core.database.database import init_db, async_session_maker, async_engine
+from core.database.database import init_db, async_session_maker
 from core.database.models import Server, Tariff
 from core.utils.security import encrypt_password
 from sqlalchemy import select
 from loguru import logger
 from core.config import settings
 
-async def wait_for_db():
-    MAX_RETRIES = 10
-    RETRY_DELAY = 3 # seconds
-    for i in range(MAX_RETRIES):
-        try:
-            logger.info(f"Attempt {i+1}/{MAX_RETRIES}: Connecting to database...")
-            async with async_engine.connect() as conn:
-                await conn.execute(select(1))
-            logger.info("Database connection successful!")
-            return
-        except Exception as e:
-            logger.warning(f"Database connection failed: {e}. Retrying in {RETRY_DELAY} seconds...")
-            await asyncio.sleep(RETRY_DELAY)
-    logger.error("Failed to connect to database after multiple retries.")
-    raise ConnectionError("Could not connect to database.")
-
 async def seed_db():
     logger.info("Initializing database and seeding default data...")
-    await wait_for_db() # Ensure tables are created if not already
+    # init_db will create tables if they don't exist.
+    await init_db()
 
     async with async_session_maker() as session:
         # Seed Servers
