@@ -229,6 +229,7 @@ async def startup_event():
     logger.info("FastAPI application started!")
     app.state.bot = bot # Сохраняем экземпляр бота в состояние FastAPI
     await init_db()
+    logger.info(f"YooKassa Secret Key (from settings): {settings.YOOKASSA_SECRET_KEY}") # ADD THIS LINE
     
     # Добавляем задачи в планировщик
     # Передаем session_maker в задачи, чтобы они могли создавать свои сессии
