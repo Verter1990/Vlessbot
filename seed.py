@@ -4,6 +4,7 @@ from core.database.models import Server, Tariff
 from core.utils.security import encrypt_password
 from sqlalchemy import select
 from loguru import logger
+from core.config import settings
 
 async def wait_for_db():
     MAX_RETRIES = 10
@@ -32,17 +33,23 @@ async def seed_db():
 
         if not existing_servers:
             logger.info("No servers found. Adding default servers.")
+            
+            # Check if essential XUI settings are present
+            if not all([settings.XUI_API_URL, settings.XUI_API_USER, settings.XUI_API_PASSWORD]):
+                logger.error("XUI_API_URL, XUI_API_USER, and XUI_API_PASSWORD must be set in the .env file.")
+                return
+
             default_server = Server(
-                name="Нидерланды",
-                api_url="https://vpn.myvless.fun:2053/",
-                api_user="admin",
-                api_password=encrypt_password("9M1u3vX4tp7upPXE"),
-                inbound_id=2,
+                name="Нидерланды", # You can change this default name
+                api_url=settings.XUI_API_URL,
+                api_user=settings.XUI_API_USER,
+                api_password=encrypt_password(settings.XUI_API_PASSWORD),
+                inbound_id=2, # Make sure this inbound ID is correct for your setup
                 is_active=True
             )
             session.add(default_server)
             await session.commit()
-            logger.info("Default server 'Нидерланды' added.")
+            logger.info("Default server 'Нидерланды' added using settings from .env file.")
         else:
             logger.info("Servers already exist. Skipping default server addition.")
             for server in existing_servers:
