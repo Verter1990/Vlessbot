@@ -21,7 +21,7 @@ from core.middlewares.db_middleware import DbSessionMiddleware
 from core.services.scheduler_jobs import check_expiring_subscriptions, deactivate_expired_users
 from core.handlers.user_handlers import _create_or_update_vpn_key, _get_user_and_lang, generate_unique_code
 from core.locales.translations import get_text, get_db_text
-from core.utils.security import verify_yookassa_signature
+
 
 
 # Инициализация бота и диспетчера
@@ -160,21 +160,12 @@ async def yookassa_webhook(request: Request):
         logger.warning(f"Invalid IP address received in X-Real-IP header: {client_ip_str}")
         return {"status": "error", "message": "Invalid IP address"}, 400
 
-    # 3. Get the signature from the 'Signature' header.
-    signature = request.headers.get('Signature') # Case-insensitive
-    if not signature:
-        logger.warning("Webhook received without Signature header.")
-        return {"status": "error", "message": "Missing signature"}, 400
-
-    # 4. Verify the signature.
-    payload_bytes = await request.body()
-    if not verify_yookassa_signature(payload_bytes, signature):
-        logger.warning("Invalid YooKassa webhook signature.")
-        return {"status": "error", "message": "Invalid signature"}, 400
-
-    logger.info(f"Received and verified valid YooKassa webhook from {client_ip_str}.")
+    # Signature verification is disabled as per official YooKassa documentation.
+    # Security is handled by IP address verification above.
+    logger.info(f"Received valid YooKassa webhook from trusted IP: {client_ip_str}.")
     
-    # 5. Process the webhook payload.
+    # 4. Process the webhook payload.
+    payload_bytes = await request.body()
     try:
         payload = json.loads(payload_bytes)
         notification_object = WebhookNotification(payload)
