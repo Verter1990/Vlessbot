@@ -37,6 +37,10 @@ def verify_yookassa_signature(request_body: bytes, signature_header: str) -> boo
             return False
 
         secret_key = settings.YOOKASSA_SECRET_KEY.encode('utf-8')
+
+        # DEBUG: Log the masked secret key to verify it's loaded correctly
+        masked_key = f"{secret_key.decode('utf-8')[:10]}...{secret_key.decode('utf-8')[-4:]}"
+        logger.info(f"Using secret key (masked): {masked_key}")
         
         # The signature is based on the concatenation of timestamp and request body
         # The body must be decoded to a string before concatenation
