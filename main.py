@@ -143,34 +143,39 @@ async def process_cryptobot_payment(session: AsyncSession, bot: Bot, transaction
 
 @webhook_router.post("/webhooks/yookassa")
 async def yookassa_webhook(request: Request):
-    logger.info(f"DEBUG: Received headers: {request.headers}")
-    # 0. IP validation
-    client_ip = ipaddress.ip_address(request.client.host)
-    trusted_networks = [ipaddress.ip_network(net) for net in settings.YOOKASSA_TRUSTED_IPS]
+    # 1. Get IP from the 'X-Real-IP' header set by Nginx.
+    client_ip_str = request.headers.get("x-real-ip")
+    if not client_ip_str:
+        logger.warning("X-Real-IP header not found. Webhook is likely not coming through Nginx.")
+        return {"status": "error", "message": "Missing X-Real-IP header"}, 400
 
-    if not any(client_ip in net for net in trusted_networks):
-        logger.warning(f"Untrusted IP {client_ip} tried to access YooKassa webhook.")
-        return {"status": "error", "message": "IP not trusted"}, 400
+    # 2. Validate the IP address against YooKassa's trusted networks.
+    try:
+        client_ip = ipaddress.ip_address(client_ip_str)
+        trusted_networks = [ipaddress.ip_network(net) for net in settings.YOOKASSA_TRUSTED_IPS]
+        if not any(client_ip in net for net in trusted_networks):
+            logger.warning(f"Untrusted IP {client_ip} tried to access YooKassa webhook.")
+            return {"status": "error", "message": "IP not trusted"}, 400
+    except ValueError:
+        logger.warning(f"Invalid IP address received in X-Real-IP header: {client_ip_str}")
+        return {"status": "error", "message": "Invalid IP address"}, 400
 
-    signature = request.headers.get('YooKassa-Signature')
+    # 3. Get the signature from the 'Signature' header.
+    signature = request.headers.get('Signature') # Case-insensitive
+    if not signature:
+        logger.warning("Webhook received without Signature header.")
+        return {"status": "error", "message": "Missing signature"}, 400
+
+    # 4. Verify the signature.
     payload_bytes = await request.body()
-
-    # 1. Verify signature
-    if not signature or not settings.YOOKASSA_SECRET_KEY:
-        logger.warning("YooKassa webhook received without signature or secret key not set.")
-        return {"status": "error"}
-
-    # The original verify function might not exist, so we check if it's callable
-    # This is a placeholder for the actual verification logic you should have.
-    # Assuming verify_yookassa_signature is imported and correct.
     if not verify_yookassa_signature(payload_bytes, signature):
         logger.warning("Invalid YooKassa webhook signature.")
-        return {"status": "error"}
+        return {"status": "error", "message": "Invalid signature"}, 400
 
-    logger.info(f"Received valid YooKassa webhook.")
+    logger.info(f"Received and verified valid YooKassa webhook from {client_ip_str}.")
     
+    # 5. Process the webhook payload.
     try:
-        # 2. Parse payload AFTER verification
         payload = json.loads(payload_bytes)
         notification_object = WebhookNotification(payload)
         payment_id = notification_object.object.id
@@ -179,7 +184,7 @@ async def yookassa_webhook(request: Request):
             transaction = await session.get(Transaction, payment_id)
             if not transaction:
                 logger.warning(f"Transaction with id {payment_id} not found in DB.")
-                return {"status": "ok"} # Respond 200 to avoid retries
+                return {"status": "ok"}
 
             if notification_object.event == 'payment.succeeded':
                 if transaction.status != 'succeeded':
@@ -195,10 +200,10 @@ async def yookassa_webhook(request: Request):
         return {"status": "ok"}
     except json.JSONDecodeError:
         logger.error("Error decoding JSON from YooKassa webhook.")
-        return {"status": "error"}
+        return {"status": "error", "message": "Invalid JSON"}
     except Exception as e:
         logger.error(f"Error processing YooKassa webhook: {e}", exc_info=True)
-        return {"status": "error"}
+        return {"status": "error", "message": "Internal server error"}
 
 
 @webhook_router.post("/webhooks/cryptobot")
