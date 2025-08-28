@@ -24,44 +24,44 @@ def verify_yookassa_signature(request_body: bytes, signature_header: str) -> boo
     """
     Verifies the YooKassa webhook signature.
     :param request_body: The raw HTTP request body (bytes).
-    :param signature_header: The value of the 'Signature' header.
+    :param signature_header: The value of the 'Signature' or 'Yoo-Money-Signature' header.
     :return: True if the signature is valid, False otherwise.
     """
     try:
-        logger.info("--- YooKassa Signature Verification ---")
-        logger.info(f"Received Signature Header: {signature_header}")
-        
-        # The header is a string like: "ts=1543515454,v1=long_signature_string"
-        header_parts = {part.split('='): part.split('=')[1] for part in signature_header.split(',')}
-        ts = header_parts.get('ts')
-        received_signature = header_parts.get('v1')
+        # The header can be in two formats:
+        # 1. "ts=1543515454,v1=long_signature_string" (key-value)
+        # 2. "v1 <ts> <signature>" (space-separated, observed in user's logs)
+
+        # Let's try to parse the key-value format first
+        if '=' in signature_header:
+            header_parts = {part.split('=')[0]: part.split('=')[1] for part in signature_header.split(',')}
+            ts = header_parts.get('ts')
+            received_signature = header_parts.get('v1')
+        # Otherwise, parse the space-separated format
+        else:
+            parts = signature_header.split(' ')
+            # We expect at least 2 parts: 'v1' and the signature. Timestamp might be omitted or elsewhere.
+            # Based on logs: "v1 <ts> <some_number> <signature>" - let's assume ts is the second part.
+            if parts[0] != 'v1' or len(parts) < 3:
+                logger.warning(f"Unsupported signature format: {signature_header}")
+                return False
+            ts = parts[1]
+            received_signature = parts[-1] # The signature is the last part
 
         if not ts or not received_signature:
-            logger.error("Timestamp (ts) or signature (v1) not found in header.")
+            logger.warning(f"Could not parse timestamp or signature from header: {signature_header}")
             return False
-
-        logger.info(f"Parsed Timestamp (ts): {ts}")
-        logger.info(f"Parsed Received Signature (v1): {received_signature}")
 
         secret_key = settings.YOOKASSA_SECRET_KEY.encode('utf-8')
 
         # The signature is based on the concatenation of the timestamp and the raw request body
         payload_to_sign = f"{ts}.".encode('utf-8') + request_body
-        
-        # Log the body and payload for debugging. Be careful with sensitive data in production.
-        logger.info(f"Request Body (decoded for logging): {request_body.decode('utf-8', errors='ignore')}")
-        logger.info(f"Payload for Signing (decoded for logging): {payload_to_sign.decode('utf-8', errors='ignore')}")
 
         # Compute HMAC-SHA256 signature
         computed_signature = hmac.new(secret_key, payload_to_sign, hashlib.sha256).hexdigest()
-        logger.info(f"Computed Signature: {computed_signature}")
 
         # Compare computed signature with the one from the header
-        is_valid = hmac.compare_digest(computed_signature, received_signature)
-        logger.info(f"Signature is valid: {is_valid}")
-        logger.info("--- End of Verification ---")
-        return is_valid
-    except (ValueError, KeyError, IndexError, UnicodeDecodeError) as e:
-        logger.error(f"Error during signature parsing: {e}")
-        # In case of parsing errors
+        return hmac.compare_digest(computed_signature, received_signature)
+    except Exception as e:
+        logger.error(f"An unexpected error occurred during signature verification: {e}", exc_info=True)
         return False
