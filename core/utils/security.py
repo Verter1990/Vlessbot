@@ -46,6 +46,6 @@ def verify_yookassa_signature(request_body: bytes, signature_header: str) -> boo
         
         # Compare computed signature with the one from the header
         return hmac.compare_digest(computed_signature, received_signature)
-    except (ValueError, KeyError, IndexError):
+    except (ValueError, KeyError, IndexError, UnicodeDecodeError):
         # In case of parsing errors
         return False

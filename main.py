@@ -1,4 +1,5 @@
 import asyncio
+import ipaddress
 from aiogram import Bot, Dispatcher
 from fastapi import FastAPI, Request, APIRouter
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -142,6 +143,14 @@ async def process_cryptobot_payment(session: AsyncSession, bot: Bot, transaction
 
 @webhook_router.post("/webhooks/yookassa")
 async def yookassa_webhook(request: Request):
+    # 0. IP validation
+    client_ip = ipaddress.ip_address(request.client.host)
+    trusted_networks = [ipaddress.ip_network(net) for net in settings.YOOKASSA_TRUSTED_IPS]
+
+    if not any(client_ip in net for net in trusted_networks):
+        logger.warning(f"Untrusted IP {client_ip} tried to access YooKassa webhook.")
+        return {"status": "error", "message": "IP not trusted"}, 400
+
     signature = request.headers.get('YooKassa-Signature')
     payload_bytes = await request.body()
 
