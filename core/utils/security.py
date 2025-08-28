@@ -3,6 +3,7 @@ import hmac
 import hashlib
 import json
 from core.config import settings
+from loguru import logger
 
 # Initialize Fernet suite with the key from settings
 fernet = Fernet(settings.ENCRYPTION_KEY.encode())
@@ -23,7 +24,7 @@ def verify_yookassa_signature(request_body: bytes, signature_header: str) -> boo
     """
     Verifies the YooKassa webhook signature.
     :param request_body: The raw HTTP request body (bytes).
-    :param signature_header: The value of the 'YooKassa-Signature' header.
+    :param signature_header: The value of the 'Signature' header.
     :return: True if the signature is valid, False otherwise.
     """
     try:
@@ -40,10 +41,9 @@ def verify_yookassa_signature(request_body: bytes, signature_header: str) -> boo
         # The signature is based on the concatenation of timestamp and request body
         # The body must be decoded to a string before concatenation
         payload_to_sign = f"{ts}.{request_body.decode('utf-8')}"
-
-        # Log the string being signed for debugging purposes
-        logger.info(f"String for signature verification: {{payload_to_sign}}")
         
+        # logger.info(f"String for signature verification: {{payload_to_sign}}")
+
         # Compute HMAC-SHA256 signature
         computed_signature = hmac.new(secret_key, payload_to_sign.encode('utf-8'), hashlib.sha256).hexdigest()
         
