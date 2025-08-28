@@ -143,6 +143,7 @@ async def process_cryptobot_payment(session: AsyncSession, bot: Bot, transaction
 
 @webhook_router.post("/webhooks/yookassa")
 async def yookassa_webhook(request: Request):
+    logger.info(f"DEBUG: Received headers: {request.headers}")
     # 0. IP validation
     client_ip = ipaddress.ip_address(request.client.host)
     trusted_networks = [ipaddress.ip_network(net) for net in settings.YOOKASSA_TRUSTED_IPS]
