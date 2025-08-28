@@ -29,7 +29,7 @@ def verify_yookassa_signature(request_body: bytes, signature_header: str) -> boo
     """
     try:
         # The header is a string like: "ts=1543515454,v1=long_signature_string"
-        header_parts = {part.split('=')[0]: part.split('=')[1] for part in signature_header.split(',')}
+        header_parts = {part.split('='): part.split('=')[1] for part in signature_header.split(',')}
         ts = header_parts.get('ts')
         received_signature = header_parts.get('v1')
 
@@ -38,19 +38,12 @@ def verify_yookassa_signature(request_body: bytes, signature_header: str) -> boo
 
         secret_key = settings.YOOKASSA_SECRET_KEY.encode('utf-8')
 
-        # DEBUG: Log the masked secret key to verify it's loaded correctly
-        masked_key = f"{secret_key.decode('utf-8')[:10]}...{secret_key.decode('utf-8')[-4:]}"
-        logger.warning(f"Using secret key (masked): {masked_key}")
-        
-        # The signature is based on the concatenation of timestamp and request body
-        # The body must be decoded to a string before concatenation
-        payload_to_sign = f"{ts}.{request_body.decode('utf-8')}"
-        
-        # logger.info(f"String for signature verification: {{payload_to_sign}}")
+        # The signature is based on the concatenation of the timestamp and the raw request body
+        payload_to_sign = f"{ts}.".encode('utf-8') + request_body
 
         # Compute HMAC-SHA256 signature
-        computed_signature = hmac.new(secret_key, payload_to_sign.encode('utf-8'), hashlib.sha256).hexdigest()
-        
+        computed_signature = hmac.new(secret_key, payload_to_sign, hashlib.sha256).hexdigest()
+
         # Compare computed signature with the one from the header
         return hmac.compare_digest(computed_signature, received_signature)
     except (ValueError, KeyError, IndexError, UnicodeDecodeError):
