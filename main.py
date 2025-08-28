@@ -58,7 +58,7 @@ async def process_successful_payment(session: AsyncSession, bot: Bot, transactio
     if payment_type == 'subscription':
         server_id = payment_details.get('server_id')
         if server_id:
-            server = await session.get(Server, server_id)
+            server = await session.get(Server, int(server_id))
             if not server:
                 logger.error(f"[YooKassa Webhook] Server {server_id} not found for transaction {transaction.id}")
                 user.unassigned_days += tariff.duration_days
@@ -115,7 +115,7 @@ async def process_cryptobot_payment(session: AsyncSession, bot: Bot, transaction
     if payment_type == 'subscription':
         server_id = payment_details.get('server_id')
         if server_id:
-            server = await session.get(Server, server_id)
+            server = await session.get(Server, int(server_id))
             if not server:
                 logger.error(f"[CryptoBot Webhook] Server {server_id} not found for transaction {transaction.id}")
                 user.unassigned_days += tariff.duration_days
