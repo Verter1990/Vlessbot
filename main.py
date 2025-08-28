@@ -264,7 +264,7 @@ async def start_bot_polling():
 
 async def main():
     # Запуск FastAPI сервера
-    config = uvicorn.Config(app, host="0.0.0.0", port=8000, log_level="info")
+    config = uvicorn.Config(app, host="0.0.0.0", port=8000, log_level="info", proxy_headers=True, forwarded_allow_ips='*')
     server = uvicorn.Server(config)
     fastapi_task = asyncio.create_task(server.serve())
 
