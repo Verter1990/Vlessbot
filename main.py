@@ -208,9 +208,12 @@ async def cryptobot_webhook(request: Request):
 
     crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN)
     try:
-        if not crypto.check_signature(signature=signature, body=body.decode('utf-8')):
+        if not crypto.check_signature(crypto_pay_signature=signature, body_text=body.decode('utf-8')):
             logger.warning("Invalid signature in CryptoBot webhook.")
             return {"status": "error"}
+    except Exception as e:
+        logger.error(f"Error during signature check: {e}")
+        return {"status": "error"}
     finally:
         await crypto.close()
 
