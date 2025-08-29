@@ -207,31 +207,42 @@ async def cryptobot_webhook(request: Request):
         logger.warning("No signature header in CryptoBot webhook.")
         return {"status": "error"}
 
-    crypto = None  # Initialize to None
+    crypto = None
     try:
         crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN)
-                if not crypto.check_signature(payload, signature):
+        if not crypto.check_signature(payload, signature):
             logger.warning("Invalid signature in CryptoBot webhook.")
             return {"status": "error"}
     except Exception as e:
         logger.error(f"Error during signature check: {e}")
-        return {"status": "error"} # Or handle appropriately
-    finally:
         if crypto:
             await crypto.close()
+        return {"status": "error"}
+
+    await crypto.close()
 
     if payload.get('status') == 'paid':
         invoice_id = payload.get('invoice_id')
         async with async_session_maker() as session:
-            transaction = await session.get(Transaction, str(invoice_id))
+            original_transaction_id = payload.get('payload')
+            transaction = None
+            if original_transaction_id:
+                transaction = (await session.execute(
+                    select(Transaction).where(Transaction.id == original_transaction_id)
+                )).scalars().first()
+
             if not transaction:
-                logger.warning(f"Transaction with id {invoice_id} not found in DB.")
+                # Fallback for older transactions that might use invoice_id
+                transaction = await session.get(Transaction, str(invoice_id))
+
+            if not transaction:
+                logger.warning(f"Transaction with id {invoice_id} or original id {original_transaction_id} not found in DB.")
                 return {"status": "ok"}
 
             if transaction.status != 'succeeded':
                 await process_cryptobot_payment(session, bot, transaction)
             else:
-                logger.info(f"Transaction {invoice_id} already processed.")
+                logger.info(f"Transaction {transaction.id} already processed.")
 
     return {"status": "ok"}
 
