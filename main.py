@@ -199,27 +199,23 @@ async def yookassa_webhook(request: Request):
 
 @webhook_router.post("/webhooks/cryptobot")
 async def cryptobot_webhook(request: Request):
-    payload = await request.json()
-    logger.info(f"Received CryptoBot webhook: {payload}")
-
     signature = request.headers.get('crypto-pay-api-signature')
+    body = await request.body()
+
     if not signature:
         logger.warning("No signature header in CryptoBot webhook.")
         return {"status": "error"}
 
-    crypto = None
+    crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN)
     try:
-        crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN)
-        if not crypto.check_signature(payload, signature):
+        if not crypto.check_signature(signature=signature, body=body.decode('utf-8')):
             logger.warning("Invalid signature in CryptoBot webhook.")
             return {"status": "error"}
-    except Exception as e:
-        logger.error(f"Error during signature check: {e}")
-        if crypto:
-            await crypto.close()
-        return {"status": "error"}
+    finally:
+        await crypto.close()
 
-    await crypto.close()
+    payload = json.loads(body)
+    logger.info(f"Received and verified CryptoBot webhook: {payload}")
 
     if payload.get('status') == 'paid':
         invoice_id = payload.get('invoice_id')
@@ -232,7 +228,6 @@ async def cryptobot_webhook(request: Request):
                 )).scalars().first()
 
             if not transaction:
-                # Fallback for older transactions that might use invoice_id
                 transaction = await session.get(Transaction, str(invoice_id))
 
             if not transaction:
