@@ -101,28 +101,41 @@ async def process_successful_payment(session: AsyncSession, bot: Bot, transactio
 
 
 async def process_cryptobot_payment(session: AsyncSession, bot: Bot, transaction: Transaction):
+    logger.info(f"[CryptoBot Webhook] Starting payment processing for transaction {transaction.id}")
     user = (await session.execute(select(User).where(User.telegram_id == transaction.user_id))).scalars().first()
     tariff = await session.get(Tariff, transaction.tariff_id)
-    _, lang = await _get_user_and_lang(session, user.telegram_id)
-
-    if not all([user, tariff]):
-        logger.error(f"[CryptoBot Webhook] User or Tariff not found for transaction {transaction.id}")
+    
+    if not user:
+        logger.error(f"[CryptoBot Webhook] User not found for transaction {transaction.id}")
         return
+    if not tariff:
+        logger.error(f"[CryptoBot Webhook] Tariff not found for transaction {transaction.id}")
+        return
+
+    _, lang = await _get_user_and_lang(session, user.telegram_id)
+    logger.info(f"[CryptoBot Webhook] Found user {user.id} and tariff {tariff.id}")
 
     payment_details = transaction.payment_details or {}
     payment_type = payment_details.get('payment_type', 'subscription')
+    logger.info(f"[CryptoBot Webhook] Payment type: {payment_type}")
 
     if payment_type in ['subscription', 'subscription_trx_test']:
         server_id = payment_details.get('server_id')
+        logger.info(f"[CryptoBot Webhook] Server ID from payment_details: {server_id}")
+
         if server_id:
+            logger.info(f"[CryptoBot Webhook] Server ID found, attempting to get server object.")
             server = await session.get(Server, int(server_id))
             if not server:
-                logger.error(f"[CryptoBot Webhook] Server {server_id} not found for transaction {transaction.id}")
+                logger.error(f"[CryptoBot Webhook] Server object with id {server_id} not found in DB.")
+                logger.info(f"[CryptoBot Webhook] Adding {tariff.duration_days} unassigned days to user {user.id}.")
                 user.unassigned_days += tariff.duration_days
                 await bot.send_message(user.telegram_id, get_text('payment_success_days_added_server_fail', lang).format(days=tariff.duration_days))
             else:
+                logger.info(f"[CryptoBot Webhook] Server object found: {server.name}. Attempting to create/update VPN key.")
                 try:
                     vless_link, _ = await _create_or_update_vpn_key(session, user, server, tariff.duration_days, lang, is_trial=False)
+                    logger.info(f"[CryptoBot Webhook] Key created/updated successfully. Sending success message to user {user.id}.")
                     await bot.send_message(user.telegram_id, get_text('payment_success_key_created', lang).format(
                         server_name=get_db_text(server.name, lang),
                         vless_link=vless_link,
@@ -130,13 +143,16 @@ async def process_cryptobot_payment(session: AsyncSession, bot: Bot, transaction
                     ), parse_mode='HTML')
                 except Exception as e:
                     logger.error(f"[CryptoBot Webhook] Error creating VPN key for transaction {transaction.id}: {e}", exc_info=True)
+                    logger.info(f"[CryptoBot Webhook] Adding {tariff.duration_days} unassigned days to user {user.id} due to key creation error.")
                     user.unassigned_days += tariff.duration_days
                     await bot.send_message(user.telegram_id, get_text('payment_success_key_error_webhook', lang).format(days=tariff.duration_days))
         else:
+            logger.info(f"[CryptoBot Webhook] No Server ID found. Adding {tariff.duration_days} unassigned days to user {user.id}.")
             user.unassigned_days += tariff.duration_days
             await bot.send_message(user.telegram_id, get_text('payment_success_days_added', lang).format(days=tariff.duration_days))
 
     transaction.status = 'succeeded'
+    logger.info(f"[CryptoBot Webhook] Committing transaction {transaction.id} as 'succeeded'.")
     await session.commit()
     logger.info(f"[CryptoBot Webhook] Transaction {transaction.id} processed successfully.")
 
