@@ -210,7 +210,7 @@ async def cryptobot_webhook(request: Request):
     crypto = None  # Initialize to None
     try:
         crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN)
-        if not crypto.check_signature(payload=payload, signature=signature):
+                if not crypto.check_signature(payload, signature):
             logger.warning("Invalid signature in CryptoBot webhook.")
             return {"status": "error"}
     except Exception as e:
