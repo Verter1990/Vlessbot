@@ -207,9 +207,13 @@ async def cryptobot_webhook(request: Request):
         logger.warning("No signature header in CryptoBot webhook.")
         return {"status": "error"}
 
-    if not AioCryptoPay.check_signature(settings.CRYPTOBOT_TOKEN, payload, signature):
-        logger.warning("Invalid signature in CryptoBot webhook.")
-        return {"status": "error"}
+        crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN)
+    try:
+        if not crypto.check_signature(payload=payload, signature=signature):
+            logger.warning("Invalid signature in CryptoBot webhook.")
+            return {"status": "error"}
+    finally:
+        await crypto.close()
 
     if payload.get('status') == 'paid':
         invoice_id = payload.get('invoice_id')
