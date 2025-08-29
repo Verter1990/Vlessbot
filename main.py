@@ -112,7 +112,7 @@ async def process_cryptobot_payment(session: AsyncSession, bot: Bot, transaction
     payment_details = transaction.payment_details or {}
     payment_type = payment_details.get('payment_type', 'subscription')
 
-    if payment_type == 'subscription':
+    if payment_type in ['subscription', 'subscription_trx_test']:
         server_id = payment_details.get('server_id')
         if server_id:
             server = await session.get(Server, int(server_id))
