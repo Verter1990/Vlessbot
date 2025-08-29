@@ -723,7 +723,8 @@ async def process_tariff_selection(callback: CallbackQuery, session: AsyncSessio
     buttons = [
         [InlineKeyboardButton(text=get_text('btn_pay_card', lang).format(price=tariff.price_rub/100), callback_data=f"pay_card_{tariff.id}_{server_id_str}")],
         [InlineKeyboardButton(text=get_text('btn_pay_stars', lang).format(stars=tariff.price_stars), callback_data=f"pay_stars_{tariff.id}_{server_id_str}")],
-        [InlineKeyboardButton(text=get_text('btn_pay_cryptobot', lang), callback_data=f"pay_cryptobot_{tariff.id}_{server_id_str}")]
+        [InlineKeyboardButton(text=get_text('btn_pay_cryptobot', lang), callback_data=f"pay_cryptobot_{tariff.id}_{server_id_str}")],
+        [InlineKeyboardButton(text="Оплатить TRX (Тест)", callback_data=f"pay_trx_{tariff.id}_{server_id_str}")]
     ]
     
     # Correct back button logic
@@ -1294,3 +1295,60 @@ async def callback_pay_gift_card(callback: CallbackQuery, session: AsyncSession)
         [InlineKeyboardButton(text=get_text('btn_back_to_gift_menu', lang), callback_data="gift_subscription")]
     ])
     await callback.message.edit_text(get_text('payment_redirect_info', lang), reply_markup=keyboard)
+
+@router.callback_query(F.data.startswith("pay_trx_"))
+async def callback_pay_trx(callback: CallbackQuery, session: AsyncSession):
+    parts = callback.data.split("_")
+    tariff_id = int(parts[2])
+    server_id_str = parts[3]
+    user, lang = await _get_user_and_lang(session, callback.from_user.id)
+
+    tariff = await session.get(Tariff, tariff_id)
+    if not tariff:
+        await callback.message.answer(get_text('tariff_not_found', lang))
+        await callback.answer()
+        return
+
+    if not settings.CRYPTOBOT_TOKEN:
+        logger.warning("CryptoBot token is not set.")
+        await callback.message.answer(get_text('payment_cryptobot_unavailable', lang))
+        return
+
+    # For testing, we'll use a fixed TRX amount
+    amount_trx = 1.5  # Example amount
+
+    transaction_id = str(uuid.uuid4())
+    metadata = {
+        'telegram_user_id': callback.from_user.id,
+        'tariff_id': tariff_id,
+        'payment_type': 'subscription_trx_test',
+        'server_id': int(server_id_str) if server_id_str != 'none' else None
+    }
+
+    new_transaction = Transaction(
+        id=transaction_id,
+        user_id=callback.from_user.id,
+        tariff_id=tariff_id,
+        amount=int(amount_trx * 1000000),  # Store in smallest unit (sun)
+        currency="TRX",
+        payment_system="CryptoBot",
+        status="pending",
+        payment_details=metadata
+    )
+    session.add(new_transaction)
+    await session.commit()
+
+    crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN, network=Networks.TEST_NET)
+    invoice = await crypto.create_invoice(asset='TRX', amount=amount_trx, payload=transaction_id)
+    await crypto.close()
+    
+    # Update transaction ID to the one from CryptoBot
+    new_transaction.id = str(invoice.invoice_id)
+    await session.commit()
+
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=get_text('btn_go_to_payment', lang), url=invoice.bot_invoice_url)],
+        [InlineKeyboardButton(text=get_text('btn_back', lang), callback_data=f"select_tariff_{tariff_id}_{server_id_str}")]
+    ])
+    await callback.message.edit_text(get_text('payment_redirect_info', lang), reply_markup=keyboard)
+    await callback.answer()
