@@ -238,7 +238,9 @@ async def cryptobot_webhook(request: Request):
 
     if payload.get('status') == 'paid':
         invoice_id = payload.get('invoice_id')
+        logger.info("Payload status is 'paid'. Entering session block.")
         async with async_session_maker() as session:
+            logger.info("Session block entered. Looking for transaction.")
             original_transaction_id = payload.get('payload')
             transaction = None
             if original_transaction_id:
