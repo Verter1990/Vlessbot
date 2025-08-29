@@ -1,4 +1,6 @@
 import asyncio
+import hashlib
+import hmac
 import ipaddress
 from aiogram import Bot, Dispatcher
 from fastapi import FastAPI, Request, APIRouter
@@ -222,25 +224,23 @@ async def cryptobot_webhook(request: Request):
         logger.warning("No signature header in CryptoBot webhook.")
         return {"status": "error"}
 
-    crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN)
     try:
-        if not crypto.check_signature(crypto_pay_signature=signature, body_text=body.decode('utf-8')):
+        secret = hashlib.sha256(settings.CRYPTOBOT_TOKEN.encode('UTF-8')).digest()
+        calculated_signature = hmac.new(secret, body, hashlib.sha256).hexdigest()
+        
+        if calculated_signature != signature:
             logger.warning("Invalid signature in CryptoBot webhook.")
             return {"status": "error"}
     except Exception as e:
-        logger.error(f"Error during signature check: {e}")
+        logger.error(f"Error during manual signature check: {e}")
         return {"status": "error"}
-    finally:
-        await crypto.close()
 
     payload = json.loads(body)
     logger.info(f"Received and verified CryptoBot webhook: {payload}")
 
     if payload.get('status') == 'paid':
         invoice_id = payload.get('invoice_id')
-        logger.info("Payload status is 'paid'. Entering session block.")
         async with async_session_maker() as session:
-            logger.info("Session block entered. Looking for transaction.")
             original_transaction_id = payload.get('payload')
             transaction = None
             if original_transaction_id:
@@ -255,7 +255,6 @@ async def cryptobot_webhook(request: Request):
                 logger.warning(f"Transaction with id {invoice_id} or original id {original_transaction_id} not found in DB.")
                 return {"status": "ok"}
 
-            logger.info(f"Found transaction {transaction.id} with status: {transaction.status}")
             if transaction.status != 'succeeded':
                 await process_cryptobot_payment(session, bot, transaction)
             else:
