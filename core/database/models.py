@@ -58,6 +58,7 @@ class Tariff(Base):
     duration_days = Column(Integer, nullable=False)
     price_rub = Column(Integer, nullable=False)
     price_stars = Column(Integer, nullable=False)
+    price_trx = Column(Integer, nullable=True) # Price in TRX cents (or smallest unit)
     is_active = Column(Boolean, default=True)
 
     def __repr__(self):
