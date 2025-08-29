@@ -799,7 +799,7 @@ async def callback_pay_cryptobot(callback: CallbackQuery, session: AsyncSession)
     session.add(new_transaction)
     await session.commit()
 
-    crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN, network=Networks.MAIN_NET)
+    crypto = AioCryptoPay(token=settings.CRYPTOBOT_TOKEN, network=Networks.TEST_NET)
     invoice = await crypto.create_invoice(asset='USDT', amount=amount_usdt, payload=transaction_id)
     await crypto.close()
     
