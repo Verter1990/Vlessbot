@@ -253,6 +253,7 @@ async def cryptobot_webhook(request: Request):
                 logger.warning(f"Transaction with id {invoice_id} or original id {original_transaction_id} not found in DB.")
                 return {"status": "ok"}
 
+            logger.info(f"Found transaction {transaction.id} with status: {transaction.status}")
             if transaction.status != 'succeeded':
                 await process_cryptobot_payment(session, bot, transaction)
             else:
